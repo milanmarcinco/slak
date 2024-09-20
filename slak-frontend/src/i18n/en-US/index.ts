@@ -1,7 +1,13 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful'
+  title: 'Slak',
+  not_found: 'Page not found',
+
+  sidebar: {
+    public_channels: 'Public channels',
+    private_channels: 'Private channels',
+  },
+
+  command_line: {
+    send: 'Send',
+  },
 };
