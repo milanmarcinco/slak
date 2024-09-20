@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh LpR fFf">
+  <q-layout view="hHh lpR LFr">
     <q-header bordered class="bg-primary text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
@@ -27,12 +27,15 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer class="q-pa-sm bg-dark" bordered><CommandLine /></q-footer>
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import SidebarContent from 'components/sidebar/SidebarContent.vue';
+import CommandLine from 'src/components/command-line/CommandLine.vue';
 
 const leftDrawerOpen = ref(false);
 
