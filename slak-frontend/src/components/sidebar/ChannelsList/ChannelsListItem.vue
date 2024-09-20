@@ -1,5 +1,10 @@
 <template>
-  <q-item clickable v-ripple @click="$emit('selectChannel', channel.id)">
+  <q-item
+    clickable
+    v-ripple
+    @click="$emit('selectChannel', channel.id)"
+    class="rounded-borders"
+  >
     <q-item-section>{{ channel.title }}</q-item-section>
   </q-item>
 </template>

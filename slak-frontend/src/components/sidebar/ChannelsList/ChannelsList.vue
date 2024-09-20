@@ -1,14 +1,16 @@
 <template>
-  <h2 class="text-subtitle2 q-my-none q-px-sm">{{ title }}</h2>
+  <div>
+    <h2 class="text-subtitle2 q-my-none q-px-sm">{{ title }}</h2>
 
-  <q-list dense padding>
-    <ChannelsListItem
-      v-for="channel in channels"
-      :channel="channel"
-      @select-channel="handleSelectChannel"
-      :key="channel.id"
-    />
-  </q-list>
+    <q-list dense padding>
+      <ChannelsListItem
+        v-for="channel in channels"
+        :channel="channel"
+        @select-channel="handleSelectChannel"
+        :key="channel.id"
+      />
+    </q-list>
+  </div>
 </template>
 
 <script setup lang="ts">

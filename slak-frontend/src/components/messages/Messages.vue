@@ -2,7 +2,7 @@
   <q-infinite-scroll
     @load="undefined"
     reverse
-    class="messages full-height q-pa-md"
+    class="messages full-height q-px-md q-pb-md"
   >
     <!-- <template v-slot:loading>
           <div class="row justify-center q-my-md">

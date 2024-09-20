@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR LFr">
-    <q-header bordered class="bg-primary text-white">
-      <q-toolbar>
+    <q-header class="q-px-md q-pt-md text-white">
+      <q-toolbar class="bg-primary rounded-borders">
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
@@ -18,8 +18,7 @@
       show-if-above
       v-model="leftDrawerOpen"
       side="left"
-      bordered
-      class="column q-py-md"
+      class="q-pl-md q-py-md"
     >
       <SidebarContent />
     </q-drawer>
@@ -28,7 +27,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="q-pa-sm bg-dark" bordered><CommandLine /></q-footer>
+    <q-footer class="q-pb-md q-px-md"><CommandLine /></q-footer>
   </q-layout>
 </template>
 
@@ -47,3 +46,17 @@ defineOptions({
   name: 'MainLayout',
 });
 </script>
+
+<style lang="scss">
+.q-header {
+  background-color: $dark-page;
+}
+
+.q-drawer {
+  background-color: transparent;
+}
+
+.q-footer {
+  background-color: $dark-page;
+}
+</style>

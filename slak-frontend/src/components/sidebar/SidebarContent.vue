@@ -1,13 +1,17 @@
 <template>
-  <ChannelsList
-    :title="t('sidebar.public_channels')"
-    :channels="publicChannels"
-  />
+  <div
+    class="sidebar-content fit q-px-sm q-py-md bg-dark rounded-borders column"
+  >
+    <ChannelsList
+      :title="t('sidebar.public_channels')"
+      :channels="publicChannels"
+    />
 
-  <ChannelsList
-    :title="t('sidebar.private_channels')"
-    :channels="privateChannels"
-  />
+    <ChannelsList
+      :title="t('sidebar.private_channels')"
+      :channels="privateChannels"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -28,3 +32,9 @@ const privateChannels: Channel[] = [
   { id: 4, title: 'Hidden' },
 ];
 </script>
+
+<style scoped lang="scss">
+.sidebar-content {
+  gap: 8px;
+}
+</style>

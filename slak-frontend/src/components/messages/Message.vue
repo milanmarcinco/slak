@@ -28,7 +28,7 @@ defineOptions({
   }
 
   &__content {
-    padding: 8px;
+    padding: 6px 8px;
     margin-top: 2px;
     background-color: $dark;
     border-radius: 6px;
