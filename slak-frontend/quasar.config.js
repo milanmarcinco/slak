@@ -8,6 +8,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+const { mergeConfig } = require('vite');
 const { configure } = require('quasar/wrappers');
 const path = require('path');
 
@@ -92,6 +93,12 @@ module.exports = configure(function (/* ctx */) {
           { server: false },
         ],
       ],
+
+      extendViteConf: (viteConf) => {
+        viteConf.resolve.alias = mergeConfig(viteConf.resolve.alias, {
+          composables: path.resolve(__dirname, 'src/composables'),
+        });
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer

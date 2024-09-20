@@ -9,5 +9,6 @@ export default {
 
   command_line: {
     send: 'Send',
+    execute: 'Execute',
   },
 };
