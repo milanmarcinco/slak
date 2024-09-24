@@ -8,6 +8,7 @@ export interface User {
 export interface Channel {
   id: number;
   title: string;
+  unread?: boolean;
 }
 
 export interface Message {

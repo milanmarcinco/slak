@@ -24,7 +24,7 @@ const { t } = useI18n();
 
 const publicChannels: Channel[] = [
   { id: 1, title: 'General' },
-  { id: 2, title: 'Random' },
+  { id: 2, title: 'Random', unread: true },
 ];
 
 const privateChannels: Channel[] = [
