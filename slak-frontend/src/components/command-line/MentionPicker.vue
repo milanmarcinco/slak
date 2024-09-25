@@ -21,7 +21,7 @@
             <span>•</span>
 
             <span class="mention-picker__label--caption">
-              {{ user.username }}
+              {{ user.nickName }}
             </span>
           </span>
         </q-item-section>
@@ -74,7 +74,7 @@ const users = ref<User[]>(dummyUsers);
 
 const filteredUsers = computed(() =>
   users.value.filter((user) =>
-    (user.firstName + user.lastName + user.username)
+    (user.firstName + user.lastName + user.nickName)
       .toLowerCase()
       .includes(value.value.toLowerCase())
   )

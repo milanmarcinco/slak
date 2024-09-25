@@ -47,6 +47,7 @@
             :label="
               isCommandMode ? t('command_line.execute') : t('command_line.send')
             "
+            :disabled="isCommandMode && !isValidCommand"
             @click="handleSubmit"
           />
         </template>
@@ -75,7 +76,7 @@ const mentions = ref<User[]>([]);
 const mentionSelectVisible = ref(false);
 const commandLineRef = useTemplateRef<HTMLInputElement>(COMMAND_LINE_REF);
 
-const { isCommandMode, execCommand } = useCommandLine(value);
+const { isCommandMode, isValidCommand, execCommand } = useCommandLine(value);
 
 const handleKeyPress = (event: KeyboardEvent) => {
   if (event.key === '@') {
@@ -88,14 +89,18 @@ const handleKeyPress = (event: KeyboardEvent) => {
   }
 };
 
-const handleSubmit = async (event: Event) => {
+const handleSubmit = (event: Event) => {
   event.preventDefault();
 
   const input = value.value.trim();
   if (!input) return;
 
-  if (isCommandMode) {
-    await execCommand();
+  if (isCommandMode.value) {
+    if (!isValidCommand.value) {
+      return;
+    }
+
+    execCommand();
   } else {
     // Handle message
   }

@@ -13,7 +13,7 @@
 
     <Message
       v-for="message in messages"
-      :author="message.author.username"
+      :author="message.author.nickName"
       :content="message.content"
       :created-at="message.createdAt"
       :sent="userId === message.author.id"

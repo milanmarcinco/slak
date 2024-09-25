@@ -17,7 +17,7 @@ export const useMainStore = defineStore('main', {
   state: (): State => ({
     user: {
       id: 1,
-      username: 'johndoe',
+      nickName: 'johndoe',
       firstName: 'John',
       lastName: 'Doe',
     },
