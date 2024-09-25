@@ -55,6 +55,10 @@ defineOptions({
   position: relative;
   padding-left: 20px;
 
+  & + & {
+    margin-top: 2px;
+  }
+
   $unit: 12px;
   $unit_medium: 16px;
   $unit_large: 20px;
