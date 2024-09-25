@@ -3,7 +3,7 @@
     "id": 41,
     "author": {
       "id": 1,
-      "username": "johndoe",
+      "nickName": "johndoe",
       "firstName": "John",
       "lastName": "Doe"
     },
@@ -14,7 +14,7 @@
     "id": 42,
     "author": {
       "id": 2,
-      "username": "janesmith",
+      "nickName": "janesmith",
       "firstName": "Jane",
       "lastName": "Smith"
     },
@@ -25,7 +25,7 @@
     "id": 43,
     "author": {
       "id": 3,
-      "username": "roberthall",
+      "nickName": "roberthall",
       "firstName": "Robert",
       "lastName": "Hall"
     },
@@ -36,7 +36,7 @@
     "id": 44,
     "author": {
       "id": 4,
-      "username": "sarawilson",
+      "nickName": "sarawilson",
       "firstName": "Sara",
       "lastName": "Wilson"
     },
@@ -47,7 +47,7 @@
     "id": 45,
     "author": {
       "id": 5,
-      "username": "mikebrown",
+      "nickName": "mikebrown",
       "firstName": "Mike",
       "lastName": "Brown"
     },

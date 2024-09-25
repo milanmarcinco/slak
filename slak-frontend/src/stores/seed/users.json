@@ -1,61 +1,61 @@
 [
   {
     "id": 1,
-    "username": "cstewart",
+    "nickName": "cstewart",
     "firstName": "Brian",
     "lastName": "Torres"
   },
   {
     "id": 2,
-    "username": "whinton",
+    "nickName": "whinton",
     "firstName": "Brian",
     "lastName": "Booker"
   },
   {
     "id": 3,
-    "username": "bobbylarsen",
+    "nickName": "bobbylarsen",
     "firstName": "Brandon",
     "lastName": "Roach"
   },
   {
     "id": 4,
-    "username": "johnsonrebecca",
+    "nickName": "johnsonrebecca",
     "firstName": "Paul",
     "lastName": "Matthews"
   },
   {
     "id": 5,
-    "username": "jeffrey47",
+    "nickName": "jeffrey47",
     "firstName": "Christopher",
     "lastName": "Taylor"
   },
   {
     "id": 6,
-    "username": "taylorjimenez",
+    "nickName": "taylorjimenez",
     "firstName": "Brittany",
     "lastName": "Mccarthy"
   },
   {
     "id": 7,
-    "username": "tuckerkimberly",
+    "nickName": "tuckerkimberly",
     "firstName": "Andre",
     "lastName": "Garcia"
   },
   {
     "id": 8,
-    "username": "michaeladams",
+    "nickName": "michaeladams",
     "firstName": "Bruce",
     "lastName": "Peterson"
   },
   {
     "id": 9,
-    "username": "ohenderson",
+    "nickName": "ohenderson",
     "firstName": "Sharon",
     "lastName": "Hayden"
   },
   {
     "id": 10,
-    "username": "aaronevans",
+    "nickName": "aaronevans",
     "firstName": "Lindsay",
     "lastName": "Smith"
   }

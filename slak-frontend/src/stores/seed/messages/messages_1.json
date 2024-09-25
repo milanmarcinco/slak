@@ -3,7 +3,7 @@
     "id": 1,
     "author": {
       "id": 1,
-      "username": "johndoe",
+      "nickName": "johndoe",
       "firstName": "John",
       "lastName": "Doe"
     },
@@ -14,7 +14,7 @@
     "id": 2,
     "author": {
       "id": 2,
-      "username": "janesmith",
+      "nickName": "janesmith",
       "firstName": "Jane",
       "lastName": "Smith"
     },
@@ -25,7 +25,7 @@
     "id": 3,
     "author": {
       "id": 1,
-      "username": "johndoe",
+      "nickName": "johndoe",
       "firstName": "John",
       "lastName": "Doe"
     },
@@ -36,7 +36,7 @@
     "id": 4,
     "author": {
       "id": 3,
-      "username": "roberthall",
+      "nickName": "roberthall",
       "firstName": "Robert",
       "lastName": "Hall"
     },
@@ -47,7 +47,7 @@
     "id": 5,
     "author": {
       "id": 4,
-      "username": "sarawilson",
+      "nickName": "sarawilson",
       "firstName": "Sara",
       "lastName": "Wilson"
     },
@@ -58,7 +58,7 @@
     "id": 6,
     "author": {
       "id": 5,
-      "username": "mikebrown",
+      "nickName": "mikebrown",
       "firstName": "Mike",
       "lastName": "Brown"
     },
@@ -69,7 +69,7 @@
     "id": 7,
     "author": {
       "id": 2,
-      "username": "janesmith",
+      "nickName": "janesmith",
       "firstName": "Jane",
       "lastName": "Smith"
     },
@@ -80,7 +80,7 @@
     "id": 8,
     "author": {
       "id": 3,
-      "username": "roberthall",
+      "nickName": "roberthall",
       "firstName": "Robert",
       "lastName": "Hall"
     },
@@ -91,7 +91,7 @@
     "id": 9,
     "author": {
       "id": 6,
-      "username": "annajones",
+      "nickName": "annajones",
       "firstName": "Anna",
       "lastName": "Jones"
     },
@@ -102,7 +102,7 @@
     "id": 10,
     "author": {
       "id": 1,
-      "username": "johndoe",
+      "nickName": "johndoe",
       "firstName": "John",
       "lastName": "Doe"
     },
@@ -113,7 +113,7 @@
     "id": 11,
     "author": {
       "id": 2,
-      "username": "janesmith",
+      "nickName": "janesmith",
       "firstName": "Jane",
       "lastName": "Smith"
     },
@@ -124,7 +124,7 @@
     "id": 12,
     "author": {
       "id": 5,
-      "username": "mikebrown",
+      "nickName": "mikebrown",
       "firstName": "Mike",
       "lastName": "Brown"
     },
@@ -135,7 +135,7 @@
     "id": 13,
     "author": {
       "id": 4,
-      "username": "sarawilson",
+      "nickName": "sarawilson",
       "firstName": "Sara",
       "lastName": "Wilson"
     },
@@ -146,7 +146,7 @@
     "id": 14,
     "author": {
       "id": 3,
-      "username": "roberthall",
+      "nickName": "roberthall",
       "firstName": "Robert",
       "lastName": "Hall"
     },
@@ -157,7 +157,7 @@
     "id": 15,
     "author": {
       "id": 2,
-      "username": "janesmith",
+      "nickName": "janesmith",
       "firstName": "Jane",
       "lastName": "Smith"
     },
@@ -168,7 +168,7 @@
     "id": 16,
     "author": {
       "id": 1,
-      "username": "johndoe",
+      "nickName": "johndoe",
       "firstName": "John",
       "lastName": "Doe"
     },
@@ -179,7 +179,7 @@
     "id": 17,
     "author": {
       "id": 6,
-      "username": "annajones",
+      "nickName": "annajones",
       "firstName": "Anna",
       "lastName": "Jones"
     },
@@ -190,7 +190,7 @@
     "id": 18,
     "author": {
       "id": 4,
-      "username": "sarawilson",
+      "nickName": "sarawilson",
       "firstName": "Sara",
       "lastName": "Wilson"
     },
@@ -201,7 +201,7 @@
     "id": 19,
     "author": {
       "id": 5,
-      "username": "mikebrown",
+      "nickName": "mikebrown",
       "firstName": "Mike",
       "lastName": "Brown"
     },
@@ -212,7 +212,7 @@
     "id": 20,
     "author": {
       "id": 3,
-      "username": "roberthall",
+      "nickName": "roberthall",
       "firstName": "Robert",
       "lastName": "Hall"
     },
