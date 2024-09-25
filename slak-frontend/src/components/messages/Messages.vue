@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onUpdated } from 'vue';
+import { computed, onMounted } from 'vue';
 
 import { useActiveChannelId } from 'src/composables/useActiveChannelId';
 import { useMainStore } from 'src/stores/main';
@@ -45,7 +45,7 @@ const messages = computed(() =>
   activeChannelId.value ? mainStore.messages[activeChannelId.value] : null
 );
 
-onUpdated(() => {
+onMounted(() => {
   mainStore.setReadChannel(activeChannelId.value);
 });
 
