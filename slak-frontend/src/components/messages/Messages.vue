@@ -10,45 +10,34 @@
           </div>
         </template> -->
 
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
-
-    <Message author="Milaj" content="Hello, world!" />
-    <Message author="Hnaty" content="Hello, world!" sent />
+    <Message
+      v-for="message in messages"
+      :author="message.author.username"
+      :content="message.content"
+      :created-at="message.createdAt"
+      :sent="userId === message.author.id"
+      :key="message.id"
+    />
   </q-infinite-scroll>
 </template>
 
 <script setup lang="ts">
+import { useActiveChannelId } from 'src/composables/useActiveChannelId';
+import { useMainStore } from 'src/stores/main';
+
 import Message from './Message.vue';
+
+const mainStore = useMainStore();
+const activeChannelId = useActiveChannelId();
+
+const userId = mainStore.user?.id;
+
+const messages = activeChannelId.value
+  ? mainStore.messages[activeChannelId.value]
+  : null;
 
 defineOptions({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Messages',
 });
 </script>
-
-<style scoped lang="scss"></style>

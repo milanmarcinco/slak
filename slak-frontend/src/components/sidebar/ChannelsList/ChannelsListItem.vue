@@ -5,7 +5,7 @@
     @click="$emit('selectChannel', channel.id)"
     class="channels-list-item rounded-borders"
     :class="{
-      'channels-list-item--active': channel.id === activeChannelId,
+      'channels-list-item--active': isActive,
       'channels-list-item--unread': channel.unread,
     }"
   >
@@ -14,21 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-
 import { Channel } from 'components/models';
 
-const { channel } = defineProps<{
+const { channel, isActive } = defineProps<{
   channel: Channel;
+  isActive?: boolean;
 }>();
-
-const router = useRouter();
-
-const activeChannelId = computed(() => {
-  const { channelId } = router.currentRoute.value.params;
-  return typeof channelId === 'string' ? parseInt(channelId) : null;
-});
 
 defineEmits<{
   selectChannel: [id: Channel['id']];

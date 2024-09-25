@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Hey, how are you?"
+  },
+  {
+    "id": 2,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Don't forget the meeting at 3 PM tomorrow."
+  },
+  {
+    "id": 3,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Just finished the report, sending it your way."
+  },
+  {
+    "id": 4,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Can anyone explain the latest project requirements?"
+  },
+  {
+    "id": 5,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Lunch was amazing today!"
+  },
+  {
+    "id": 6,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Happy Birthday! Wishing you all the best!"
+  },
+  {
+    "id": 7,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Reminder: Team sync at 10 AM in the conference room."
+  },
+  {
+    "id": 8,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Thanks for the update. I'll check the document later."
+  },
+  {
+    "id": 9,
+    "author": {
+      "id": 6,
+      "username": "annajones",
+      "firstName": "Anna",
+      "lastName": "Jones"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "This weekend, we should all catch up for dinner."
+  },
+  {
+    "id": 10,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Sorry for the late response, I was in a meeting all day."
+  },
+  {
+    "id": 11,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "What do you think about the new design mockups?"
+  },
+  {
+    "id": 12,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "The server maintenance will take around 2 hours."
+  },
+  {
+    "id": 13,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "I’ll be on vacation next week. Please contact Jane if you need anything."
+  },
+  {
+    "id": 14,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Could we schedule a follow-up call next Wednesday to discuss the progress?"
+  },
+  {
+    "id": 15,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Let’s meet in 5 minutes to discuss the marketing strategy."
+  },
+  {
+    "id": 16,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Great job on the presentation today! Everyone was impressed."
+  },
+  {
+    "id": 17,
+    "author": {
+      "id": 6,
+      "username": "annajones",
+      "firstName": "Anna",
+      "lastName": "Jones"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "I’m sending over the updated files now. Please review them and let me know your thoughts."
+  },
+  {
+    "id": 18,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "We need to finalize the budget proposal by the end of this week."
+  },
+  {
+    "id": 19,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "Could you share the details of the project plan? I seem to have missed the last update."
+  },
+  {
+    "id": 20,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "createdAt": "2023-09-25T14:35:48Z",
+    "content": "It’s almost the weekend! Any plans?"
+  }
+]
