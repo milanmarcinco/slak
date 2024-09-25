@@ -1,0 +1,222 @@
+[
+  {
+    "id": 21,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "content": "Just a quick reminder about tomorrow's client call.",
+    "createdAt": "2023-07-15T09:23:16Z"
+  },
+  {
+    "id": 22,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "content": "I uploaded the latest design files to the shared folder.",
+    "createdAt": "2023-08-03T12:48:29Z"
+  },
+  {
+    "id": 23,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "content": "Has anyone heard back from the client yet?",
+    "createdAt": "2023-06-25T14:12:03Z"
+  },
+  {
+    "id": 24,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "content": "We need to finalize the agenda for Friday’s meeting.",
+    "createdAt": "2023-09-14T11:05:45Z"
+  },
+  {
+    "id": 25,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "content": "Can someone update the budget tracker, please?",
+    "createdAt": "2023-04-12T17:32:21Z"
+  },
+  {
+    "id": 26,
+    "author": {
+      "id": 6,
+      "username": "annajones",
+      "firstName": "Anna",
+      "lastName": "Jones"
+    },
+    "content": "I’ll be out of office tomorrow, but feel free to reach me via email.",
+    "createdAt": "2023-05-01T08:55:10Z"
+  },
+  {
+    "id": 27,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "content": "The presentation is ready for review.",
+    "createdAt": "2023-07-21T16:43:08Z"
+  },
+  {
+    "id": 28,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "content": "Could we schedule a quick sync later today?",
+    "createdAt": "2023-08-11T09:11:57Z"
+  },
+  {
+    "id": 29,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "content": "Thanks for the feedback, I’ll make those changes right away.",
+    "createdAt": "2023-06-20T10:25:33Z"
+  },
+  {
+    "id": 30,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "content": "Looking forward to our team-building event next week!",
+    "createdAt": "2023-09-18T07:22:40Z"
+  },
+  {
+    "id": 31,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "content": "The marketing team has shared their latest updates.",
+    "createdAt": "2023-04-28T19:13:22Z"
+  },
+  {
+    "id": 32,
+    "author": {
+      "id": 6,
+      "username": "annajones",
+      "firstName": "Anna",
+      "lastName": "Jones"
+    },
+    "content": "Please let me know if any changes are needed to the proposal.",
+    "createdAt": "2023-05-10T10:47:54Z"
+  },
+  {
+    "id": 33,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "content": "Can we reschedule our meeting to later this afternoon?",
+    "createdAt": "2023-07-12T15:05:38Z"
+  },
+  {
+    "id": 34,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "content": "I’m available after 3 PM for a quick sync.",
+    "createdAt": "2023-08-17T13:18:12Z"
+  },
+  {
+    "id": 35,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "content": "Let me know if you need help with the documentation.",
+    "createdAt": "2023-06-27T11:55:09Z"
+  },
+  {
+    "id": 36,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "content": "I’ve sent the invitations for tomorrow's call.",
+    "createdAt": "2023-09-08T08:44:16Z"
+  },
+  {
+    "id": 37,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "content": "The invoice is approved, go ahead and process the payment.",
+    "createdAt": "2023-04-14T16:29:01Z"
+  },
+  {
+    "id": 38,
+    "author": {
+      "id": 6,
+      "username": "annajones",
+      "firstName": "Anna",
+      "lastName": "Jones"
+    },
+    "content": "Do you have any updates on the client feedback?",
+    "createdAt": "2023-05-22T12:16:48Z"
+  },
+  {
+    "id": 39,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "content": "I’ve attached the final version of the report for review.",
+    "createdAt": "2023-07-28T18:37:02Z"
+  },
+  {
+    "id": 40,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "content": "Please review the document and provide your feedback by tomorrow.",
+    "createdAt": "2023-08-30T11:02:35Z"
+  }
+]

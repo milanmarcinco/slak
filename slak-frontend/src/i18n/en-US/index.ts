@@ -7,6 +7,10 @@ export default {
     private_channels: 'Private channels',
   },
 
+  messages: {
+    no_messages: 'No messages yet...',
+  },
+
   command_line: {
     send: 'Send',
     execute: 'Execute',

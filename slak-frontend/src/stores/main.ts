@@ -2,7 +2,9 @@ import { defineStore } from 'pinia';
 
 import { Channel, Message, User } from 'src/components/models';
 
-import messages from './seed/messages.json';
+import messages_1 from './seed/messages/messages_1.json';
+import messages_2 from './seed/messages/messages_2.json';
+import messages_3 from './seed/messages/messages_3.json';
 
 interface State {
   user?: User;
@@ -31,9 +33,9 @@ export const useMainStore = defineStore('main', {
     ],
 
     messages: {
-      1: messages,
-      2: messages,
-      3: messages,
+      1: messages_1,
+      2: messages_2,
+      3: messages_3,
       4: [],
     },
   }),

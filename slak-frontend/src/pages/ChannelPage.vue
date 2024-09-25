@@ -1,8 +1,6 @@
 <template>
-  <q-page class="container">
-    <div class="messages">
-      <Messages />
-    </div>
+  <q-page class="q-px-md q-py-md">
+    <Messages />
   </q-page>
 </template>
 
@@ -13,14 +11,3 @@ defineOptions({
   name: 'ChannelPage',
 });
 </script>
-
-<style scoped lang="scss">
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.messages {
-  flex-grow: 1;
-}
-</style>

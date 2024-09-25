@@ -1,11 +1,8 @@
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-}
-
-#q-app {
+html,
+body,
+#q-app,
+.q-layout,
+.q-page-container,
+.q-page {
   height: 100%;
 }

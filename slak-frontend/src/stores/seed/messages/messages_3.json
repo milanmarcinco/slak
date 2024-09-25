@@ -1,0 +1,57 @@
+[
+  {
+    "id": 41,
+    "author": {
+      "id": 1,
+      "username": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "content": "The code review is scheduled for 2 PM today.",
+    "createdAt": "2023-07-19T13:45:32Z"
+  },
+  {
+    "id": 42,
+    "author": {
+      "id": 2,
+      "username": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "content": "Has the team finished the testing for the new feature?",
+    "createdAt": "2023-08-02T10:14:08Z"
+  },
+  {
+    "id": 43,
+    "author": {
+      "id": 3,
+      "username": "roberthall",
+      "firstName": "Robert",
+      "lastName": "Hall"
+    },
+    "content": "Please confirm if we can proceed with the launch plan.",
+    "createdAt": "2023-06-22T08:12:41Z"
+  },
+  {
+    "id": 44,
+    "author": {
+      "id": 4,
+      "username": "sarawilson",
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    "content": "Just got confirmation from the client. We're good to go!",
+    "createdAt": "2023-09-11T09:37:23Z"
+  },
+  {
+    "id": 45,
+    "author": {
+      "id": 5,
+      "username": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown"
+    },
+    "content": "Don't forget to update your timesheets by the end of the day.",
+    "createdAt": "2023-04-08T15:47:19Z"
+  }
+]
