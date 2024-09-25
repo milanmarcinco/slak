@@ -10,6 +10,26 @@
     }"
   >
     <q-item-section>{{ channel.title }}</q-item-section>
+
+    <q-item-section class="channels-list-item__actions" avatar side>
+      <q-btn size="10px" flat dense icon="more_horiz" @click.stop>
+        <q-menu anchor="bottom right" self="top right">
+          <q-list>
+            <q-item clickable v-close-popup dense>
+              <q-item-section>
+                {{ $t('sidebar.channel_actions.leave_channel') }}
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup dense>
+              <q-item-section>
+                {{ $t('sidebar.channel_actions.delete_channel') }}
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+    </q-item-section>
   </q-item>
 </template>
 

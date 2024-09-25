@@ -5,6 +5,11 @@ export default {
   sidebar: {
     public_channels: 'Public channels',
     private_channels: 'Private channels',
+
+    channel_actions: {
+      leave_channel: 'Leave channel',
+      delete_channel: 'Delete channel',
+    },
   },
 
   messages: {
