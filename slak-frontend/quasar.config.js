@@ -97,6 +97,7 @@ module.exports = configure(function (/* ctx */) {
       extendViteConf: (viteConf) => {
         viteConf.resolve.alias = mergeConfig(viteConf.resolve.alias, {
           composables: path.resolve(__dirname, 'src/composables'),
+          lib: path.resolve(__dirname, 'src/lib'),
         });
       },
     },

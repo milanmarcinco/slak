@@ -5,27 +5,38 @@
       class="command-line__mentions q-pa-sm q-mb-sm rounded-borders"
     >
       <q-chip
-        v-for="mention of mentions"
+        v-for="user of mentions"
+        @remove="handleRemoveMention(user.id)"
         class="q-ma-none"
         color="orange-6"
         square
         dense
         removable
-        :key="mention"
+        :key="user.id"
       >
-        {{ mention }}
+        {{ `${user.firstName} ${user.lastName}` }}
       </q-chip>
     </div>
 
-    <form @submit="handleSubmit" class="bg-dark rounded-borders">
+    <form
+      @submit="handleSubmit"
+      class="bg-dark rounded-borders relative-position"
+    >
+      <MentionPicker
+        :is-open="mentionSelectVisible"
+        @select-mention="handleSelectMention"
+        @dismiss="handleDismissMention"
+      />
+
       <q-input
         v-model="value"
         @keypress="handleKeyPress"
+        class="command-line__input"
+        :ref="COMMAND_LINE_REF"
         type="text"
         standout
         autogrow
         dense
-        class="command-line__input"
       >
         <template #append>
           <q-btn
@@ -36,6 +47,7 @@
             :label="
               isCommandMode ? t('command_line.execute') : t('command_line.send')
             "
+            @click="handleSubmit"
           />
         </template>
       </q-input>
@@ -44,21 +56,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useCommandLine } from 'composables/useCommandLine';
 
+import MentionPicker from './MentionPicker.vue';
+
+import { User } from '../models';
+
+const COMMAND_LINE_REF = 'command-line';
+
 const { t } = useI18n();
 
 const value = ref('');
-const mentions = ref<string[]>([]);
+const mentions = ref<User[]>([]);
+
+const mentionSelectVisible = ref(false);
+const commandLineRef = useTemplateRef<HTMLInputElement>(COMMAND_LINE_REF);
 
 const { isCommandMode, execCommand } = useCommandLine(value);
 
 const handleKeyPress = (event: KeyboardEvent) => {
   if (event.key === '@') {
-    // Handle mention
+    mentionSelectVisible.value = true;
   }
 
   if (!event.shiftKey && event.key === 'Enter') {
@@ -83,6 +104,22 @@ const handleSubmit = async (event: Event) => {
   value.value = '';
 };
 
+const handleSelectMention = (user: User) => {
+  mentions.value = [...mentions.value, user];
+  mentionSelectVisible.value = false;
+  value.value = value.value.slice(0, -1);
+  commandLineRef.value?.focus();
+};
+
+const handleRemoveMention = (userId: User['id']) => {
+  mentions.value = mentions.value.filter((user) => user.id !== userId);
+};
+
+const handleDismissMention = () => {
+  mentionSelectVisible.value = false;
+  commandLineRef.value?.focus();
+};
+
 defineOptions({
   name: 'CommandLine',
 });
@@ -97,7 +134,7 @@ defineOptions({
   &__mentions {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 8px;
 
     background-color: $dark;
 

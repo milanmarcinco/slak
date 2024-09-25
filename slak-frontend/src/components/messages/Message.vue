@@ -1,5 +1,10 @@
 <template>
-  <div class="message" :class="{ 'message-sent': sent }">
+  <div
+    class="message"
+    :class="{
+      'message--sent': sent,
+    }"
+  >
     <div class="message__caption">{{ caption }}</div>
     <div class="message__content">{{ content }}</div>
   </div>
@@ -42,7 +47,7 @@ defineOptions({
     border-radius: 6px;
   }
 
-  &-sent {
+  &--sent {
     margin-left: auto;
 
     .message {

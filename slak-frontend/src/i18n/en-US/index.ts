@@ -20,4 +20,8 @@ export default {
     send: 'Send',
     execute: 'Execute',
   },
+
+  mentions: {
+    no_users: 'No users found...',
+  },
 };
