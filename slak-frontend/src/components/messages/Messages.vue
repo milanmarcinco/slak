@@ -2,7 +2,7 @@
   <q-infinite-scroll
     @load="undefined"
     class="full-height q-px-md overflow-auto"
-    :key="activeChannelId"
+    :key="activeChannelId!"
     reverse
   >
     <!-- <template v-slot:loading>
@@ -20,11 +20,11 @@
       :key="message.id"
     />
 
-    <div v-if="!messages || !messages.length" class="empty-message">
-      <p class="empty-message__text q-ma-none">
-        {{ $t('messages.no_messages') }}
-      </p>
-    </div>
+    <EmptyMessage
+      :text="$t('messages.no_messages')"
+      :show="!messages || !messages.length"
+      larger
+    />
   </q-infinite-scroll>
 </template>
 
@@ -35,6 +35,7 @@ import { useActiveChannelId } from 'src/composables/useActiveChannelId';
 import { useMainStore } from 'src/stores/main';
 
 import Message from './Message.vue';
+import EmptyMessage from '../shared/EmptyMessage.vue';
 
 const mainStore = useMainStore();
 const activeChannelId = useActiveChannelId();
@@ -46,7 +47,7 @@ const messages = computed(() =>
 );
 
 onMounted(() => {
-  mainStore.setReadChannel(activeChannelId.value);
+  mainStore.setReadChannel(activeChannelId.value!);
 });
 
 defineOptions({
@@ -54,17 +55,3 @@ defineOptions({
   name: 'Messages',
 });
 </script>
-
-<style lang="scss" scoped>
-.empty-message {
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &__text {
-    font-size: $font-sm;
-  }
-}
-</style>

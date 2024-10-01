@@ -15,13 +15,23 @@
       <q-btn size="10px" flat dense icon="more_horiz" @click.stop>
         <q-menu anchor="bottom right" self="top right">
           <q-list>
-            <q-item clickable v-close-popup dense>
+            <q-item
+              @click="$emit('leaveChannel', channel.id)"
+              clickable
+              v-close-popup
+              dense
+            >
               <q-item-section>
                 {{ $t('sidebar.channel_actions.leave_channel') }}
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup dense>
+            <q-item
+              @click="$emit('deleteChannel', channel.id)"
+              clickable
+              v-close-popup
+              dense
+            >
               <q-item-section>
                 {{ $t('sidebar.channel_actions.delete_channel') }}
               </q-item-section>
@@ -43,6 +53,8 @@ const { channel, isActive } = defineProps<{
 
 defineEmits<{
   selectChannel: [id: Channel['id']];
+  leaveChannel: [id: Channel['id']];
+  deleteChannel: [id: Channel['id']];
 }>();
 
 defineOptions({

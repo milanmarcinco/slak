@@ -1,5 +1,4 @@
-import { Channel } from 'src/components/models';
-import { computed, ComputedRef } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 export const useActiveChannelId = () => {
@@ -10,9 +9,5 @@ export const useActiveChannelId = () => {
     return typeof channelId === 'string' ? parseInt(channelId) : null;
   });
 
-  if (activeChannelId.value === null) {
-    throw new Error('Channel ID is missing!');
-  }
-
-  return activeChannelId as ComputedRef<Channel['id']>;
+  return activeChannelId;
 };

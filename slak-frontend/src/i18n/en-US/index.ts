@@ -5,6 +5,7 @@ export default {
   sidebar: {
     public_channels: 'Public channels',
     private_channels: 'Private channels',
+    no_channels: 'No channels yet...',
 
     channel_actions: {
       leave_channel: 'Leave channel',

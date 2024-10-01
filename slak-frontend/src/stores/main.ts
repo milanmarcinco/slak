@@ -54,5 +54,19 @@ export const useMainStore = defineStore('main', {
         channel.unread = false;
       }
     },
+
+    leaveChannel(channelId: Channel['id']) {
+      this.publicChannels = (this.publicChannels || []).filter(
+        (channel) => channel.id !== channelId
+      );
+
+      this.privateChannels = (this.privateChannels || []).filter(
+        (channel) => channel.id !== channelId
+      );
+    },
+
+    deleteChannel(channelId: Channel['id']) {
+      this.leaveChannel(channelId);
+    },
   },
 });

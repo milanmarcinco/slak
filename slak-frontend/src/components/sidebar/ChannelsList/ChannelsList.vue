@@ -8,7 +8,14 @@
         :channel="channel"
         :is-active="channel.id === activeChannelId"
         @select-channel="handleSelectChannel"
+        @leave-channel="handleLeaveChannel"
+        @delete-channel="handleDeleteChannel"
         :key="channel.id"
+      />
+
+      <EmptyMessage
+        :text="$t('sidebar.no_channels')"
+        :show="!channels || !channels.length"
       />
     </q-list>
   </div>
@@ -22,6 +29,7 @@ import { useActiveChannelId } from 'src/composables/useActiveChannelId';
 import { useMainStore } from 'src/stores/main';
 
 import ChannelsListItem from './ChannelsListItem.vue';
+import EmptyMessage from 'src/components/shared/EmptyMessage.vue';
 
 const { title, channels } = defineProps<{
   title: string;
@@ -35,6 +43,16 @@ const activeChannelId = useActiveChannelId();
 const handleSelectChannel = (channelId: Channel['id']) => {
   router.push({ path: channelId.toString() });
   mainStore.setReadChannel(channelId);
+};
+
+const handleLeaveChannel = (channelId: Channel['id']) => {
+  router.push({ path: '/' });
+  mainStore.leaveChannel(channelId);
+};
+
+const handleDeleteChannel = (channelId: Channel['id']) => {
+  router.push({ path: '/' });
+  mainStore.deleteChannel(channelId);
 };
 
 defineOptions({
