@@ -1,5 +1,6 @@
 import { useRouter } from 'vue-router';
 
+import { ChannelType } from 'components/models';
 import { useMainStore } from 'stores/main';
 
 import { useActiveChannel } from './useActiveChannel';
@@ -18,14 +19,27 @@ export const useCommands = () => {
     join: {
       handler: async (channelName: string, visibility?: string) => {
         console.log('join', channelName, visibility);
+
+        const channelType = (() => {
+          switch (visibility?.toUpperCase()) {
+            case ChannelType.Private:
+              return ChannelType.Private;
+            case ChannelType.Public:
+            default:
+              return ChannelType.Public;
+          }
+        })();
+
+        mainStore.createChannel(channelName, channelType);
       },
       validateArgs: ([channelName, visibility]) => {
         const isChannelNameValid = !!channelName;
+        const type = visibility?.toUpperCase();
 
         const isVisibilityValid = (() => {
-          switch (visibility) {
-            case 'public':
-            case 'private':
+          switch (type) {
+            case ChannelType.Public:
+            case ChannelType.Private:
             case undefined:
               return true;
             default:
@@ -62,6 +76,9 @@ export const useCommands = () => {
 
         router.push({ path: '/' });
         mainStore.leaveChannel(activeChannel.value.id);
+      },
+      validateArgs() {
+        return !!activeChannel.value;
       },
     },
     cancel: {

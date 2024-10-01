@@ -60,6 +60,21 @@ export const useMainStore = defineStore('main', {
 
   getters: {},
   actions: {
+    createChannel(title: Channel['title'], type: Channel['type']) {
+      const channels = this.channels || [];
+
+      const channel: Channel = {
+        id:
+          channels.reduce((maxId, channel) => Math.max(maxId, channel.id), 0) +
+          1,
+        title,
+        adminId: this.user!.id,
+        type,
+      };
+
+      this.channels = [channel, ...channels];
+    },
+
     setReadChannel(channelId: Channel['id']) {
       const channel = (this.channels || []).find((c) => c.id === channelId);
 
