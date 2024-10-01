@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { Channel, Message, User } from 'src/components/models';
+import { Channel, ChannelType, Message, User } from 'src/components/models';
 
 import messages_1 from './seed/messages/messages_1.json';
 import messages_2 from './seed/messages/messages_2.json';
@@ -8,8 +8,7 @@ import messages_3 from './seed/messages/messages_3.json';
 
 interface State {
   user?: User;
-  publicChannels?: Channel[];
-  privateChannels?: Channel[];
+  channels?: Channel[];
   messages: Record<string, Message[]>;
 }
 
@@ -22,14 +21,33 @@ export const useMainStore = defineStore('main', {
       lastName: 'Doe',
     },
 
-    publicChannels: [
-      { id: 1, title: 'General', unread: true },
-      { id: 2, title: 'Random', unread: true },
-    ],
-
-    privateChannels: [
-      { id: 3, title: 'Secret' },
-      { id: 4, title: 'Hidden' },
+    channels: [
+      {
+        id: 1,
+        title: 'General',
+        adminId: 1,
+        type: ChannelType.Public,
+        unread: true,
+      },
+      {
+        id: 2,
+        title: 'Random',
+        adminId: 1,
+        type: ChannelType.Public,
+        unread: true,
+      },
+      {
+        id: 3,
+        title: 'Secret',
+        adminId: 1,
+        type: ChannelType.Private,
+      },
+      {
+        id: 4,
+        title: 'Hidden',
+        adminId: 1,
+        type: ChannelType.Private,
+      },
     ],
 
     messages: {
@@ -43,12 +61,7 @@ export const useMainStore = defineStore('main', {
   getters: {},
   actions: {
     setReadChannel(channelId: Channel['id']) {
-      const allChannels = [
-        ...(this.publicChannels || []),
-        ...(this.privateChannels || []),
-      ];
-
-      const channel = allChannels.find((c) => c.id === channelId);
+      const channel = (this.channels || []).find((c) => c.id === channelId);
 
       if (channel) {
         channel.unread = false;
@@ -56,11 +69,7 @@ export const useMainStore = defineStore('main', {
     },
 
     leaveChannel(channelId: Channel['id']) {
-      this.publicChannels = (this.publicChannels || []).filter(
-        (channel) => channel.id !== channelId
-      );
-
-      this.privateChannels = (this.privateChannels || []).filter(
+      this.channels = (this.channels || []).filter(
         (channel) => channel.id !== channelId
       );
     },

@@ -5,9 +5,16 @@ export interface User {
   lastName: string;
 }
 
+export enum ChannelType {
+  Public = 'PUBLIC',
+  Private = 'PRIVATE',
+}
+
 export interface Channel {
   id: number;
   title: string;
+  adminId: User['id'];
+  type: ChannelType;
   unread?: boolean;
 }
 
