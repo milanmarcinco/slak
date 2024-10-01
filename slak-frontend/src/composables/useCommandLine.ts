@@ -18,7 +18,7 @@ export const useCommandLine = (text: Ref<string, string>) => {
       const { validateArgs } = commands[command.name];
 
       if (validateArgs) {
-        return validateArgs?.(command.args);
+        return validateArgs(command.args);
       }
 
       return true;

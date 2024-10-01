@@ -1,9 +1,19 @@
+import { useRouter } from 'vue-router';
+
+import { useMainStore } from 'stores/main';
+
+import { useActiveChannel } from './useActiveChannel';
+
 interface Command<Args extends string[] = string[]> {
   handler: (...args: Args) => void;
   validateArgs?: (args: Partial<Args>) => boolean;
 }
 
 export const useCommands = () => {
+  const router = useRouter();
+  const mainStore = useMainStore();
+  const activeChannel = useActiveChannel();
+
   const commands: Record<string, Command> = {
     join: {
       handler: async (channelName: string, visibility?: string) => {
@@ -47,11 +57,24 @@ export const useCommands = () => {
     quit: {
       handler: async () => {
         console.log('quit');
+
+        if (!activeChannel.value) return;
+
+        router.push({ path: '/' });
+        mainStore.leaveChannel(activeChannel.value.id);
       },
     },
     cancel: {
       handler: async () => {
         console.log('cancel');
+
+        if (!activeChannel.value) return;
+
+        router.push({ path: '/' });
+        mainStore.deleteChannel(activeChannel.value.id);
+      },
+      validateArgs() {
+        return activeChannel.value?.adminId === mainStore.user!.id;
       },
     },
     list: {
