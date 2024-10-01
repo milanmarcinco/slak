@@ -7,7 +7,7 @@ import { useActiveChannel } from './useActiveChannel';
 
 interface Command<Args extends string[] = string[]> {
   handler: (...args: Args) => void;
-  validateArgs?: (args: Partial<Args>) => boolean;
+  getIsAllowed?: (args: Partial<Args>) => boolean;
 }
 
 export const useCommands = () => {
@@ -32,7 +32,7 @@ export const useCommands = () => {
 
         mainStore.createChannel(channelName, channelType);
       },
-      validateArgs: ([channelName, visibility]) => {
+      getIsAllowed: ([channelName, visibility]) => {
         const isChannelNameValid = !!channelName;
         const type = visibility?.toUpperCase();
 
@@ -54,19 +54,19 @@ export const useCommands = () => {
       handler: async (nickName: string) => {
         console.log('invite', nickName);
       },
-      validateArgs: ([nickName]) => !!nickName,
+      getIsAllowed: ([nickName]) => !!nickName,
     },
     revoke: {
       handler: async (nickName: string) => {
         console.log('revoke', nickName);
       },
-      validateArgs: ([nickName]) => !!nickName,
+      getIsAllowed: ([nickName]) => !!nickName,
     },
     kick: {
       handler: async (nickName: string) => {
         console.log('kick', nickName);
       },
-      validateArgs: ([nickName]) => !!nickName,
+      getIsAllowed: ([nickName]) => !!nickName,
     },
     quit: {
       handler: async () => {
@@ -77,7 +77,7 @@ export const useCommands = () => {
         router.push({ path: '/' });
         mainStore.leaveChannel(activeChannel.value.id);
       },
-      validateArgs() {
+      getIsAllowed() {
         return !!activeChannel.value;
       },
     },
@@ -90,7 +90,7 @@ export const useCommands = () => {
         router.push({ path: '/' });
         mainStore.deleteChannel(activeChannel.value.id);
       },
-      validateArgs() {
+      getIsAllowed() {
         return activeChannel.value?.adminId === mainStore.user!.id;
       },
     },

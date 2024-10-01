@@ -15,10 +15,10 @@ export const useCommandLine = (text: Ref<string, string>) => {
     if (!command) return false;
 
     if (command.name in commands) {
-      const { validateArgs } = commands[command.name];
+      const { getIsAllowed } = commands[command.name];
 
-      if (validateArgs) {
-        return validateArgs(command.args);
+      if (getIsAllowed) {
+        return getIsAllowed(command.args);
       }
 
       return true;
