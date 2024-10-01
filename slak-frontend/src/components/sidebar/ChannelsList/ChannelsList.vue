@@ -46,12 +46,18 @@ const handleSelectChannel = (channelId: Channel['id']) => {
 };
 
 const handleLeaveChannel = (channelId: Channel['id']) => {
-  router.push({ path: '/' });
+  if (channelId === activeChannelId.value) {
+    router.push({ path: '/' });
+  }
+
   mainStore.leaveChannel(channelId);
 };
 
 const handleDeleteChannel = (channelId: Channel['id']) => {
-  router.push({ path: '/' });
+  if (channelId === activeChannelId.value) {
+    router.push({ path: '/' });
+  }
+
   mainStore.deleteChannel(channelId);
 };
 
