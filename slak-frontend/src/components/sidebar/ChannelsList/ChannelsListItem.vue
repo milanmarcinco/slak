@@ -66,6 +66,7 @@ defineOptions({
 .channels-list-item {
   position: relative;
   padding-left: 20px;
+  padding-right: 8px;
 
   & + & {
     margin-top: 2px;

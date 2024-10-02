@@ -7,3 +7,15 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
+// Overrides
+
+.q-field {
+  &--with-bottom:has(&__messages:empty) {
+    padding-bottom: 0;
+  }
+  
+  &__bottom:has(&__messages:empty) {
+    display: none;
+  }
+}

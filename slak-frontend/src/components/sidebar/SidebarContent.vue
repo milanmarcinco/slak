@@ -4,6 +4,7 @@
       <ChannelsList
         :title="$t('sidebar.public_channels')"
         :channels="publicChannels"
+        @create-channel="handleCreateChannel(ChannelType.Public)"
       >
         <template #icon>
           <q-icon name="public" size="xs" color="grey-6" />
@@ -13,11 +14,20 @@
       <ChannelsList
         :title="$t('sidebar.private_channels')"
         :channels="privateChannels"
+        @create-channel="handleCreateChannel(ChannelType.Private)"
       >
         <template #icon>
           <q-icon name="lock_outline" size="xs" color="grey-6" />
         </template>
       </ChannelsList>
+
+      <CreateChannelModal
+        v-if="createChannelType"
+        :type="createChannelType"
+        :is-open="createChannelIsOpen"
+        @close="createChannelIsOpen = false"
+        @after-close="createChannelType = undefined"
+      />
     </div>
 
     <q-list dense class="sidebar-content__footer">
@@ -35,14 +45,23 @@
 </template>
 
 <script setup lang="ts">
-import { ChannelType } from 'components/models';
+import { Channel, ChannelType } from 'components/models';
 import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
 import { useMainStore } from 'stores/main';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import CreateChannelModal from './CreateChannelModal.vue';
 
 const router = useRouter();
 const mainStore = useMainStore();
+
+const createChannelIsOpen = ref(false);
+const createChannelType = ref<Channel['type']>();
+
+const handleCreateChannel = (type: Channel['type']) => {
+  createChannelType.value = type;
+  createChannelIsOpen.value = true;
+};
 
 const publicChannels = computed(() =>
   mainStore.channels?.filter((channel) => channel.type === ChannelType.Public)

@@ -1,10 +1,20 @@
 <template>
   <div class="channels-list">
     <h2
-      class="channels-list__title text-subtitle2 q-ma-none q-px-sm q-py-sm rounded-borders"
+      class="channels-list__title text-subtitle2 q-ma-none q-px-sm q-py-xs rounded-borders"
     >
-      <slot name="icon"></slot>
-      {{ title }}
+      <div class="channels-list__title-content">
+        <slot name="icon"></slot>
+        {{ title }}
+      </div>
+
+      <q-btn
+        icon="add"
+        size="10px"
+        flat
+        dense
+        @click="$emit('createChannel')"
+      />
     </h2>
 
     <q-list dense padding>
@@ -33,8 +43,8 @@ import { Channel } from 'components/models';
 import { useActiveChannelId } from 'src/composables/useActiveChannelId';
 import { useMainStore } from 'src/stores/main';
 
-import ChannelsListItem from './ChannelsListItem.vue';
 import EmptyMessage from 'src/components/shared/EmptyMessage.vue';
+import ChannelsListItem from './ChannelsListItem.vue';
 
 const { title, channels } = defineProps<{
   title: string;
@@ -66,6 +76,10 @@ const handleDeleteChannel = (channelId: Channel['id']) => {
   mainStore.deleteChannel(channelId);
 };
 
+defineEmits<{
+  createChannel: [];
+}>();
+
 defineOptions({
   name: 'ChannelsList',
 });
@@ -76,9 +90,15 @@ defineOptions({
   &__title {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
 
     background-color: $darker;
+  }
+
+  &__title-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 }
 </style>
