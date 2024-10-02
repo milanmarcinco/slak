@@ -25,4 +25,12 @@ export default {
   mentions: {
     no_users: 'No users found...',
   },
+
+  sign_up: {
+    action: 'Sign up',
+  },
+
+  sign_in: {
+    action: 'Sign in',
+  },
 };

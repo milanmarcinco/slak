@@ -7,6 +7,8 @@ import messages_2 from './seed/messages/messages_2.json';
 import messages_3 from './seed/messages/messages_3.json';
 
 interface State {
+  initializing: boolean;
+
   user?: User;
   channels?: Channel[];
   messages: Record<string, Message[]>;
@@ -14,12 +16,9 @@ interface State {
 
 export const useMainStore = defineStore('main', {
   state: (): State => ({
-    user: {
-      id: 1,
-      nickName: 'johndoe',
-      firstName: 'John',
-      lastName: 'Doe',
-    },
+    initializing: true,
+
+    user: undefined,
 
     channels: [
       {
@@ -59,7 +58,21 @@ export const useMainStore = defineStore('main', {
   }),
 
   getters: {},
+
   actions: {
+    signIn() {
+      this.user = {
+        id: 1,
+        nickName: 'johndoe',
+        firstName: 'John',
+        lastName: 'Doe',
+      };
+    },
+
+    signUp() {
+      this.signIn();
+    },
+
     createChannel(title: Channel['title'], type: Channel['type']) {
       const channels = this.channels || [];
 

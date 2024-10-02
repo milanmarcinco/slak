@@ -3,15 +3,42 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/PrivateLayout.vue'),
+    meta: { private: true },
     children: [
       {
         path: '/',
         component: () => import('pages/IndexPage.vue'),
+        name: 'index',
       },
       {
         path: '/:channelId',
         component: () => import('pages/ChannelPage.vue'),
+        name: 'channel',
+      },
+    ],
+  },
+
+  {
+    path: '/sign-in',
+    component: () => import('layouts/PublicLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/SignInPage.vue'),
+        name: 'sign-in',
+      },
+    ],
+  },
+
+  {
+    path: '/sign-up',
+    component: () => import('layouts/PublicLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/SignUpPage.vue'),
+        name: 'sign-up',
       },
     ],
   },
@@ -21,6 +48,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/NotFoundPage.vue'),
+    name: 'not-found',
   },
 ];
 

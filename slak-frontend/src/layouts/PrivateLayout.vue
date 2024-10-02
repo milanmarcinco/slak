@@ -43,7 +43,7 @@ const toggleLeftDrawer = () => {
 };
 
 defineOptions({
-  name: 'MainLayout',
+  name: 'PrivateLayout',
 });
 </script>
 
