@@ -44,7 +44,7 @@ export const useMainStore = defineStore('main', {
       {
         id: 4,
         title: 'Hidden',
-        adminId: 1,
+        adminId: 2,
         type: ChannelType.Private,
       },
     ],

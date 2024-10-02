@@ -27,6 +27,7 @@
             </q-item>
 
             <q-item
+              v-if="showDelete"
               @click="$emit('deleteChannel', channel.id)"
               clickable
               v-close-popup
@@ -48,6 +49,7 @@ import { Channel } from 'components/models';
 
 const { channel, isActive } = defineProps<{
   channel: Channel;
+  showDelete?: boolean;
   isActive?: boolean;
 }>();
 

@@ -22,6 +22,7 @@
         v-for="channel in channels"
         :channel="channel"
         :is-active="channel.id === activeChannelId"
+        :show-delete="channel.adminId === mainStore.user!.id"
         @select-channel="handleSelectChannel"
         @leave-channel="handleLeaveChannel"
         @delete-channel="handleDeleteChannel"
