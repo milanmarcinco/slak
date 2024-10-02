@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <h2 class="text-subtitle2 q-my-none q-px-sm">{{ title }}</h2>
+  <div class="channels-list">
+    <h2
+      class="channels-list__title text-subtitle2 q-ma-none q-px-sm q-py-sm rounded-borders"
+    >
+      <slot name="icon"></slot>
+      {{ title }}
+    </h2>
 
     <q-list dense padding>
       <ChannelsListItem
@@ -65,3 +70,15 @@ defineOptions({
   name: 'ChannelsList',
 });
 </script>
+
+<style scoped lang="scss">
+.channels-list {
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color: $darker;
+  }
+}
+</style>

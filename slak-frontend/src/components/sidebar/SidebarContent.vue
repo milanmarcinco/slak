@@ -4,12 +4,20 @@
       <ChannelsList
         :title="$t('sidebar.public_channels')"
         :channels="publicChannels"
-      />
+      >
+        <template #icon>
+          <q-icon name="public" size="xs" color="grey-6" />
+        </template>
+      </ChannelsList>
 
       <ChannelsList
         :title="$t('sidebar.private_channels')"
         :channels="privateChannels"
-      />
+      >
+        <template #icon>
+          <q-icon name="lock_outline" size="xs" color="grey-6" />
+        </template>
+      </ChannelsList>
     </div>
 
     <q-list dense class="sidebar-content__footer">
@@ -59,6 +67,11 @@ const handleSignOut = () => {
 
   &__main {
     flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
     overflow: auto;
   }
 }
