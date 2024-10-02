@@ -73,6 +73,10 @@ export const useMainStore = defineStore('main', {
       this.signIn();
     },
 
+    signOut() {
+      this.user = undefined;
+    },
+
     createChannel(title: Channel['title'], type: Channel['type']) {
       const channels = this.channels || [];
 

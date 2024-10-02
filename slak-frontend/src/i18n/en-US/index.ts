@@ -11,6 +11,8 @@ export default {
       leave_channel: 'Leave channel',
       delete_channel: 'Delete channel',
     },
+
+    sign_out: 'Sign out',
   },
 
   messages: {

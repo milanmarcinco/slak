@@ -1,16 +1,28 @@
 <template>
-  <div
-    class="sidebar-content fit q-px-sm q-py-md bg-dark rounded-borders column"
-  >
-    <ChannelsList
-      :title="$t('sidebar.public_channels')"
-      :channels="publicChannels"
-    />
+  <div class="sidebar-content fit q-px-sm q-py-md bg-dark rounded-borders">
+    <div class="sidebar-content__main">
+      <ChannelsList
+        :title="$t('sidebar.public_channels')"
+        :channels="publicChannels"
+      />
 
-    <ChannelsList
-      :title="$t('sidebar.private_channels')"
-      :channels="privateChannels"
-    />
+      <ChannelsList
+        :title="$t('sidebar.private_channels')"
+        :channels="privateChannels"
+      />
+    </div>
+
+    <q-list dense class="sidebar-content__footer">
+      <q-item clickable v-ripple class="rounded-borders" @click="handleSignOut">
+        <q-item-section>
+          {{ $t('sidebar.sign_out') }}
+        </q-item-section>
+
+        <q-item-section avatar>
+          <q-icon name="logout" size="xs" />
+        </q-item-section>
+      </q-item>
+    </q-list>
   </div>
 </template>
 
@@ -19,7 +31,9 @@ import { ChannelType } from 'components/models';
 import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
 import { useMainStore } from 'stores/main';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const mainStore = useMainStore();
 
 const publicChannels = computed(() =>
@@ -29,10 +43,23 @@ const publicChannels = computed(() =>
 const privateChannels = computed(() =>
   mainStore.channels?.filter((channel) => channel.type === ChannelType.Private)
 );
+
+const handleSignOut = () => {
+  mainStore.signOut();
+  router.push({ name: 'sign-in' });
+};
 </script>
 
 <style scoped lang="scss">
 .sidebar-content {
   gap: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex-grow: 1;
+    overflow: auto;
+  }
 }
 </style>
