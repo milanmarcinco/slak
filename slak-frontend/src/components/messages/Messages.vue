@@ -1,15 +1,15 @@
 <template>
   <q-infinite-scroll
-    @load="undefined"
+    @load="handleLoadMore"
     class="full-height q-px-md overflow-auto"
     :key="activeChannelId!"
     reverse
   >
-    <!-- <template v-slot:loading>
-          <div class="row justify-center q-my-md">
-            <q-spinner color="primary" name="dots" size="40px" />
-          </div>
-        </template> -->
+    <template v-slot:loading>
+      <div class="row justify-center q-my-md">
+        <q-spinner color="primary" name="dots" size="40px" />
+      </div>
+    </template>
 
     <Message
       v-for="message in messages"
@@ -29,13 +29,14 @@
 </template>
 
 <script setup lang="ts">
+import { QInfiniteScrollProps } from 'quasar';
 import { computed, onMounted } from 'vue';
 
-import { useActiveChannelId } from 'src/composables/useActiveChannelId';
-import { useMainStore } from 'src/stores/main';
+import EmptyMessage from 'components/shared/EmptyMessage.vue';
+import { useActiveChannelId } from 'composables/useActiveChannelId';
+import { useMainStore } from 'stores/main';
 
 import Message from './Message.vue';
-import EmptyMessage from '../shared/EmptyMessage.vue';
 
 const mainStore = useMainStore();
 const activeChannelId = useActiveChannelId();
@@ -45,6 +46,10 @@ const userId = mainStore.user?.id;
 const messages = computed(() =>
   activeChannelId.value ? mainStore.messages[activeChannelId.value] : null
 );
+
+const handleLoadMore: QInfiniteScrollProps['onLoad'] = (_, done) => {
+  setTimeout(() => done(true), 1000);
+};
 
 onMounted(() => {
   mainStore.setReadChannel(activeChannelId.value!);
