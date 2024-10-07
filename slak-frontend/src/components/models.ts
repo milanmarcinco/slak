@@ -23,4 +23,5 @@ export interface Message {
   author: User;
   content: string;
   createdAt: string;
+  preview?: boolean;
 }

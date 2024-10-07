@@ -1,8 +1,10 @@
 <template>
   <div class="command-line">
+    <TypingList :users="users.slice(0, 3)" />
+
     <div
       v-if="mentions.length"
-      class="command-line__mentions q-pa-sm q-mb-sm rounded-borders"
+      class="command-line__mentions q-pa-sm q-mb-sm rounded-borders bg-dark"
     >
       <q-chip
         v-for="user of mentions"
@@ -63,8 +65,11 @@ import { useI18n } from 'vue-i18n';
 import { useCommandLine } from 'composables/useCommandLine';
 
 import MentionPicker from './MentionPicker.vue';
+import TypingList from './TypingList.vue';
 
 import { User } from '../models';
+
+import users from 'stores/seed/users.json';
 
 const COMMAND_LINE_REF = 'command-line';
 
@@ -140,8 +145,6 @@ defineOptions({
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-
-    background-color: $dark;
 
     .q-chip {
       font-size: $font-xs;

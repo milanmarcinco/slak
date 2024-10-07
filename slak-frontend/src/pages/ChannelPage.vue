@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-px-md q-py-md">
+  <q-page class="q-px-md q-pt-md">
     <Messages />
   </q-page>
 </template>

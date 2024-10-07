@@ -217,6 +217,7 @@
       "lastName": "Hall"
     },
     "createdAt": "2023-09-25T14:35:48Z",
-    "content": "It’s almost the weekend! Any plans?"
+    "content": "It’s almost the weekend! Any plans?",
+    "preview": true
   }
 ]

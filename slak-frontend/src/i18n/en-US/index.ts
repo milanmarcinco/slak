@@ -2,6 +2,10 @@ export default {
   title: 'Slak',
   not_found: 'Page not found',
 
+  common: {
+    and: 'and',
+  },
+
   sidebar: {
     public_channels: 'Public channels',
     private_channels: 'Private channels',
@@ -49,6 +53,7 @@ export default {
 
   messages: {
     no_messages: 'No messages yet...',
+    typing: 'is typing... | are typing...',
   },
 
   command_line: {

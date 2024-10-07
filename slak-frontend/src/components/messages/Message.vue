@@ -3,6 +3,7 @@
     class="message"
     :class="{
       'message--sent': sent,
+      'message--preview': preview,
     }"
   >
     <div class="message__caption">{{ caption }}</div>
@@ -11,15 +12,23 @@
 </template>
 
 <script setup lang="ts">
-const { author, content, createdAt, sent } = defineProps<{
+import { useI18n } from 'vue-i18n';
+
+const { author, content, createdAt, preview, sent } = defineProps<{
   author: string;
   content: string;
   createdAt: string;
+  preview?: boolean;
   sent?: boolean;
 }>();
 
+const { t } = useI18n();
+
 const datetime = new Date(createdAt).toLocaleString();
-const caption = author + ' • ' + datetime;
+
+const caption = preview
+  ? `${author} ${t('messages.typing')}`
+  : `${author} • ${datetime}`;
 
 defineOptions({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -41,8 +50,11 @@ defineOptions({
   }
 
   &__content {
+    width: max-content;
+
     padding: 6px 8px;
     margin-top: 2px;
+    
     background-color: $dark;
     border-radius: 6px;
   }
@@ -52,7 +64,17 @@ defineOptions({
 
     .message {
       &__content {
+        margin-left: auto;
         background-color: $primary;
+      }
+    }
+  }
+
+  &--preview {
+    .message {
+      &__caption,
+      &__content {
+        color: $light;
       }
     }
   }

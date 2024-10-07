@@ -1,7 +1,7 @@
 <template>
   <q-infinite-scroll
     @load="handleLoadMore"
-    class="full-height q-px-md overflow-auto"
+    class="full-height q-pa-md overflow-auto"
     :key="activeChannelId!"
     reverse
   >
@@ -16,7 +16,8 @@
       :author="message.author.nickName"
       :content="message.content"
       :created-at="message.createdAt"
-      :sent="userId === message.author.id"
+      :sent="message.author.id === userId"
+      :preview="message.preview"
       :key="message.id"
     />
 
