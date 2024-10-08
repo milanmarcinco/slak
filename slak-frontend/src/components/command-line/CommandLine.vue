@@ -56,6 +56,12 @@
       </q-input>
     </form>
   </div>
+
+  <ChannelUsersList
+    :is-open="channelUsersListIsOpen"
+    @close="channelUsersListIsOpen = false"
+    :channel-id="activeChannelid"
+  />
 </template>
 
 <script setup lang="ts">
@@ -63,13 +69,16 @@ import { ref, useTemplateRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useCommandLine } from 'composables/useCommandLine';
+import { useActiveChannelId } from 'composables/useActiveChannelId';
+
+import users from 'stores/seed/users.json';
 
 import MentionPicker from './MentionPicker.vue';
 import TypingList from './TypingList.vue';
 
-import { User } from '../models';
+import ChannelUsersList from 'components/channels/ChannelUsersList.vue';
 
-import users from 'stores/seed/users.json';
+import { User } from '../models';
 
 const COMMAND_LINE_REF = 'command-line';
 
@@ -81,7 +90,13 @@ const mentions = ref<User[]>([]);
 const mentionSelectVisible = ref(false);
 const commandLineRef = useTemplateRef<HTMLInputElement>(COMMAND_LINE_REF);
 
-const { isCommandMode, isValidCommand, execCommand } = useCommandLine(value);
+const channelUsersListIsOpen = ref(false);
+const activeChannelid = useActiveChannelId();
+
+const { isCommandMode, isValidCommand, execCommand } = useCommandLine({
+  text: value,
+  onList: () => (channelUsersListIsOpen.value = true),
+});
 
 const handleKeyPress = (event: KeyboardEvent) => {
   if (event.key === '@') {

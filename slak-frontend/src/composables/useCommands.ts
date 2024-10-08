@@ -10,7 +10,11 @@ interface Command<Args extends string[] = string[]> {
   getIsAllowed?: (args: Partial<Args>) => boolean;
 }
 
-export const useCommands = () => {
+export interface UseCommands {
+  onList: () => void;
+}
+
+export const useCommands = ({ onList }: UseCommands) => {
   const router = useRouter();
   const mainStore = useMainStore();
   const activeChannel = useActiveChannel();
@@ -97,6 +101,7 @@ export const useCommands = () => {
     list: {
       handler: async () => {
         console.log('list');
+        onList();
       },
     },
   };

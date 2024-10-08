@@ -19,6 +19,10 @@ export default {
     sign_out: 'Sign out',
   },
 
+  channel: {
+    members: 'Members of {channelName}',
+  },
+
   create_channel: {
     title: 'Create a new channel',
 

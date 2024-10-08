@@ -1,8 +1,16 @@
 import { computed, ref, Ref } from 'vue';
-import { useCommands } from './useCommands';
+import { UseCommands, useCommands } from './useCommands';
 
-export const useCommandLine = (text: Ref<string, string>) => {
-  const commands = useCommands();
+export const useCommandLine = ({
+  text,
+  onList,
+}: {
+  text: Ref<string, string>;
+  onList: UseCommands['onList'];
+}) => {
+  const commands = useCommands({
+    onList,
+  });
 
   const isCommandMode = computed(() => text.value.startsWith('/'));
   const isValidCommand = computed(() => getIsValidCommand());
