@@ -31,6 +31,10 @@
     </div>
 
     <q-list dense class="sidebar-content__footer">
+      <StatusChip />
+
+      <q-separator class="q-my-sm" />
+
       <q-item clickable v-ripple class="rounded-borders" @click="handleSignOut">
         <q-item-section>
           {{ $t('sidebar.sign_out') }}
@@ -45,12 +49,16 @@
 </template>
 
 <script setup lang="ts">
-import { Channel, ChannelType } from 'components/models';
-import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
 import { useMainStore } from 'stores/main';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+import { Channel, ChannelType } from 'components/models';
+
+import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
+
 import CreateChannelModal from './CreateChannelModal.vue';
+import StatusChip from './StatusChip.vue';
 
 const router = useRouter();
 const mainStore = useMainStore();

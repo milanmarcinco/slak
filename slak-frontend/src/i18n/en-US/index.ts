@@ -16,6 +16,12 @@ export default {
       delete_channel: 'Delete channel',
     },
 
+    status: {
+      online: 'Online',
+      do_not_disturb: 'Do not disturb',
+      offline: 'Offline',
+    },
+
     sign_out: 'Sign out',
   },
 
