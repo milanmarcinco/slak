@@ -5,13 +5,7 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          <div class="app-brand row items-center non-selectable">
-            <q-avatar>
-              <SlakLogo white />
-            </q-avatar>
-
-            <span class="app-brand__name">{{ $t('title') }}</span>
-          </div>
+          <AppBrand />
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -37,8 +31,8 @@
 import { ref } from 'vue';
 
 import CommandLine from 'components/command-line/CommandLine.vue';
-import SlakLogo from 'components/shared/SlakLogo.vue';
 import SidebarContent from 'components/sidebar/SidebarContent.vue';
+import AppBrand from 'src/components/shared/AppBrand.vue';
 
 const leftDrawerOpen = ref(false);
 
@@ -52,21 +46,18 @@ defineOptions({
 </script>
 
 <style lang="scss">
-.app-brand {
-  &__name {
-    margin-left: 0.25rem;
-
-    font-size: 1rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-
-    text-shadow: 0px 0px 16px rgba(255, 255, 255, 1);
-  }
-}
-
 .q-header {
   background-color: $dark-page;
+
+  .q-toolbar__title {
+    &.ellipsis {
+      overflow: visible;
+    }
+  }
+
+  .q-avatar__content {
+    overflow: visible !important;
+  }
 }
 
 .q-drawer {

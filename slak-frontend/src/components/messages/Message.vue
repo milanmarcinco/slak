@@ -4,10 +4,14 @@
     :class="{
       'message--sent': sent,
       'message--preview': preview,
+      'message--privacy': privacy,
     }"
   >
     <div class="message__caption">{{ caption }}</div>
-    <div class="message__content">{{ content }}</div>
+
+    <div class="message__content-container">
+      <span class="message__content">{{ content }}</span>
+    </div>
   </div>
 </template>
 
@@ -20,6 +24,7 @@ const { author, content, createdAt, preview, sent } = defineProps<{
   createdAt: string;
   preview?: boolean;
   sent?: boolean;
+  privacy?: boolean;
 }>();
 
 const { t } = useI18n();
@@ -40,6 +45,7 @@ defineOptions({
 .message {
   width: max-content;
   max-width: calc(2 / 3 * 100%);
+  cursor: default;
 
   & + & {
     margin-top: 12px;
@@ -49,7 +55,7 @@ defineOptions({
     font-size: $font-xs;
   }
 
-  &__content {
+  &__content-container {
     width: max-content;
 
     padding: 6px 8px;
@@ -59,11 +65,15 @@ defineOptions({
     border-radius: 6px;
   }
 
+  &__content {
+    transition: 150ms opacity ease-in-out;
+  }
+
   &--sent {
     margin-left: auto;
 
     .message {
-      &__content {
+      &__content-container {
         margin-left: auto;
         background-color: $primary;
       }
@@ -73,8 +83,20 @@ defineOptions({
   &--preview {
     .message {
       &__caption,
-      &__content {
+      &__content-container {
         color: $light;
+      }
+    }
+  }
+
+  &--privacy {
+    .message {
+      &__content {
+        opacity: 0;
+
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }

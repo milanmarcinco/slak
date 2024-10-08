@@ -18,6 +18,7 @@
       :created-at="message.createdAt"
       :sent="message.author.id === userId"
       :preview="message.preview"
+      :privacy="mainStore.privacyMode"
       :key="message.id"
     />
 

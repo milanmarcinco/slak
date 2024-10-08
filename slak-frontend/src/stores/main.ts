@@ -12,6 +12,8 @@ interface State {
   user?: User;
   channels?: Channel[];
   messages: Record<string, Message[]>;
+
+  privacyMode: boolean;
 }
 
 export const useMainStore = defineStore('main', {
@@ -55,6 +57,8 @@ export const useMainStore = defineStore('main', {
       3: messages_3,
       4: [],
     },
+
+    privacyMode: false,
   }),
 
   getters: {},
@@ -108,6 +112,10 @@ export const useMainStore = defineStore('main', {
 
     deleteChannel(channelId: Channel['id']) {
       this.leaveChannel(channelId);
+    },
+
+    togglePrivacyMode() {
+      this.privacyMode = !this.privacyMode;
     },
   },
 });

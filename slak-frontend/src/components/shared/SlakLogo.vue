@@ -5,6 +5,7 @@
     class="slak-logo"
     :class="{
       'slak-logo--white': white,
+      'slak-logo--glow': glow,
     }"
     viewBox="0 0 427 427"
     width="512"
@@ -38,8 +39,9 @@
 </template>
 
 <script setup lang="ts">
-const { white } = defineProps<{
+const { white, glow } = defineProps<{
   white?: boolean;
+  glow?: boolean;
 }>();
 
 defineOptions({
@@ -53,6 +55,9 @@ defineOptions({
   width: 100%;
 
   padding: 6px;
+  overflow: visible;
+
+  transition: 150ms filter ease-in-out;
 
   .s0 {
     fill: #e0305a;
@@ -77,6 +82,10 @@ defineOptions({
     .s3 {
       fill: white;
     }
+  }
+
+  &--glow {
+    filter: drop-shadow(0px 0px 12px rgba(255, 255, 255, 1));
   }
 }
 </style>
