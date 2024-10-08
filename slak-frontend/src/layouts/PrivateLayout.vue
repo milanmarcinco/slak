@@ -5,11 +5,13 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
+          <div class="app-brand row items-center non-selectable">
+            <q-avatar>
+              <SlakLogo white />
+            </q-avatar>
 
-          {{ $t('title') }}
+            <span class="app-brand__name">{{ $t('title') }}</span>
+          </div>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -33,8 +35,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+import CommandLine from 'components/command-line/CommandLine.vue';
+import SlakLogo from 'components/shared/SlakLogo.vue';
 import SidebarContent from 'components/sidebar/SidebarContent.vue';
-import CommandLine from 'src/components/command-line/CommandLine.vue';
 
 const leftDrawerOpen = ref(false);
 
@@ -48,6 +52,19 @@ defineOptions({
 </script>
 
 <style lang="scss">
+.app-brand {
+  &__name {
+    margin-left: 0.25rem;
+
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    text-shadow: 0px 0px 16px rgba(255, 255, 255, 1);
+  }
+}
+
 .q-header {
   background-color: $dark-page;
 }
