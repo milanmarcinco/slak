@@ -114,6 +114,22 @@ export const useMainStore = defineStore('main', {
       this.leaveChannel(channelId);
     },
 
+    sendMessage(channelId: Channel['id'], content: Message['content']) {
+      if (!this.channels) return;
+
+      const newMessage: Message = {
+        id: Math.ceil(Math.random() * 999999),
+        author: this.user!,
+        content,
+        createdAt: new Date().toISOString(),
+      };
+
+      const messages = this.messages[channelId];
+      const newMessages = [...messages, newMessage];
+
+      this.messages[channelId] = newMessages;
+    },
+
     togglePrivacyMode() {
       this.privacyMode = !this.privacyMode;
     },

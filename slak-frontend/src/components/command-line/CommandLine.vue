@@ -60,7 +60,7 @@
   <ChannelUsersList
     :is-open="channelUsersListIsOpen"
     @close="channelUsersListIsOpen = false"
-    :channel-id="activeChannelid"
+    :channel-id="activeChannelId"
   />
 </template>
 
@@ -68,9 +68,10 @@
 import { ref, useTemplateRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { useCommandLine } from 'composables/useCommandLine';
 import { useActiveChannelId } from 'composables/useActiveChannelId';
+import { useCommandLine } from 'composables/useCommandLine';
 
+import { useMainStore } from 'stores/main';
 import users from 'stores/seed/users.json';
 
 import MentionPicker from './MentionPicker.vue';
@@ -91,7 +92,9 @@ const mentionSelectVisible = ref(false);
 const commandLineRef = useTemplateRef<HTMLInputElement>(COMMAND_LINE_REF);
 
 const channelUsersListIsOpen = ref(false);
-const activeChannelid = useActiveChannelId();
+const activeChannelId = useActiveChannelId();
+
+const mainStore = useMainStore();
 
 const { isCommandMode, isValidCommand, execCommand } = useCommandLine({
   text: value,
@@ -122,7 +125,8 @@ const handleSubmit = (event: Event) => {
 
     execCommand();
   } else {
-    // Handle message
+    if (!activeChannelId.value) return;
+    mainStore.sendMessage(activeChannelId.value, input);
   }
 
   mentions.value = [];
