@@ -13,13 +13,14 @@
       </template>
 
       <Message
-        v-for="message in messages"
+        v-for="(message, idx) in messages"
         :author="message.author.nickName"
         :content="message.content"
         :created-at="message.createdAt"
         :sent="message.author.id === userId"
         :preview="message.preview"
         :privacy="mainStore.privacyMode"
+        :highlight="idx === (messages?.length || 0) - 3"
         :key="message.id"
       />
 

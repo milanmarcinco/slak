@@ -5,6 +5,7 @@
       'message--sent': sent,
       'message--preview': preview,
       'message--privacy': privacy,
+      'message--highlight': highlight,
     }"
   >
     <div class="message__caption">{{ caption }}</div>
@@ -12,20 +13,24 @@
     <div class="message__content-container">
       <span class="message__content">{{ content }}</span>
     </div>
+
+    
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-const { author, content, createdAt, preview, sent } = defineProps<{
-  author: string;
-  content: string;
-  createdAt: string;
-  preview?: boolean;
-  sent?: boolean;
-  privacy?: boolean;
-}>();
+const { author, content, createdAt, preview, sent, privacy, highlight } =
+  defineProps<{
+    author: string;
+    content: string;
+    createdAt: string;
+    preview?: boolean;
+    sent?: boolean;
+    privacy?: boolean;
+    highlight?: boolean;
+  }>();
 
 const { t } = useI18n();
 
@@ -45,6 +50,7 @@ defineOptions({
 .message {
   width: max-content;
   max-width: 80%;
+
   cursor: default;
 
   & + & {
@@ -100,6 +106,14 @@ defineOptions({
         }
       }
     }
+  }
+
+  &--highlight {
+    padding: 6px 6px 6px 8px;
+
+    border-left: 4px solid $warning;
+    border-radius: $border-radius;
+    background-color: #37311e;
   }
 }
 </style>
