@@ -20,7 +20,14 @@ const router = useRouter();
 
 const handleSignUp = () => {
   mainStore.signUp();
-  router.push({ name: 'index' });
+
+  const from = router.currentRoute.value.redirectedFrom;
+
+  const defaultFrom = {
+    name: 'index',
+  };
+
+  router.push(from || defaultFrom);
 };
 
 defineOptions({
