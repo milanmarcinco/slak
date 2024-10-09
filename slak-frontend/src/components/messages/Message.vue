@@ -44,7 +44,7 @@ defineOptions({
 <style scoped lang="scss">
 .message {
   width: max-content;
-  max-width: calc(2 / 3 * 100%);
+  max-width: 80%;
   cursor: default;
 
   & + & {
@@ -56,7 +56,8 @@ defineOptions({
   }
 
   &__content-container {
-    width: max-content;
+    width: 100%;
+    max-width: max-content;
 
     padding: 6px 8px;
     margin-top: 2px;
