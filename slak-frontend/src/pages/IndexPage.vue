@@ -1,5 +1,5 @@
 <template>
-  <q-page class="column items-center justify-center">
+  <q-page class="q-px-sm column items-center justify-center">
     <h2 class="text-h4 text-center">Welcome back! 🎉</h2>
 
     <p class="text-center">

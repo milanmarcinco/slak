@@ -18,6 +18,7 @@
         />
 
         <q-input
+          type="password"
           :label="$t('sign_in.fields.password.label')"
           v-model="password"
           standout

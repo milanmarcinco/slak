@@ -19,7 +19,8 @@ defineOptions({
   height: 100%;
   width: 100%;
   max-width: 24rem;
-
+  
+  padding: 16px;
   margin: 0 auto;
 }
 </style>
