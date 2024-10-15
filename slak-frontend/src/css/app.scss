@@ -14,8 +14,16 @@ body,
   &--with-bottom:has(&__messages:empty) {
     padding-bottom: 0;
   }
-  
+
   &__bottom:has(&__messages:empty) {
     display: none;
+  }
+}
+
+a {
+  color: $light;
+
+  &:hover {
+    color: $primary;
   }
 }

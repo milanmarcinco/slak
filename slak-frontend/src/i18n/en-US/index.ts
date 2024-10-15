@@ -76,10 +76,92 @@ export default {
   },
 
   sign_up: {
+    title: 'Create a Slak account,',
+    subtitle: 'or just sign in.',
+
     action: 'Sign up',
+
+    fields: {
+      email: {
+        label: 'Email',
+
+        validation: {
+          required: 'Email is required',
+        },
+      },
+
+      nick_name: {
+        label: 'Nick name',
+
+        validation: {
+          required: 'Nick name is required',
+          min: 'Nick name must be at least 3 characters long',
+          max: 'Nick name must be at most 30 characters long',
+        },
+      },
+
+      first_name: {
+        label: 'First name',
+
+        validation: {
+          required: 'First name is required',
+          min: 'First name must be at least 2 characters long',
+          max: 'First name must be at most 30 characters long',
+        },
+      },
+
+      last_name: {
+        label: 'Last name',
+
+        validation: {
+          required: 'Last name is required',
+          min: 'Last name must be at least 2 characters long',
+          max: 'Last name must be at most 30 characters long',
+        },
+      },
+
+      password: {
+        label: 'Password',
+
+        validation: {
+          required: 'Password is required',
+          min: 'Password must be at least 8 characters long',
+          max: 'Password must be at most 30 characters long',
+        },
+      },
+
+      password_repeat: {
+        label: 'Repeat password',
+
+        validation: {
+          no_match: "Passwords don't match",
+        },
+      },
+    },
   },
 
   sign_in: {
+    title: 'Sign in to Slak,',
+    subtitle: 'or create an account.',
+
     action: 'Sign in',
+
+    fields: {
+      email: {
+        label: 'Email',
+
+        validation: {
+          required: 'Email is required',
+        },
+      },
+
+      password: {
+        label: 'Password',
+
+        validation: {
+          required: 'Password is required',
+        },
+      },
+    },
   },
 };

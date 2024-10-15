@@ -2,7 +2,9 @@
   <router-view v-if="!mainStore.initializing" />
 
   <AuthFormContainer>
-    <div v-if="mainStore.initializing">Loading...</div>
+    <div v-if="mainStore.initializing" class="text-center">
+      <q-spinner color="primary" size="3rem" />
+    </div>
   </AuthFormContainer>
 </template>
 
