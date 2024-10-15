@@ -42,6 +42,7 @@ export const useMainStore = defineStore('main', {
         title: 'Secret',
         adminId: 1,
         type: ChannelType.Private,
+        invite: true,
       },
       {
         id: 4,
@@ -101,6 +102,7 @@ export const useMainStore = defineStore('main', {
 
       if (channel) {
         channel.unread = false;
+        channel.invite = false;
       }
     },
 

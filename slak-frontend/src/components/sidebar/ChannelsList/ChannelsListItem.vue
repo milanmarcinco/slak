@@ -7,6 +7,7 @@
     :class="{
       'channels-list-item--active': isActive,
       'channels-list-item--unread': channel.unread,
+      'channels-list-item--invite': channel.invite,
     }"
   >
     <q-item-section>{{ channel.title }}</q-item-section>
@@ -114,6 +115,14 @@ defineOptions({
     &:before {
       height: $unit_medium;
       background-color: $primary;
+    }
+  }
+
+  &--invite {
+    background-color: rgba($warning, 0.1);
+
+    &:before {
+      background-color: $warning;
     }
   }
 }

@@ -16,6 +16,7 @@ export interface Channel {
   adminId: User['id'];
   type: ChannelType;
   unread?: boolean;
+  invite?: boolean;
 }
 
 export interface Message {
