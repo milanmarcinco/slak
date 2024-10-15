@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -21,6 +22,7 @@ enum Status {
   Offline = 'OFFLINE',
 }
 
+const $q = useQuasar();
 const { t } = useI18n();
 
 const statuses = Object.values(Status);
@@ -51,6 +53,10 @@ const status = computed(() => {
 
 const handleClick = () => {
   activeStatusIdx.value = (activeStatusIdx.value + 1) % statuses.length;
+
+  $q.notify({
+    message: `Status changed to '${status.value.label.toLowerCase()}'`,
+  });
 };
 </script>
 
