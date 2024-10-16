@@ -25,6 +25,7 @@
       class="bg-dark rounded-borders relative-position"
     >
       <MentionPicker
+        v-if="mentionSelectVisible"
         :is-open="mentionSelectVisible"
         @select-mention="handleSelectMention"
         @dismiss="handleDismissMention"

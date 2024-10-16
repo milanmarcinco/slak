@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="mention-picker bg-dark rounded-borders q-pa-md">
+  <div class="mention-picker bg-dark rounded-borders q-pa-md">
     <q-list dense>
       <q-item
         v-for="(user, idx) in filteredUsers"
@@ -36,19 +36,20 @@
     </q-list>
 
     <q-input
+      ref="mention-picker-input"
       v-model="value"
       @keydown="handleKeyPress"
       class="q-mt-md"
       type="text"
       standout
       dense
-      autofocus
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { QInput } from 'quasar';
+import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
 
 import { clampNumber } from 'lib/helpers';
 
@@ -57,10 +58,6 @@ import { User } from '../models';
 import dummyUsers from 'stores/seed/users.json';
 
 const START_IDX = 0;
-
-const { isOpen } = defineProps<{
-  isOpen: boolean;
-}>();
 
 const emit = defineEmits<{
   selectMention: [user: User];
@@ -134,13 +131,19 @@ const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement;
 
   if (!target.closest('.mention-picker')) {
-    if (isOpen) {
-      handleDismiss();
-    }
+    handleDismiss();
   }
 };
 
-onMounted(() => document.addEventListener('click', handleClickOutside));
+const mentionPickerInput = useTemplateRef<QInput>('mention-picker-input');
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+
+  if (!mentionPickerInput.value) return;
+  setTimeout(() => mentionPickerInput.value!.focus());
+});
+
 onUnmounted(() => document.removeEventListener('click', handleClickOutside));
 
 defineOptions({
