@@ -1,8 +1,15 @@
+export enum UserStatus {
+  Online = 'ONLINE',
+  DoNotDisturb = 'DO_NOT_DISTURB',
+  Offline = 'OFFLINE',
+}
+
 export interface User {
   id: number;
   nickName: string;
   firstName: string;
   lastName: string;
+  status: UserStatus;
 }
 
 export enum ChannelType {

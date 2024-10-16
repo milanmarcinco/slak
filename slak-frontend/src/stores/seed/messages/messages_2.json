@@ -5,7 +5,8 @@
       "id": 1,
       "nickName": "johndoe",
       "firstName": "John",
-      "lastName": "Doe"
+      "lastName": "Doe",
+      "status": "ONLINE"
     },
     "content": "Just a quick reminder about tomorrow's client call.",
     "createdAt": "2023-07-15T09:23:16Z"
@@ -16,7 +17,8 @@
       "id": 2,
       "nickName": "janesmith",
       "firstName": "Jane",
-      "lastName": "Smith"
+      "lastName": "Smith",
+      "status": "ONLINE"
     },
     "content": "I uploaded the latest design files to the shared folder.",
     "createdAt": "2023-08-03T12:48:29Z"
@@ -27,7 +29,8 @@
       "id": 3,
       "nickName": "roberthall",
       "firstName": "Robert",
-      "lastName": "Hall"
+      "lastName": "Hall",
+      "status": "ONLINE"
     },
     "content": "Has anyone heard back from the client yet?",
     "createdAt": "2023-06-25T14:12:03Z"
@@ -38,7 +41,8 @@
       "id": 4,
       "nickName": "sarawilson",
       "firstName": "Sara",
-      "lastName": "Wilson"
+      "lastName": "Wilson",
+      "status": "ONLINE"
     },
     "content": "We need to finalize the agenda for Friday’s meeting.",
     "createdAt": "2023-09-14T11:05:45Z"
@@ -49,7 +53,8 @@
       "id": 5,
       "nickName": "mikebrown",
       "firstName": "Mike",
-      "lastName": "Brown"
+      "lastName": "Brown",
+      "status": "ONLINE"
     },
     "content": "Can someone update the budget tracker, please?",
     "createdAt": "2023-04-12T17:32:21Z"
@@ -60,7 +65,8 @@
       "id": 6,
       "nickName": "annajones",
       "firstName": "Anna",
-      "lastName": "Jones"
+      "lastName": "Jones",
+      "status": "ONLINE"
     },
     "content": "I’ll be out of office tomorrow, but feel free to reach me via email.",
     "createdAt": "2023-05-01T08:55:10Z"
@@ -71,7 +77,8 @@
       "id": 1,
       "nickName": "johndoe",
       "firstName": "John",
-      "lastName": "Doe"
+      "lastName": "Doe",
+      "status": "ONLINE"
     },
     "content": "The presentation is ready for review.",
     "createdAt": "2023-07-21T16:43:08Z"
@@ -82,7 +89,8 @@
       "id": 2,
       "nickName": "janesmith",
       "firstName": "Jane",
-      "lastName": "Smith"
+      "lastName": "Smith",
+      "status": "ONLINE"
     },
     "content": "Could we schedule a quick sync later today?",
     "createdAt": "2023-08-11T09:11:57Z"
@@ -93,7 +101,8 @@
       "id": 3,
       "nickName": "roberthall",
       "firstName": "Robert",
-      "lastName": "Hall"
+      "lastName": "Hall",
+      "status": "ONLINE"
     },
     "content": "Thanks for the feedback, I’ll make those changes right away.",
     "createdAt": "2023-06-20T10:25:33Z"
@@ -104,7 +113,8 @@
       "id": 4,
       "nickName": "sarawilson",
       "firstName": "Sara",
-      "lastName": "Wilson"
+      "lastName": "Wilson",
+      "status": "ONLINE"
     },
     "content": "Looking forward to our team-building event next week!",
     "createdAt": "2023-09-18T07:22:40Z"
@@ -115,7 +125,8 @@
       "id": 5,
       "nickName": "mikebrown",
       "firstName": "Mike",
-      "lastName": "Brown"
+      "lastName": "Brown",
+      "status": "ONLINE"
     },
     "content": "The marketing team has shared their latest updates.",
     "createdAt": "2023-04-28T19:13:22Z"
@@ -126,7 +137,8 @@
       "id": 6,
       "nickName": "annajones",
       "firstName": "Anna",
-      "lastName": "Jones"
+      "lastName": "Jones",
+      "status": "ONLINE"
     },
     "content": "Please let me know if any changes are needed to the proposal.",
     "createdAt": "2023-05-10T10:47:54Z"
@@ -137,7 +149,8 @@
       "id": 1,
       "nickName": "johndoe",
       "firstName": "John",
-      "lastName": "Doe"
+      "lastName": "Doe",
+      "status": "ONLINE"
     },
     "content": "Can we reschedule our meeting to later this afternoon?",
     "createdAt": "2023-07-12T15:05:38Z"
@@ -148,7 +161,8 @@
       "id": 2,
       "nickName": "janesmith",
       "firstName": "Jane",
-      "lastName": "Smith"
+      "lastName": "Smith",
+      "status": "ONLINE"
     },
     "content": "I’m available after 3 PM for a quick sync.",
     "createdAt": "2023-08-17T13:18:12Z"
@@ -159,7 +173,8 @@
       "id": 3,
       "nickName": "roberthall",
       "firstName": "Robert",
-      "lastName": "Hall"
+      "lastName": "Hall",
+      "status": "ONLINE"
     },
     "content": "Let me know if you need help with the documentation.",
     "createdAt": "2023-06-27T11:55:09Z"
@@ -170,7 +185,8 @@
       "id": 4,
       "nickName": "sarawilson",
       "firstName": "Sara",
-      "lastName": "Wilson"
+      "lastName": "Wilson",
+      "status": "ONLINE"
     },
     "content": "I’ve sent the invitations for tomorrow's call.",
     "createdAt": "2023-09-08T08:44:16Z"
@@ -181,7 +197,8 @@
       "id": 5,
       "nickName": "mikebrown",
       "firstName": "Mike",
-      "lastName": "Brown"
+      "lastName": "Brown",
+      "status": "ONLINE"
     },
     "content": "The invoice is approved, go ahead and process the payment.",
     "createdAt": "2023-04-14T16:29:01Z"
@@ -192,7 +209,8 @@
       "id": 6,
       "nickName": "annajones",
       "firstName": "Anna",
-      "lastName": "Jones"
+      "lastName": "Jones",
+      "status": "ONLINE"
     },
     "content": "Do you have any updates on the client feedback?",
     "createdAt": "2023-05-22T12:16:48Z"
@@ -203,7 +221,8 @@
       "id": 1,
       "nickName": "johndoe",
       "firstName": "John",
-      "lastName": "Doe"
+      "lastName": "Doe",
+      "status": "ONLINE"
     },
     "content": "I’ve attached the final version of the report for review.",
     "createdAt": "2023-07-28T18:37:02Z"
@@ -214,7 +233,8 @@
       "id": 2,
       "nickName": "janesmith",
       "firstName": "Jane",
-      "lastName": "Smith"
+      "lastName": "Smith",
+      "status": "ONLINE"
     },
     "content": "Please review the document and provide your feedback by tomorrow.",
     "createdAt": "2023-08-30T11:02:35Z"

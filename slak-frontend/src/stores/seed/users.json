@@ -3,60 +3,70 @@
     "id": 1,
     "nickName": "cstewart",
     "firstName": "Brian",
-    "lastName": "Torres"
+    "lastName": "Torres",
+    "status": "ONLINE"
   },
   {
     "id": 2,
     "nickName": "whinton",
     "firstName": "Brian",
-    "lastName": "Booker"
+    "lastName": "Booker",
+    "status": "DO_NOT_DISTURB"
   },
   {
     "id": 3,
     "nickName": "bobbylarsen",
     "firstName": "Brandon",
-    "lastName": "Roach"
+    "lastName": "Roach",
+    "status": "OFFLINE"
   },
   {
     "id": 4,
     "nickName": "johnsonrebecca",
     "firstName": "Paul",
-    "lastName": "Matthews"
+    "lastName": "Matthews",
+    "status": "OFFLINE"
   },
   {
     "id": 5,
     "nickName": "jeffrey47",
     "firstName": "Christopher",
-    "lastName": "Taylor"
+    "lastName": "Taylor",
+    "status": "DO_NOT_DISTURB"
   },
   {
     "id": 6,
     "nickName": "taylorjimenez",
     "firstName": "Brittany",
-    "lastName": "Mccarthy"
+    "lastName": "Mccarthy",
+    "status": "OFFLINE"
   },
   {
     "id": 7,
     "nickName": "tuckerkimberly",
     "firstName": "Andre",
-    "lastName": "Garcia"
+    "lastName": "Garcia",
+    "status": "ONLINE"
   },
   {
     "id": 8,
     "nickName": "michaeladams",
     "firstName": "Bruce",
-    "lastName": "Peterson"
+    "lastName": "Peterson",
+    "status": "ONLINE"
   },
   {
     "id": 9,
     "nickName": "ohenderson",
     "firstName": "Sharon",
-    "lastName": "Hayden"
+    "lastName": "Hayden",
+    "status": "ONLINE"
   },
   {
     "id": 10,
     "nickName": "aaronevans",
     "firstName": "Lindsay",
-    "lastName": "Smith"
+    "lastName": "Smith",
+    "status": "ONLINE"
   }
 ]

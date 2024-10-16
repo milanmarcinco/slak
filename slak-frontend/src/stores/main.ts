@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 
-import { Channel, ChannelType, Message, User } from 'src/components/models';
+import {
+  Channel,
+  ChannelType,
+  Message,
+  User,
+  UserStatus,
+} from 'src/components/models';
 
 import messages_1 from './seed/messages/messages_1.json';
 import messages_2 from './seed/messages/messages_2.json';
@@ -53,9 +59,9 @@ export const useMainStore = defineStore('main', {
     ],
 
     messages: {
-      1: messages_1,
-      2: messages_2,
-      3: messages_3,
+      1: messages_1 as Message[],
+      2: messages_2 as Message[],
+      3: messages_3 as Message[],
       4: [],
     },
 
@@ -71,6 +77,7 @@ export const useMainStore = defineStore('main', {
         nickName: 'johndoe',
         firstName: 'John',
         lastName: 'Doe',
+        status: UserStatus.Online,
       };
     },
 

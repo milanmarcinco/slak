@@ -32,6 +32,10 @@
                 </span>
               </span>
             </q-item-section>
+
+            <q-item-section side>
+              <ChannelUserStatus :status="(user.status as UserStatus)" />
+            </q-item-section>
           </q-item>
         </q-list>
       </q-card-section>
@@ -40,7 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { Channel } from '../models';
+import { Channel, UserStatus } from '../models';
+
+import ChannelUserStatus from './ChannelUserStatus.vue';
 
 import users from 'stores/seed/users.json';
 

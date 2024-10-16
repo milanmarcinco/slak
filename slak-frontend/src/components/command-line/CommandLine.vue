@@ -1,6 +1,6 @@
 <template>
   <div class="command-line">
-    <TypingList :users="users.slice(0, 3)" />
+    <TypingList :users="(users.slice(0, 3) as User[])" />
 
     <div
       v-if="mentions.length"
@@ -72,7 +72,6 @@ import { useActiveChannelId } from 'composables/useActiveChannelId';
 import { useCommandLine } from 'composables/useCommandLine';
 
 import { useMainStore } from 'stores/main';
-import users from 'stores/seed/users.json';
 
 import MentionPicker from './MentionPicker.vue';
 import TypingList from './TypingList.vue';
@@ -80,6 +79,8 @@ import TypingList from './TypingList.vue';
 import ChannelUsersList from 'components/channels/ChannelUsersList.vue';
 
 import { User } from '../models';
+
+import users from 'stores/seed/users.json';
 
 const COMMAND_LINE_REF = 'command-line';
 

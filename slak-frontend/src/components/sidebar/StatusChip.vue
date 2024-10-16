@@ -16,34 +16,30 @@ import { useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-enum Status {
-  Online = 'ONLINE',
-  DoNotDisturb = 'DO_NOT_DISTURB',
-  Offline = 'OFFLINE',
-}
+import { UserStatus } from '../models';
 
 const $q = useQuasar();
 const { t } = useI18n();
 
-const statuses = Object.values(Status);
+const statuses = Object.values(UserStatus);
 const activeStatusIdx = ref(0);
 
 const status = computed(() => {
   switch (statuses[activeStatusIdx.value]) {
-    case Status.Offline:
+    case UserStatus.Offline:
       return {
         label: t('sidebar.status.offline'),
         color: 'grey-6',
       };
 
-    case Status.DoNotDisturb:
+    case UserStatus.DoNotDisturb:
       return {
         label: t('sidebar.status.do_not_disturb'),
         color: 'orange-6',
       };
 
     default:
-    case Status.Online:
+    case UserStatus.Online:
       return {
         label: t('sidebar.status.online'),
         color: 'green-6',

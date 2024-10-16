@@ -70,7 +70,7 @@ const emit = defineEmits<{
 const value = ref<string>('');
 const selectedIdx = ref<number>(0);
 
-const users = ref<User[]>(dummyUsers);
+const users = ref<User[]>(dummyUsers as User[]);
 
 const filteredUsers = computed(() =>
   users.value.filter((user) =>
