@@ -1,6 +1,6 @@
 <template>
   <div class="mention-picker bg-dark rounded-borders q-pa-md">
-    <q-list dense>
+    <q-list class="mention-picker__list overflow-auto" dense>
       <q-item
         v-for="(user, idx) in filteredUsers"
         @mouseover="selectedIdx = idx"
@@ -70,11 +70,13 @@ const selectedIdx = ref<number>(0);
 const users = ref<User[]>(dummyUsers as User[]);
 
 const filteredUsers = computed(() =>
-  users.value.filter((user) =>
-    (user.firstName + user.lastName + user.nickName)
-      .toLowerCase()
-      .includes(value.value.toLowerCase())
-  )
+  users.value
+    .filter((user) =>
+      (user.firstName + user.lastName + user.nickName)
+        .toLowerCase()
+        .includes(value.value.toLowerCase())
+    )
+    .slice(0, 5)
 );
 
 const reset = () => {
@@ -154,12 +156,20 @@ defineOptions({
 <style scoped lang="scss">
 .mention-picker {
   width: 100%;
+  max-height: 300px;
+
+  display: flex;
+  flex-direction: column;
 
   position: absolute;
   top: -16px;
   left: 0;
 
   transform: translateY(-100%);
+
+  &__list {
+    flex-grow: 1;
+  }
 
   &__item {
     cursor: pointer;
