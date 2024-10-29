@@ -93,20 +93,20 @@ const passwordRepeat = ref('');
 
 const nickNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.nick_name.validation.required'),
-  (val) => val.length < 3 || t('sign_up.fields.nick_name.validation.min'),
-  (val) => val.length > 30 || t('sign_up.fields.nick_name.validation.max'),
+  (val) => val.length > 3 || t('sign_up.fields.nick_name.validation.min'),
+  (val) => val.length < 30 || t('sign_up.fields.nick_name.validation.max'),
 ];
 
 const firstNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.first_name.validation.required'),
-  (val) => val.length < 2 || t('sign_up.fields.first_name.validation.min'),
-  (val) => val.length > 30 || t('sign_up.fields.first_name.validation.max'),
+  (val) => val.length > 2 || t('sign_up.fields.first_name.validation.min'),
+  (val) => val.length < 30 || t('sign_up.fields.first_name.validation.max'),
 ];
 
 const lastNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.last_name.validation.required'),
-  (val) => val.length < 2 || t('sign_up.fields.last_name.validation.min'),
-  (val) => val.length > 30 || t('sign_up.fields.last_name.validation.max'),
+  (val) => val.length > 2 || t('sign_up.fields.last_name.validation.min'),
+  (val) => val.length < 30 || t('sign_up.fields.last_name.validation.max'),
 ];
 
 const emailRules: ValidationRule<string>[] = [
