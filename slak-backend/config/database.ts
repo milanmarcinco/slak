@@ -1,24 +1,55 @@
-import env from '#start/env'
-import { defineConfig } from '@adonisjs/lucid'
+/**
+ * Config source: https://git.io/JesV9
+ *
+ * Feel free to let us know via PR, if you find something broken in this config
+ * file.
+ */
 
-const dbConfig = defineConfig({
-  connection: 'postgres',
+import Env from '@ioc:Adonis/Core/Env'
+import type { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+
+const databaseConfig: DatabaseConfig = {
+  /*
+  |--------------------------------------------------------------------------
+  | Connection
+  |--------------------------------------------------------------------------
+  |
+  | The primary connection for making database queries across the application
+  | You can use any key from the `connections` object defined in this same
+  | file.
+  |
+  */
+  connection: Env.get('DB_CONNECTION'),
+
   connections: {
-    postgres: {
+    /*
+    |--------------------------------------------------------------------------
+    | PostgreSQL config
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for PostgreSQL database. Make sure to install the driver
+    | from npm when using this connection
+    |
+    | npm i pg
+    |
+    */
+    pg: {
       client: 'pg',
       connection: {
-        host: env.get('DB_HOST'),
-        port: env.get('DB_PORT'),
-        user: env.get('DB_USER'),
-        password: env.get('DB_PASSWORD'),
-        database: env.get('DB_DATABASE'),
+        host: Env.get('PG_HOST'),
+        port: Env.get('PG_PORT'),
+        user: Env.get('PG_USER'),
+        password: Env.get('PG_PASSWORD', ''),
+        database: Env.get('PG_DB_NAME'),
       },
       migrations: {
         naturalSort: true,
-        paths: ['database/migrations'],
       },
+      healthCheck: false,
+      debug: false,
     },
-  },
-})
 
-export default dbConfig
+  }
+}
+
+export default databaseConfig
