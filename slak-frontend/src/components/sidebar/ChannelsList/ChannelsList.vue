@@ -22,7 +22,7 @@
         v-for="channel in channels"
         :channel="channel"
         :is-active="channel.id === activeChannelId"
-        :show-delete="channel.adminId === mainStore.user!.id"
+        :show-delete="channel.adminId === authStore.user?.id"
         @select-channel="handleSelectChannel"
         @leave-channel="handleLeaveChannel"
         @delete-channel="handleDeleteChannel"
@@ -40,11 +40,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-import { Channel } from 'components/models';
-import { useActiveChannelId } from 'src/composables/useActiveChannelId';
-import { useMainStore } from 'src/stores/main';
+import { useActiveChannelId } from 'composables/useActiveChannelId';
 
-import EmptyMessage from 'src/components/shared/EmptyMessage.vue';
+import { useMainStore } from 'src/stores/main';
+import { useAuthStore } from 'stores/auth';
+
+import { Channel } from 'components/models';
+import EmptyMessage from 'components/shared/EmptyMessage.vue';
+
 import ChannelsListItem from './ChannelsListItem.vue';
 
 const { title, channels } = defineProps<{
@@ -54,6 +57,7 @@ const { title, channels } = defineProps<{
 
 const router = useRouter();
 const mainStore = useMainStore();
+const authStore = useAuthStore();
 const activeChannelId = useActiveChannelId();
 
 const handleSelectChannel = (channelId: Channel['id']) => {

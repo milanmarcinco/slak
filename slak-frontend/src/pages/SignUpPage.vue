@@ -63,6 +63,7 @@
           color="primary"
           :label="$t('sign_up.action')"
           class="q-ml-auto q-mr-none block"
+          :loading="loading"
         />
       </q-form>
     </AuthFormContainer>
@@ -77,12 +78,12 @@ import { useRouter } from 'vue-router';
 
 import AuthFormContainer from 'components/auth/AuthFormContainer.vue';
 
-import { useMainStore } from 'stores/main';
+import { useAuthStore } from 'stores/auth';
 
 const { t } = useI18n();
-
-const mainStore = useMainStore();
 const router = useRouter();
+
+const authStore = useAuthStore();
 
 const nickName = ref('');
 const firstName = ref('');
@@ -93,20 +94,20 @@ const passwordRepeat = ref('');
 
 const nickNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.nick_name.validation.required'),
-  (val) => val.length > 3 || t('sign_up.fields.nick_name.validation.min'),
-  (val) => val.length < 30 || t('sign_up.fields.nick_name.validation.max'),
+  (val) => val.length >= 3 || t('sign_up.fields.nick_name.validation.min'),
+  (val) => val.length <= 30 || t('sign_up.fields.nick_name.validation.max'),
 ];
 
 const firstNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.first_name.validation.required'),
-  (val) => val.length > 2 || t('sign_up.fields.first_name.validation.min'),
-  (val) => val.length < 30 || t('sign_up.fields.first_name.validation.max'),
+  (val) => val.length >= 2 || t('sign_up.fields.first_name.validation.min'),
+  (val) => val.length <= 30 || t('sign_up.fields.first_name.validation.max'),
 ];
 
 const lastNameRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_up.fields.last_name.validation.required'),
-  (val) => val.length > 2 || t('sign_up.fields.last_name.validation.min'),
-  (val) => val.length < 30 || t('sign_up.fields.last_name.validation.max'),
+  (val) => val.length >= 2 || t('sign_up.fields.last_name.validation.min'),
+  (val) => val.length <= 30 || t('sign_up.fields.last_name.validation.max'),
 ];
 
 const emailRules: ValidationRule<string>[] = [
@@ -124,16 +125,36 @@ const passwordRepeatRules: ValidationRule<string>[] = [
     t('sign_up.fields.password_repeat.validation.no_match'),
 ];
 
-const handleSignUp = () => {
-  mainStore.signUp();
+const loading = ref(false);
+const error = ref(false);
 
-  const from = router.currentRoute.value.redirectedFrom;
+const handleSignUp = async () => {
+  try {
+    loading.value = true;
+    error.value = false;
 
-  const defaultFrom = {
-    name: 'index',
-  };
+    await authStore.signUp({
+      email: email.value,
+      password: password.value,
+      passwordConfirmation: passwordRepeat.value,
 
-  router.push(from || defaultFrom);
+      nickName: nickName.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+    });
+
+    const from = router.currentRoute.value.redirectedFrom;
+
+    router.push(
+      from || {
+        name: 'index',
+      }
+    );
+  } catch (err) {
+    error.value = true;
+  } finally {
+    loading.value = false;
+  }
 };
 
 defineOptions({

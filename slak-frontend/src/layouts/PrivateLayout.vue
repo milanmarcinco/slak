@@ -32,7 +32,7 @@ import { ref } from 'vue';
 
 import CommandLine from 'components/command-line/CommandLine.vue';
 import SidebarContent from 'components/sidebar/SidebarContent.vue';
-import AppBrand from 'src/components/shared/AppBrand.vue';
+import AppBrand from 'components/shared/AppBrand.vue';
 
 const leftDrawerOpen = ref(false);
 

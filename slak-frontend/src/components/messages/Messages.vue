@@ -39,16 +39,20 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import EmptyMessage from 'components/shared/EmptyMessage.vue';
 import { useActiveChannelId } from 'composables/useActiveChannelId';
+
 import { useMainStore } from 'stores/main';
+import { useAuthStore } from 'stores/auth';
 
 import Message from './Message.vue';
 
 const mainStore = useMainStore();
+const authStore = useAuthStore();
+
 const activeChannelId = useActiveChannelId();
 
 const scrollContainer = ref<HTMLDivElement>();
 
-const userId = mainStore.user?.id;
+const userId = authStore.user?.id;
 
 const messages = computed(() =>
   activeChannelId.value ? mainStore.messages[activeChannelId.value] : null

@@ -30,6 +30,7 @@
           color="primary"
           :label="$t('sign_in.action')"
           class="q-ml-auto q-mr-none block"
+          :loading="loading"
         />
       </q-form>
     </AuthFormContainer>
@@ -44,11 +45,11 @@ import { RouterLink, useRouter } from 'vue-router';
 
 import AuthFormContainer from 'components/auth/AuthFormContainer.vue';
 
-import { useMainStore } from 'stores/main';
+import { useAuthStore } from 'src/stores/auth';
 
 const { t } = useI18n();
 
-const mainStore = useMainStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
 const email = ref('');
@@ -63,17 +64,32 @@ const passwordRules: ValidationRule<string>[] = [
   (val) => !!val || t('sign_in.fields.password.validation.required'),
 ];
 
-const handleSignIn = () => {
-  mainStore.signIn();
+const handleSignIn = async () => {
+  try {
+    loading.value = true;
+    error.value = false;
 
-  const from = router.currentRoute.value.redirectedFrom;
+    await authStore.signIn({
+      email: email.value,
+      password: password.value,
+    });
 
-  const defaultFrom = {
-    name: 'index',
-  };
+    const from = router.currentRoute.value.redirectedFrom;
 
-  router.push(from || defaultFrom);
+    router.push(
+      from || {
+        name: 'index',
+      }
+    );
+  } catch (err) {
+    error.value = true;
+  } finally {
+    loading.value = false;
+  }
 };
+
+const loading = ref(false);
+const error = ref(false);
 
 defineOptions({
   name: 'SignInPage',

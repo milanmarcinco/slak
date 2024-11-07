@@ -8,8 +8,6 @@ import {
 
 import routes from './routes';
 
-import { useMainStore } from 'stores/main';
-
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -20,8 +18,6 @@ import { useMainStore } from 'stores/main';
  */
 
 export default route(function (/* { store, ssrContext } */) {
-  const mainStore = useMainStore();
-
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'
@@ -36,23 +32,6 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
-  });
-
-  Router.beforeEach((to, from) => {
-    if (!mainStore.user && to.meta.private) {
-      return {
-        name: 'sign-in',
-        state: {
-          from: from.fullPath,
-        },
-      };
-    }
-
-    if (mainStore.user && !to.meta.private) {
-      return {
-        name: 'index',
-      };
-    }
   });
 
   return Router;

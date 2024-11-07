@@ -1,7 +1,9 @@
 import { useRouter } from 'vue-router';
 
 import { ChannelType } from 'components/models';
+
 import { useMainStore } from 'stores/main';
+import { useAuthStore } from 'stores/auth';
 
 import { useActiveChannel } from './useActiveChannel';
 
@@ -17,6 +19,7 @@ export interface UseCommands {
 export const useCommands = ({ onList }: UseCommands) => {
   const router = useRouter();
   const mainStore = useMainStore();
+  const authStore = useAuthStore();
   const activeChannel = useActiveChannel();
 
   const commands: Record<string, Command> = {
@@ -95,7 +98,7 @@ export const useCommands = ({ onList }: UseCommands) => {
         mainStore.deleteChannel(activeChannel.value.id);
       },
       getIsAllowed() {
-        return activeChannel.value?.adminId === mainStore.user!.id;
+        return activeChannel.value?.adminId === authStore.user!.id;
       },
     },
     list: {

@@ -1,21 +1,12 @@
 import { defineStore } from 'pinia';
 
-import {
-  Channel,
-  ChannelType,
-  Message,
-  User,
-  UserStatus,
-} from 'src/components/models';
+import { Channel, ChannelType, Message } from 'src/components/models';
 
 import messages_1 from './seed/messages/messages_1.json';
 import messages_2 from './seed/messages/messages_2.json';
 import messages_3 from './seed/messages/messages_3.json';
 
 interface State {
-  initializing: boolean;
-
-  user?: User;
   channels?: Channel[];
   messages: Record<string, Message[]>;
 
@@ -24,10 +15,6 @@ interface State {
 
 export const useMainStore = defineStore('main', {
   state: (): State => ({
-    initializing: true,
-
-    user: undefined,
-
     channels: [
       {
         id: 1,
@@ -72,21 +59,21 @@ export const useMainStore = defineStore('main', {
 
   actions: {
     signIn() {
-      this.user = {
-        id: 1,
-        nickName: 'johndoe',
-        firstName: 'John',
-        lastName: 'Doe',
-        status: UserStatus.Online,
-      };
+      // this.user = {
+      //   id: 1,
+      //   nickName: 'johndoe',
+      //   firstName: 'John',
+      //   lastName: 'Doe',
+      //   status: UserStatus.Online,
+      // };
     },
 
     signUp() {
-      this.signIn();
+      // this.signIn();
     },
 
     signOut() {
-      this.user = undefined;
+      // this.user = undefined;
     },
 
     createChannel(title: Channel['title'], type: Channel['type']) {
@@ -97,7 +84,8 @@ export const useMainStore = defineStore('main', {
           channels.reduce((maxId, channel) => Math.max(maxId, channel.id), 0) +
           1,
         title,
-        adminId: this.user!.id,
+        // adminId: this.user!.id,
+        adminId: 1,
         type,
       };
 
@@ -125,18 +113,21 @@ export const useMainStore = defineStore('main', {
 
     sendMessage(channelId: Channel['id'], content: Message['content']) {
       if (!this.channels) return;
+      channelId;
+      content;
 
-      const newMessage: Message = {
-        id: Math.ceil(Math.random() * 999999),
-        author: this.user!,
-        content,
-        createdAt: new Date().toISOString(),
-      };
+      // const newMessage: Message = {
+      //   id: Math.ceil(Math.random() * 999999),
+      //   // author: this.user!,
+      //   author: {},
+      //   content,
+      //   createdAt: new Date().toISOString(),
+      // };
 
-      const messages = this.messages[channelId];
-      const newMessages = [...messages, newMessage];
+      // const messages = this.messages[channelId];
+      // const newMessages = [...messages, newMessage];
 
-      this.messages[channelId] = newMessages;
+      // this.messages[channelId] = newMessages;
     },
 
     togglePrivacyMode() {

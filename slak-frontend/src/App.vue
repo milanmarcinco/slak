@@ -1,8 +1,8 @@
 <template>
-  <router-view v-if="!mainStore.initializing" />
+  <router-view v-if="!authStore.loading" />
 
   <AuthFormContainer>
-    <div v-if="mainStore.initializing" class="text-center">
+    <div v-if="authStore.loading" class="text-center">
       <q-spinner color="primary" size="3rem" />
     </div>
   </AuthFormContainer>
@@ -10,11 +10,9 @@
 
 <script setup lang="ts">
 import AuthFormContainer from './components/auth/AuthFormContainer.vue';
-import { useMainStore } from './stores/main';
+import { useAuthStore } from 'stores/auth';
 
-const mainStore = useMainStore();
-
-setTimeout(() => (mainStore.initializing = false), 1000);
+const authStore = useAuthStore();
 
 defineOptions({
   name: 'App',
