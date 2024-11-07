@@ -1,14 +1,17 @@
-import { DateTime } from "luxon";
 import Hash from "@ioc:Adonis/Core/Hash";
+import { DateTime } from "luxon";
 
 import {
-  column,
-  beforeSave,
   BaseModel,
+  beforeSave,
+  column,
   hasMany,
   HasMany,
+  manyToMany,
+  ManyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
 
+import Channel from "./Channel";
 import Message from "./Message";
 
 export default class User extends BaseModel {
@@ -29,6 +32,17 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @hasMany(() => Message, { foreignKey: "createdBy" })
+  public messages: HasMany<typeof Message>;
+
+  @manyToMany(() => Channel, {
+    pivotTable: "channel_users",
+    pivotForeignKey: "user_id",
+    pivotRelatedForeignKey: "channel_id",
+    pivotTimestamps: true,
+  })
+  public channels: ManyToMany<typeof Channel>;
 
   @beforeSave()
   public static async hashPassword(user: User) {

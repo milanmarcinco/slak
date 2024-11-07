@@ -18,20 +18,15 @@
     "./start/kernel",
     {
       "file": "./start/wsKernel",
-      "environment": [
-        "web",
-        "test"
-      ],
+      "environment": ["web", "test"],
       "optional": true
     },
     {
       "file": "./start/socket",
-      "environment": [
-        "web",
-        "test"
-      ],
+      "environment": ["web", "test"],
       "optional": true
-    }
+    },
+    "./start/orm"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -40,22 +35,16 @@
     "@adonisjs/auth",
     "@ruby184/adonis-socket.io"
   ],
-  "aceProviders": [
-    "@adonisjs/repl"
-  ],
+  "aceProviders": ["@adonisjs/repl"],
   "tests": {
     "suites": [
       {
         "name": "functional",
-        "files": [
-          "tests/functional/**/*.spec(.ts|.js)"
-        ],
+        "files": ["tests/functional/**/*.spec(.ts|.js)"],
         "timeout": 60000
       }
     ]
   },
-  "testProviders": [
-    "@japa/preset-adonis/TestsProvider"
-  ],
+  "testProviders": ["@japa/preset-adonis/TestsProvider"],
   "wsExceptionHandlerNamespace": "App/Exceptions/WsHandler"
 }
