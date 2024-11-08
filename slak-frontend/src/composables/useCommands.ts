@@ -41,7 +41,9 @@ export const useCommands = ({ onList }: UseCommands) => {
         router.push({ path: `/${channel.id}` });
       },
       getIsAllowed: ([channelName, visibility]) => {
-        const isChannelNameValid = !!channelName;
+        const isChannelNameValid =
+          !!channelName && channelName.trim().length >= 3;
+
         const type = visibility?.toUpperCase();
 
         const isVisibilityValid = (() => {

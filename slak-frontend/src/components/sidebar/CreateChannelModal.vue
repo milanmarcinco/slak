@@ -6,7 +6,7 @@
   >
     <q-card class="create-channel-modal" flat bordered>
       <q-card-section>
-        <h2 class="text-h5 q-ma-none">{{ t('create_channel.title') }}</h2>
+        <h2 class="text-h6 q-ma-none">{{ t('create_channel.title') }}</h2>
 
         <q-form
           class="create-channel-modal__form"

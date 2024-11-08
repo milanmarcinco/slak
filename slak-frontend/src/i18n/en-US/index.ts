@@ -30,7 +30,7 @@ export default {
   },
 
   create_channel: {
-    title: 'Create a new channel',
+    title: 'Join or create a new channel',
 
     fields: {
       name: {
