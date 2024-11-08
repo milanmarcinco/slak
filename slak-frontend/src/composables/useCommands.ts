@@ -1,9 +1,10 @@
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from 'stores/auth';
-import { useMainStore } from 'stores/main';
+import { useChatStore } from 'stores/chat';
 
 import { ChannelType } from 'src/contracts';
+
 import { useActiveChannel } from './useActiveChannel';
 
 interface Command<Args extends string[] = string[]> {
@@ -17,8 +18,8 @@ export interface UseCommands {
 
 export const useCommands = ({ onList }: UseCommands) => {
   const router = useRouter();
-  const mainStore = useMainStore();
   const authStore = useAuthStore();
+  const chatStore = useChatStore();
   const activeChannel = useActiveChannel();
 
   const commands: Record<string, Command> = {
@@ -36,7 +37,7 @@ export const useCommands = ({ onList }: UseCommands) => {
           }
         })();
 
-        mainStore.createChannel(channelName, channelType);
+        chatStore.joinChannel(channelName, channelType);
       },
       getIsAllowed: ([channelName, visibility]) => {
         const isChannelNameValid = !!channelName;
@@ -81,7 +82,7 @@ export const useCommands = ({ onList }: UseCommands) => {
         if (!activeChannel.value) return;
 
         router.push({ path: '/' });
-        mainStore.leaveChannel(activeChannel.value.id);
+        // mainStore.leaveChannel(activeChannel.value.id);
       },
       getIsAllowed() {
         return !!activeChannel.value;
@@ -94,7 +95,7 @@ export const useCommands = ({ onList }: UseCommands) => {
         if (!activeChannel.value) return;
 
         router.push({ path: '/' });
-        mainStore.deleteChannel(activeChannel.value.id);
+        // mainStore.deleteChannel(activeChannel.value.id);
       },
       getIsAllowed() {
         return activeChannel.value?.adminId === authStore.user!.id;
