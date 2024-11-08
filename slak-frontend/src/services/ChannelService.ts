@@ -29,7 +29,7 @@ class ChannelSocketManager extends SocketManager {
     const channelId = parseInt(this.namespace.split('/').pop()!);
 
     this.socket.on('message', (message: SerializedMessage) => {
-      chatStore.messages[channelId].push(message);
+      chatStore.receiveMessage(message);
     });
 
     this.socket.on('channel:delete', () => {

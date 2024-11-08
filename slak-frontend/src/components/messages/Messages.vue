@@ -25,8 +25,9 @@
       />
 
       <EmptyMessage
+        v-if="empty"
         :text="$t('messages.no_messages')"
-        :show="!messages || !messages.length"
+        :show="!messages.length"
         larger
       />
     </q-infinite-scroll>
@@ -61,6 +62,7 @@ const chatStore = useChatStore();
 
 const userId = authStore.user?.id;
 const messages = computed(() => chatStore.messages[channel.id]);
+const empty = computed(() => messages.value && messages.value.length === 0);
 
 const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
   if (channel.reachedEnd) return done(true);
@@ -70,9 +72,7 @@ const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
   done(!hasMore);
 };
 
-onMounted(() => {
-  // mainStore.setReadChannel(activeChannelId.value!);
-});
+onMounted(() => chatStore.setReadChannel(channel.id));
 
 const scrollLock = ref(true);
 const scrollContainer = ref<HTMLDivElement>();

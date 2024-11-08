@@ -6,6 +6,7 @@ import {
   Message,
   RawMessage,
   SerializedChannel,
+  SerializedMessage,
 } from 'src/contracts';
 
 import { channelService } from 'src/services';
@@ -90,7 +91,20 @@ export const useChatStore = defineStore('chat', {
         .subscribedTo(channelId)
         ?.sendMessage(message);
 
-      this.messages[channelId].push(newMessage!);
+      this.pushMessage(newMessage!);
+      this.topChannel(channelId);
+    },
+
+    async receiveMessage(message: SerializedMessage) {
+      const channel = this.getChannel(message.channelId);
+      channel!.unread = true;
+
+      this.topChannel(message.channelId);
+    },
+
+    setReadChannel(channelId: Channel['id']) {
+      const channel = this.getChannel(channelId);
+      channel!.unread = false;
     },
 
     async joinChannel(channelName: Channel['name'], channelType: ChannelType) {
@@ -118,6 +132,21 @@ export const useChatStore = defineStore('chat', {
       this.messages = newMessages;
 
       this.unsubscribe(channelId);
+    },
+
+    // Helpers
+
+    topChannel(channelId: Channel['id']) {
+      const idx = this.channels?.findIndex((c) => c.id === channelId);
+      const channel = this.channels?.splice(idx!, 1)[0];
+      this.channels?.unshift(channel!);
+    },
+
+    pushMessage(message: Message) {
+      const channelMessages = this.messages[message.channelId];
+
+      if (channelMessages) channelMessages.push(message);
+      else this.messages[message.channelId] = [message];
     },
   },
 });

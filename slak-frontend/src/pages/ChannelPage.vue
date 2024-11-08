@@ -13,7 +13,11 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const activeChannel = useActiveChannel();
 
-watch(activeChannel, () => router.push({ name: 'index' }));
+watch(activeChannel, () => {
+  if (!activeChannel) {
+    router.push({ name: 'index' });
+  }
+});
 
 defineOptions({
   name: 'ChannelPage',
