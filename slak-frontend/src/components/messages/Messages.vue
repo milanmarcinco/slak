@@ -3,7 +3,7 @@
     <q-infinite-scroll
       @load="handleLoadMessages"
       :scroll-target="scrollContainer"
-      :key="activeChannel!.id"
+      :key="channel.id"
       reverse
     >
       <template v-slot:loading>
@@ -45,35 +45,28 @@ import {
 } from 'vue';
 
 import EmptyMessage from 'components/shared/EmptyMessage.vue';
-import { useActiveChannel } from 'composables/useActiveChannel';
 
 import { useAuthStore } from 'stores/auth';
 import { useChatStore } from 'stores/chat';
 
+import { Channel } from 'src/contracts';
 import Message from './Message.vue';
+
+const { channel } = defineProps<{
+  channel: Channel;
+}>();
 
 const authStore = useAuthStore();
 const chatStore = useChatStore();
 
 const userId = authStore.user?.id;
-const activeChannel = useActiveChannel();
-
-const messages = computed(() =>
-  activeChannel.value?.id ? chatStore.messages[activeChannel.value.id] : null
-);
+const messages = computed(() => chatStore.messages[channel.id]);
 
 const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
-  if (activeChannel.value!.reachedEnd) {
-    return done(true);
-  }
+  if (channel.reachedEnd) return done(true);
 
   const oldestMessageId = messages.value?.[0]?.id;
-
-  const hasMore = await chatStore.loadMessages(
-    activeChannel.value!.id,
-    oldestMessageId
-  );
-
+  const hasMore = await chatStore.loadMessages(channel.id, oldestMessageId);
   done(!hasMore);
 };
 

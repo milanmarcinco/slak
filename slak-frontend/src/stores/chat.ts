@@ -7,6 +7,7 @@ import {
   RawMessage,
   SerializedChannel,
 } from 'src/contracts';
+
 import { channelService } from 'src/services';
 
 interface State {
@@ -80,10 +81,9 @@ export const useChatStore = defineStore('chat', {
       channelService.subscribe(channelId);
     },
 
-    // async unsubscribe(channelId: Channel['id']) {
-    //   channelService.unsubscribe(channelId);
-    //   delete this.messages[channelId];
-    // },
+    async unsubscribe(channelId: Channel['id']) {
+      channelService.unsubscribe(channelId);
+    },
 
     async sendMessage(channelId: Channel['id'], message: RawMessage) {
       const newMessage = await channelService
@@ -103,6 +103,21 @@ export const useChatStore = defineStore('chat', {
       this.subscribe(channel.id);
 
       return channel;
+    },
+
+    async leaveChannel(channelId: Channel['id']) {
+      await channelService.subscribedTo(channelId)?.leaveChannel();
+      this.deleteChannel(channelId);
+    },
+
+    deleteChannel(channelId: Channel['id']) {
+      this.channels = this.channels?.filter((c) => c.id !== channelId);
+
+      const newMessages = { ...this.messages };
+      delete newMessages[channelId];
+      this.messages = newMessages;
+
+      this.unsubscribe(channelId);
     },
   },
 });

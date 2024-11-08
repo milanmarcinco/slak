@@ -23,19 +23,11 @@
               dense
             >
               <q-item-section>
-                {{ $t('sidebar.channel_actions.leave_channel') }}
-              </q-item-section>
-            </q-item>
-
-            <q-item
-              v-if="showDelete"
-              @click="$emit('deleteChannel', channel.id)"
-              clickable
-              v-close-popup
-              dense
-            >
-              <q-item-section>
-                {{ $t('sidebar.channel_actions.delete_channel') }}
+                {{
+                  showDelete
+                    ? $t('sidebar.channel_actions.delete_channel')
+                    : $t('sidebar.channel_actions.leave_channel')
+                }}
               </q-item-section>
             </q-item>
           </q-list>
@@ -50,14 +42,13 @@ import { Channel } from 'src/contracts';
 
 const { channel, isActive } = defineProps<{
   channel: Channel;
-  showDelete?: boolean;
   isActive?: boolean;
+  showDelete?: boolean;
 }>();
 
 defineEmits<{
   selectChannel: [id: Channel['id']];
   leaveChannel: [id: Channel['id']];
-  deleteChannel: [id: Channel['id']];
 }>();
 
 defineOptions({

@@ -37,7 +37,8 @@ export const useCommands = ({ onList }: UseCommands) => {
           }
         })();
 
-        chatStore.joinChannel(channelName, channelType);
+        const channel = await chatStore.joinChannel(channelName, channelType);
+        router.push({ path: `/${channel.id}` });
       },
       getIsAllowed: ([channelName, visibility]) => {
         const isChannelNameValid = !!channelName;
@@ -82,7 +83,7 @@ export const useCommands = ({ onList }: UseCommands) => {
         if (!activeChannel.value) return;
 
         router.push({ path: '/' });
-        // mainStore.leaveChannel(activeChannel.value.id);
+        chatStore.leaveChannel(activeChannel.value.id);
       },
       getIsAllowed() {
         return !!activeChannel.value;
@@ -95,7 +96,7 @@ export const useCommands = ({ onList }: UseCommands) => {
         if (!activeChannel.value) return;
 
         router.push({ path: '/' });
-        // mainStore.deleteChannel(activeChannel.value.id);
+        chatStore.leaveChannel(activeChannel.value.id);
       },
       getIsAllowed() {
         return activeChannel.value?.adminId === authStore.user!.id;

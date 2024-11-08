@@ -33,4 +33,19 @@ export default class ChannelController {
 
     return channel.serialize();
   }
+
+  public async leaveChannel({ auth, params, socket }: WsContextContract) {
+    const user = auth.user!;
+    const channel = await Channel.findOrFail(params.channelId);
+
+    if (channel.adminId === user.id) {
+      await channel.delete();
+      socket.broadcast.emit("channel:delete");
+      return;
+    }
+
+    await channel.related("users").detach([user.id]);
+
+    return {};
+  }
 }

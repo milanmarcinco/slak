@@ -25,7 +25,6 @@
         :show-delete="channel.adminId === authStore.user?.id"
         @select-channel="handleSelectChannel"
         @leave-channel="handleLeaveChannel"
-        @delete-channel="handleDeleteChannel"
         :key="channel.id"
       />
 
@@ -42,8 +41,8 @@ import { useRouter } from 'vue-router';
 
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 
-import { useMainStore } from 'stores/main';
 import { useAuthStore } from 'stores/auth';
+import { useChatStore } from 'stores/chat';
 
 import { Channel } from 'src/contracts';
 import EmptyMessage from 'components/shared/EmptyMessage.vue';
@@ -56,13 +55,13 @@ const { title, channels } = defineProps<{
 }>();
 
 const router = useRouter();
-const mainStore = useMainStore();
 const authStore = useAuthStore();
+const chatStore = useChatStore();
 const activeChannelId = useActiveChannelId();
 
 const handleSelectChannel = (channelId: Channel['id']) => {
   router.push({ path: channelId.toString() });
-  mainStore.setReadChannel(channelId);
+  // mainStore.setReadChannel(channelId);
 };
 
 const handleLeaveChannel = (channelId: Channel['id']) => {
@@ -70,15 +69,7 @@ const handleLeaveChannel = (channelId: Channel['id']) => {
     router.push({ path: '/' });
   }
 
-  mainStore.leaveChannel(channelId);
-};
-
-const handleDeleteChannel = (channelId: Channel['id']) => {
-  if (channelId === activeChannelId.value) {
-    router.push({ path: '/' });
-  }
-
-  mainStore.deleteChannel(channelId);
+  chatStore.leaveChannel(channelId);
 };
 
 defineEmits<{

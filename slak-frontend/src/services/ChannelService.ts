@@ -31,10 +31,18 @@ class ChannelSocketManager extends SocketManager {
     this.socket.on('message', (message: SerializedMessage) => {
       chatStore.messages[channelId].push(message);
     });
+
+    this.socket.on('channel:delete', () => {
+      chatStore.deleteChannel(channelId);
+    });
   }
 
   public sendMessage(message: RawMessage): Promise<SerializedMessage> {
     return this.emitAsync('sendMessage', message);
+  }
+
+  public leaveChannel(): Promise<void> {
+    return this.emitAsync('leaveChannel');
   }
 }
 
