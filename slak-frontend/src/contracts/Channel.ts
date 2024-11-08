@@ -17,4 +17,5 @@ export interface SerializedChannel {
 export interface Channel extends SerializedChannel {
   unread?: boolean;
   invite?: boolean;
+  reachedEnd?: boolean;
 }

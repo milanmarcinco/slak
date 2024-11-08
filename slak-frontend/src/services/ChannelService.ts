@@ -1,5 +1,6 @@
 import {
   Channel,
+  ChannelType,
   Message,
   RawMessage,
   SerializedChannel,
@@ -10,9 +11,17 @@ import { api } from 'lib/axios';
 import { useChatStore } from 'stores/chat';
 import { BootParams, SocketManager } from './SocketManager';
 
-// creating instance of this class automatically connects to given socket.io namespace
-// subscribe is called with boot params, so you can use it to dispatch actions for socket events
-// you have access to socket.io socket using this.socket
+class ChannelsSocketManager extends SocketManager {
+  public subscribe({}: BootParams): void {}
+
+  public joinChannel(
+    channelName: Channel['name'],
+    channelType: ChannelType
+  ): Promise<SerializedChannel> {
+    return this.emitAsync('joinChannel', { channelName, channelType });
+  }
+}
+
 class ChannelSocketManager extends SocketManager {
   public subscribe({ store }: BootParams): void {
     const chatStore = useChatStore(store);
@@ -31,6 +40,7 @@ class ChannelSocketManager extends SocketManager {
 
 class ChannelService {
   private channels: Map<Channel['id'], ChannelSocketManager> = new Map();
+  private channelsManager = new ChannelsSocketManager('/channels');
 
   public async loadChannels(): Promise<SerializedChannel[]> {
     const channels = await api.get<SerializedChannel[]>('/channels');
@@ -79,6 +89,13 @@ class ChannelService {
     channelId: Channel['id']
   ): ChannelSocketManager | undefined {
     return this.channels.get(channelId);
+  }
+
+  public async joinChannel(
+    channelName: Channel['name'],
+    channelType: ChannelType
+  ): Promise<SerializedChannel> {
+    return this.channelsManager.joinChannel(channelName, channelType);
   }
 }
 

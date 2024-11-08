@@ -51,11 +51,12 @@
 </template>
 
 <script setup lang="ts">
+import { ValidationRule } from 'quasar';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ValidationRule } from 'quasar';
-import { useMainStore } from 'stores/main';
+
 import { Channel, ChannelType } from 'src/contracts';
+import { useChatStore } from 'stores/chat';
 
 const { isOpen, type } = defineProps<{
   isOpen: boolean;
@@ -63,27 +64,31 @@ const { isOpen, type } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const mainStore = useMainStore();
+const chatStore = useChatStore();
 
 const channelName = ref<string>('');
 const channelType = ref<Channel['type'] | undefined>(type);
 
 const loading = ref(false);
+const error = ref(false);
 
 const options = [
   { label: t('channel_types.public'), value: ChannelType.Public },
   { label: t('channel_types.private'), value: ChannelType.Private },
 ];
 
-const handleCreateChannel = () => {
-  loading.value = true;
+const handleCreateChannel = async () => {
+  try {
+    loading.value = true;
+    error.value = false;
 
-  setTimeout(() => {
-    mainStore.createChannel(channelName.value, channelType.value!);
-
-    loading.value = false;
+    await chatStore.joinChannel(channelName.value, channelType.value!);
     emit('close');
-  }, 1000);
+  } catch (err) {
+    error.value = true;
+  } finally {
+    loading.value = false;
+  }
 };
 
 const channelNameRules: ValidationRule<string>[] = [

@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 
-import { Channel, Message, RawMessage, SerializedChannel } from 'src/contracts';
+import {
+  Channel,
+  ChannelType,
+  Message,
+  RawMessage,
+  SerializedChannel,
+} from 'src/contracts';
 import { channelService } from 'src/services';
 
 interface State {
@@ -19,6 +25,11 @@ export const useChatStore = defineStore('chat', {
 
     messages: {},
   }),
+
+  getters: {
+    getChannel: (state) => (channelId: Channel['id']) =>
+      state.channels?.find((c) => c.id === channelId),
+  },
 
   actions: {
     async loadChannels() {
@@ -59,24 +70,39 @@ export const useChatStore = defineStore('chat', {
         ? [...messages, ...prevMessages]
         : messages;
 
+      const channel = this.getChannel(channelId);
+      if (channel) channel.reachedEnd = !response.hasMore;
+
       return response.hasMore;
     },
 
-    async subscribe(channelId: SerializedChannel['id']) {
+    async subscribe(channelId: Channel['id']) {
       channelService.subscribe(channelId);
     },
 
-    async unsubscribe(channelId: SerializedChannel['id']) {
-      channelService.unsubscribe(channelId);
-      delete this.messages[channelId];
-    },
+    // async unsubscribe(channelId: Channel['id']) {
+    //   channelService.unsubscribe(channelId);
+    //   delete this.messages[channelId];
+    // },
 
-    async sendMessage(channelId: SerializedChannel['id'], message: RawMessage) {
+    async sendMessage(channelId: Channel['id'], message: RawMessage) {
       const newMessage = await channelService
         .subscribedTo(channelId)
         ?.sendMessage(message);
 
       this.messages[channelId].push(newMessage!);
+    },
+
+    async joinChannel(channelName: Channel['name'], channelType: ChannelType) {
+      const channel = await channelService.joinChannel(
+        channelName,
+        channelType
+      );
+
+      this.channels?.unshift(channel);
+      this.subscribe(channel.id);
+
+      return channel;
     },
   },
 });

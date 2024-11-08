@@ -13,6 +13,13 @@ export default class AppProvider {
         return container.make("App/Repositories/MessageRepository");
       }
     );
+
+    this.app.container.singleton(
+      "Repositories/ChannelRepository",
+      (container) => {
+        return container.make("App/Repositories/ChannelRepository");
+      }
+    );
   }
 
   public async boot() {

@@ -1,13 +1,14 @@
 import { computed } from 'vue';
+
 import { useActiveChannelId } from './useActiveChannelId';
-import { useMainStore } from 'src/stores/main';
+import { useChatStore } from 'stores/chat';
 
 export const useActiveChannel = () => {
-  const mainStore = useMainStore();
+  const chatStore = useChatStore();
   const activeChannelId = useActiveChannelId();
 
   const activeChannel = computed(() =>
-    mainStore.channels?.find((channel) => channel.id === activeChannelId.value)
+    chatStore.channels?.find((channel) => channel.id === activeChannelId.value)
   );
 
   return activeChannel;

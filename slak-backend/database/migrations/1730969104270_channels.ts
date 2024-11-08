@@ -8,6 +8,14 @@ export default class extends BaseSchema {
       table.increments("id").primary();
       table.string("name").notNullable().unique();
 
+      table
+        .integer("admin_id")
+        .unsigned()
+        .references("id")
+        .inTable("users")
+        .notNullable()
+        .onDelete("CASCADE");
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

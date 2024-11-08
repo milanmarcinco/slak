@@ -14,7 +14,11 @@ Ws.namespace("/")
   .disconnected("ActivityController.onDisconnected");
 
 // this is dynamic namespace, in controller methods we can use params.name
-Ws.namespace("channels/:channelId")
+Ws.namespace("/channels/:channelId")
   // .middleware('channel') // check if user can join given channel
-  .on("sendMessage", "MessageController.sendMessage")
+  .on("sendMessage", "MessagesController.sendMessage")
+  .middleware("auth");
+
+Ws.namespace("/channels")
+  .on("joinChannel", "ChannelsController.joinChannel")
   .middleware("auth");

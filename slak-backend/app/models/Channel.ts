@@ -1,8 +1,17 @@
-import { BaseModel, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  column,
+  HasMany,
+  hasMany,
+  ManyToMany,
+  manyToMany,
+} from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 
-import { ChannelType } from "App/Enums/ChannelType";
 import Message from "./Message";
+import User from "./User";
+
+import { ChannelType } from "App/Enums/ChannelType";
 
 export default class Channel extends BaseModel {
   @column({ isPrimary: true })
@@ -10,6 +19,9 @@ export default class Channel extends BaseModel {
 
   @column()
   public name: string;
+
+  @column()
+  public adminId: User["id"];
 
   @column()
   public type: ChannelType;
@@ -22,4 +34,12 @@ export default class Channel extends BaseModel {
 
   @hasMany(() => Message, { foreignKey: "channelId" })
   public messages: HasMany<typeof Message>;
+
+  @manyToMany(() => User, {
+    pivotTable: "channel_users",
+    pivotForeignKey: "channel_id",
+    pivotRelatedForeignKey: "user_id",
+    pivotTimestamps: true,
+  })
+  public users: ManyToMany<typeof User>;
 }
