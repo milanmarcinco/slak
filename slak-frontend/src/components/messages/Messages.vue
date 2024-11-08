@@ -1,7 +1,7 @@
 <template>
   <div ref="scrollContainer" class="full-height q-pa-md overflow-auto">
     <q-infinite-scroll
-      @load="handleLoadMore"
+      @load="handleLoadMessages"
       :scroll-target="scrollContainer"
       :key="activeChannelId!"
       reverse
@@ -14,12 +14,12 @@
 
       <Message
         v-for="(message, idx) in messages"
-        :author="message.author.nickName"
+        :author="'[placeholder]'"
         :content="message.content"
         :created-at="message.createdAt"
-        :sent="message.author.id === userId"
+        :sent="message.userId === userId"
         :preview="message.preview"
-        :privacy="mainStore.privacyMode"
+        :privacy="false"
         :highlight="idx === (messages?.length || 0) - 3"
         :key="message.id"
       />
@@ -35,42 +35,78 @@
 
 <script setup lang="ts">
 import { QInfiniteScrollProps } from 'quasar';
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 
 import EmptyMessage from 'components/shared/EmptyMessage.vue';
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 
-import { useMainStore } from 'stores/main';
 import { useAuthStore } from 'stores/auth';
+import { useChatStore } from 'stores/chat';
 
 import Message from './Message.vue';
 
-const mainStore = useMainStore();
 const authStore = useAuthStore();
-
-const activeChannelId = useActiveChannelId();
-
-const scrollContainer = ref<HTMLDivElement>();
+const chatStore = useChatStore();
 
 const userId = authStore.user?.id;
+const activeChannelId = useActiveChannelId();
 
 const messages = computed(() =>
-  activeChannelId.value ? mainStore.messages[activeChannelId.value] : null
+  activeChannelId.value ? chatStore.messages[activeChannelId.value] : null
 );
 
-const handleLoadMore: QInfiniteScrollProps['onLoad'] = (_, done) => {
-  setTimeout(() => done(true), 1000);
+const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
+  const oldestMessageId = messages.value?.[0].id;
+
+  const hasMore = await chatStore.loadMessages(
+    activeChannelId.value!,
+    oldestMessageId
+  );
+
+  done(!hasMore);
 };
 
 onMounted(() => {
-  mainStore.setReadChannel(activeChannelId.value!);
+  // mainStore.setReadChannel(activeChannelId.value!);
 });
 
+const scrollLock = ref(true);
+const scrollContainer = ref<HTMLDivElement>();
+
+const handleScroll = () => {
+  if (!scrollContainer.value) return;
+
+  const isAtBottom =
+    scrollContainer.value.scrollHeight - scrollContainer.value.scrollTop ===
+    scrollContainer.value.clientHeight;
+
+  scrollLock.value = isAtBottom;
+};
+
+onMounted(() =>
+  scrollContainer.value?.addEventListener('scroll', handleScroll)
+);
+
+onBeforeUnmount(() =>
+  scrollContainer.value?.removeEventListener('scroll', handleScroll)
+);
+
 watch(
-  () => [messages.value],
+  () => [messages.value?.length],
   () =>
     nextTick(() => {
       if (!scrollContainer.value) {
+        return;
+      }
+
+      if (!scrollLock.value) {
         return;
       }
 

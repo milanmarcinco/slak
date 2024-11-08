@@ -1,6 +1,7 @@
 import { BaseModel, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 
+import { ChannelType } from "App/Enums/ChannelType";
 import Message from "./Message";
 
 export default class Channel extends BaseModel {
@@ -8,7 +9,10 @@ export default class Channel extends BaseModel {
   public id: number;
 
   @column()
-  public title: string;
+  public name: string;
+
+  @column()
+  public type: ChannelType;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

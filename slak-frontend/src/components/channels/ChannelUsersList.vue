@@ -44,11 +44,11 @@
 </template>
 
 <script setup lang="ts">
-import { Channel, UserStatus } from '../models';
-
 import ChannelUserStatus from './ChannelUserStatus.vue';
 
+import { Channel } from 'src/contracts';
 import users from 'stores/seed/users.json';
+import { UserStatus } from '../models';
 
 const { isOpen, channelId } = defineProps<{
   isOpen: boolean;

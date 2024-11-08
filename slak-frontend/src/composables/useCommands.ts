@@ -1,10 +1,9 @@
 import { useRouter } from 'vue-router';
 
-import { ChannelType } from 'components/models';
-
-import { useMainStore } from 'stores/main';
 import { useAuthStore } from 'stores/auth';
+import { useMainStore } from 'stores/main';
 
+import { ChannelType } from 'src/contracts';
 import { useActiveChannel } from './useActiveChannel';
 
 interface Command<Args extends string[] = string[]> {

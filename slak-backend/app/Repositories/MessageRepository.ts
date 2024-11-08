@@ -4,29 +4,19 @@ import type {
 } from "@ioc:Repositories/MessageRepository";
 
 import Channel from "App/Models/Channel";
+import User from "App/Models/User";
 
 export default class MessageRepository implements MessageRepositoryContract {
-  public async getAll(channelName: string): Promise<SerializedMessage[]> {
-    const channel = await Channel.query()
-      .where("name", channelName)
-      .preload("messages", (messagesQuery) => messagesQuery.preload("author"))
-      .firstOrFail();
-
-    return channel.messages.map(
-      (message) => message.serialize() as SerializedMessage
-    );
-  }
-
   public async create(
-    channelName: string,
-    userId: number,
+    channelId: Channel["id"],
+    userId: User["id"],
     content: string
   ): Promise<SerializedMessage> {
-    const channel = await Channel.findByOrFail("name", channelName);
+    const channel = await Channel.findOrFail(channelId);
+
     const message = await channel
       .related("messages")
-      .create({ createdBy: userId, content });
-    await message.load("author");
+      .create({ userId, content });
 
     return message.serialize() as SerializedMessage;
   }

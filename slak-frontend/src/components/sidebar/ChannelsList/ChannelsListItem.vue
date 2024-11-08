@@ -10,7 +10,7 @@
       'channels-list-item--invite': channel.invite,
     }"
   >
-    <q-item-section>{{ channel.title }}</q-item-section>
+    <q-item-section>{{ channel.name }}</q-item-section>
 
     <q-item-section class="channels-list-item__actions" avatar side>
       <q-btn size="10px" flat dense icon="more_horiz" @click.stop>
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { Channel } from 'components/models';
+import { Channel } from 'src/contracts';
 
 const { channel, isActive } = defineProps<{
   channel: Channel;

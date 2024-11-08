@@ -1,4 +1,10 @@
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  scope,
+} from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 
 import Channel from "./Channel";
@@ -12,7 +18,7 @@ export default class Message extends BaseModel {
   public content: string;
 
   @column()
-  public createdBy: number;
+  public userId: number;
 
   @column()
   public channelId: number;
@@ -23,9 +29,18 @@ export default class Message extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @belongsTo(() => User, { foreignKey: "createdBy" })
+  @belongsTo(() => User, { foreignKey: "userId" })
   public author: BelongsTo<typeof User>;
 
   @belongsTo(() => Channel, { foreignKey: "channelId" })
   public channel: BelongsTo<typeof Channel>;
+
+  public static beforeMessage = scope(
+    (query, beforeMessage?: Message | null) => {
+      if (beforeMessage) {
+        query.andWhere("createdAt", "<", beforeMessage.createdAt.toSQL()!);
+        query.andWhereNot("id", beforeMessage.id);
+      }
+    }
+  );
 }

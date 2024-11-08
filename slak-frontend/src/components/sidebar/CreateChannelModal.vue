@@ -53,9 +53,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Channel, ChannelType } from '../models';
 import { ValidationRule } from 'quasar';
 import { useMainStore } from 'stores/main';
+import { Channel, ChannelType } from 'src/contracts';
 
 const { isOpen, type } = defineProps<{
   isOpen: boolean;

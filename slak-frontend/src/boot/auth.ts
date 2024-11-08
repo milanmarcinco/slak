@@ -2,8 +2,8 @@ import { boot } from 'quasar/wrappers';
 import { authManager } from 'src/services';
 import { useAuthStore } from 'src/stores/auth';
 
-export default boot(async ({ router }) => {
-  const authStore = useAuthStore();
+export default boot(async ({ router, store }) => {
+  const authStore = useAuthStore(store);
 
   authManager.onLogout(() => {
     router.push({ name: 'sign-in' });
@@ -26,5 +26,5 @@ export default boot(async ({ router }) => {
     }
   });
 
-  authStore.check();
+  authStore.initialize();
 });

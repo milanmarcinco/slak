@@ -1,8 +1,7 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 
-import { api } from 'src/boot/axios';
-import { User } from 'src/components/models';
-import type { ApiToken, LoginData, RegisterData } from 'src/contracts';
+import { api } from 'lib/axios';
+import { ApiToken, LoginData, RegisterData, User } from 'src/contracts';
 
 class AuthService {
   async me(dontTriggerLogout = false): Promise<User | null> {

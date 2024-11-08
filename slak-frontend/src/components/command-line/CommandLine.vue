@@ -72,8 +72,6 @@ import { useI18n } from 'vue-i18n';
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 import { useCommandLine } from 'composables/useCommandLine';
 
-import { useMainStore } from 'stores/main';
-
 import MentionPicker from './MentionPicker.vue';
 import TypingList from './TypingList.vue';
 
@@ -81,6 +79,7 @@ import ChannelUsersList from 'components/channels/ChannelUsersList.vue';
 
 import { User } from '../models';
 
+import { useChatStore } from 'src/stores/chat';
 import users from 'stores/seed/users.json';
 
 const COMMAND_LINE_REF = 'command-line';
@@ -96,7 +95,7 @@ const commandLineRef = useTemplateRef<HTMLInputElement>(COMMAND_LINE_REF);
 const channelUsersListIsOpen = ref(false);
 const activeChannelId = useActiveChannelId();
 
-const mainStore = useMainStore();
+const chatStore = useChatStore();
 
 const { isCommandMode, isValidCommand, execCommand } = useCommandLine({
   text: value,
@@ -128,7 +127,7 @@ const handleSubmit = (event: Event) => {
     execCommand();
   } else {
     if (!activeChannelId.value) return;
-    mainStore.sendMessage(activeChannelId.value, input);
+    chatStore.sendMessage(activeChannelId.value, input);
   }
 
   mentions.value = [];

@@ -56,18 +56,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import { Channel, ChannelType } from 'components/models';
-
 import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
 
 import CreateChannelModal from './CreateChannelModal.vue';
 import StatusChip from './StatusChip.vue';
 
-import { useAuthStore } from 'stores/auth';
-import { useMainStore } from 'stores/main';
+import { Channel, ChannelType } from 'src/contracts';
 
-const mainStore = useMainStore();
+import { useAuthStore } from 'stores/auth';
+import { useChatStore } from 'stores/chat';
+
 const authStore = useAuthStore();
+const chatStore = useChatStore();
 
 const createChannelIsOpen = ref(false);
 const createChannelType = ref<Channel['type']>();
@@ -78,11 +78,11 @@ const handleCreateChannel = (type: Channel['type']) => {
 };
 
 const publicChannels = computed(() =>
-  mainStore.channels?.filter((channel) => channel.type === ChannelType.Public)
+  chatStore.channels?.filter((channel) => channel.type === ChannelType.Public)
 );
 
 const privateChannels = computed(() =>
-  mainStore.channels?.filter((channel) => channel.type === ChannelType.Private)
+  chatStore.channels?.filter((channel) => channel.type === ChannelType.Private)
 );
 </script>
 

@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { boot } from 'quasar/wrappers';
-
 import { authManager } from 'src/services';
 
 const DEBUG = process.env.NODE_ENV === 'development';
@@ -66,11 +64,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default boot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
-  app.config.globalProperties.$axios = axios;
-  app.config.globalProperties.$api = api;
-});
 
 export { api };

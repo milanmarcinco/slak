@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 
-import { User } from 'src/components/models';
-import { LoginData, RegisterData } from 'src/contracts';
+import { LoginData, RegisterData, User } from 'src/contracts';
 import { authManager, authService } from 'src/services';
+import { useChatStore } from './chat';
 
 interface State {
   user: User | null;
@@ -18,14 +18,25 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
-    async check() {
+    async authenticate() {
+      const user = await authService.me();
+      this.user = user;
+
+      return user;
+    },
+
+    async initialize() {
+      const chatStore = useChatStore();
+
       try {
         this.loading = true;
         this.error = false;
 
-        const user = await authService.me();
-        await timeoutPromise(1000);
-        this.user = user;
+        const user = await this.authenticate();
+
+        if (user) {
+          chatStore.loadChannels();
+        }
       } catch (err) {
         this.error = true;
         this.user = null;
@@ -38,16 +49,14 @@ export const useAuthStore = defineStore('auth', {
       const apiToken = await authService.register(data);
       authManager.setToken(apiToken.token);
 
-      const user = await authService.me();
-      this.user = user;
+      this.authenticate();
     },
 
     async signIn(data: LoginData) {
       const apiToken = await authService.login(data);
       authManager.setToken(apiToken.token);
 
-      const user = await authService.me();
-      this.user = user;
+      this.authenticate();
     },
 
     async signOut() {
@@ -57,6 +66,3 @@ export const useAuthStore = defineStore('auth', {
     },
   },
 });
-
-const timeoutPromise = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));

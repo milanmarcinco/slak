@@ -19,3 +19,13 @@ export interface LoginData {
   email: string;
   password: string;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  nickName: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -42,10 +42,10 @@ import { useRouter } from 'vue-router';
 
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 
-import { useMainStore } from 'src/stores/main';
+import { useMainStore } from 'stores/main';
 import { useAuthStore } from 'stores/auth';
 
-import { Channel } from 'components/models';
+import { Channel } from 'src/contracts';
 import EmptyMessage from 'components/shared/EmptyMessage.vue';
 
 import ChannelsListItem from './ChannelsListItem.vue';
