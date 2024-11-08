@@ -3,7 +3,6 @@
     <q-infinite-scroll
       @load="handleLoadMessages"
       :scroll-target="scrollContainer"
-      :key="channel.id"
       reverse
     >
       <template v-slot:loading>
@@ -72,8 +71,6 @@ const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
   done(!hasMore);
 };
 
-onMounted(() => chatStore.setReadChannel(channel.id));
-
 const scrollLock = ref(true);
 const scrollContainer = ref<HTMLDivElement>();
 
@@ -96,7 +93,7 @@ onBeforeUnmount(() =>
 );
 
 watch(
-  () => [messages.value?.length],
+  () => [messages.value, messages.value?.length],
   () =>
     nextTick(() => {
       if (!scrollContainer.value) {
@@ -110,6 +107,8 @@ watch(
       scrollContainer.value.scrollTo({
         top: scrollContainer.value.scrollHeight,
       });
+
+      chatStore.setReadChannel(channel.id);
     })
 );
 

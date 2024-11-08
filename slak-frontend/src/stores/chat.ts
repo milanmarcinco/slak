@@ -99,6 +99,7 @@ export const useChatStore = defineStore('chat', {
       const channel = this.getChannel(message.channelId);
       channel!.unread = true;
 
+      this.pushMessage(message);
       this.topChannel(message.channelId);
     },
 

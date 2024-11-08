@@ -9,7 +9,7 @@ export default class ChannelController {
   constructor(/* private channelRepository: ChannelRepositoryContract */) {}
 
   public async joinChannel(
-    { auth }: WsContextContract,
+    { auth, bouncer }: WsContextContract,
     {
       channelName,
       channelType,
@@ -29,8 +29,8 @@ export default class ChannelController {
       });
     }
 
+    await bouncer.with("ChannelPolicy").authorize("join", channel);
     await channel.related("users").attach([user.id]);
-
     return channel.serialize();
   }
 
