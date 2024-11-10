@@ -6,17 +6,10 @@ export default class extends BaseSeeder {
   public async run() {
     const user1 = await User.find(1);
     const user2 = await User.find(2);
-    const channel1 = await Channel.find(1);
-    const channel2 = await Channel.find(2);
 
-    if (user1 && user2 && channel1) {
-      await user1.related("channels").attach([channel1.id]);
-      await user2.related("channels").attach([channel1.id]);
-    }
+    const channels = await Channel.query().orderBy("id", "asc");
 
-    if (user1 && user2 && channel2) {
-      await user1.related("channels").attach([channel2.id]);
-      await user2.related("channels").attach([channel2.id]);
-    }
+    await user1!.related("channels").attach(channels.map((c) => c.id));
+    await user2!.related("channels").attach([channels[2].id, channels[3].id]);
   }
 }

@@ -24,9 +24,8 @@
       />
 
       <EmptyMessage
-        v-if="empty"
         :text="$t('messages.no_messages')"
-        :show="!messages.length"
+        :show="empty"
         larger
       />
     </q-infinite-scroll>

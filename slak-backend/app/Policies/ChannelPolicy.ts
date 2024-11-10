@@ -12,4 +12,11 @@ export default class ChannelPolicy extends BasePolicy {
 
     return isPublic || isAdmin;
   }
+
+  public async invite(user: User, channel: Channel) {
+    const isPublic = channel.type === ChannelType.Public;
+    const isAdmin = channel.adminId === user.id;
+
+    return isPublic || isAdmin;
+  }
 }

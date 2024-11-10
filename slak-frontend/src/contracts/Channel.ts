@@ -12,10 +12,10 @@ export interface SerializedChannel {
   type: ChannelType;
   createdAt: string;
   updatedAt: string;
+  invite?: boolean;
 }
 
 export interface Channel extends SerializedChannel {
   unread?: boolean;
-  invite?: boolean;
   reachedEnd?: boolean;
 }

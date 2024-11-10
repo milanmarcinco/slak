@@ -18,8 +18,10 @@ Ws.namespace("/channels/:channelId")
   // .middleware('channel') // check if user can join given channel
   .on("sendMessage", "MessagesController.sendMessage")
   .on("leaveChannel", "ChannelsController.leaveChannel")
+  .on("sendInvite", "ChannelsController.sendInvite")
   .middleware("auth");
 
 Ws.namespace("/channels")
+  .connected("ChannelsController.onConnected")
   .on("joinChannel", "ChannelsController.joinChannel")
   .middleware("auth");

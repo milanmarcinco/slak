@@ -1,6 +1,10 @@
 <template>
   <q-page class="q-px-md q-pt-md">
-    <Messages v-if="activeChannel" :channel="activeChannel" />
+    <Messages
+      v-if="activeChannel"
+      :channel="activeChannel"
+      :key="activeChannel.id"
+    />
   </q-page>
 </template>
 

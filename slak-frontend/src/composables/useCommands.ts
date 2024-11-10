@@ -63,6 +63,10 @@ export const useCommands = ({ onList }: UseCommands) => {
     invite: {
       handler: async (nickName: string) => {
         console.log('invite', nickName);
+
+        if (!activeChannel.value) return;
+
+        chatStore.sendInvite(activeChannel.value.id, nickName);
       },
       getIsAllowed: ([nickName]) => !!nickName,
     },

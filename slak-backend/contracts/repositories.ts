@@ -22,6 +22,7 @@ declare module "@ioc:Repositories/MessageRepository" {
 
 declare module "@ioc:Repositories/ChannelRepository" {
   import { ChannelType } from "App/Enums/ChannelType";
+  import User from "App/Models/User";
 
   export interface SerializedChannel {
     id: number;
@@ -32,7 +33,13 @@ declare module "@ioc:Repositories/ChannelRepository" {
     updatedAt: string;
   }
 
-  export interface ChannelRepositoryContract {}
+  export interface SerializedChannelWithInvite extends SerializedChannel {
+    invite: boolean;
+  }
+
+  export interface ChannelRepositoryContract {
+    getUserRoom(user: User): string;
+  }
 
   const ChannelsRepository: ChannelRepositoryContract;
   export default ChannelsRepository;

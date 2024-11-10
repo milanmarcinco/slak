@@ -5,6 +5,7 @@ import {
   RawMessage,
   SerializedChannel,
   SerializedMessage,
+  User,
 } from 'src/contracts';
 
 import { api } from 'lib/axios';
@@ -12,7 +13,13 @@ import { useChatStore } from 'stores/chat';
 import { BootParams, SocketManager } from './SocketManager';
 
 class ChannelsSocketManager extends SocketManager {
-  public subscribe({}: BootParams): void {}
+  public subscribe({ store }: BootParams): void {
+    const chatStore = useChatStore(store);
+
+    this.socket.on('channel:invite', (channel: SerializedChannel) => {
+      chatStore.receiveInvite(channel);
+    });
+  }
 
   public joinChannel(
     channelName: Channel['name'],
@@ -44,11 +51,19 @@ class ChannelSocketManager extends SocketManager {
   public leaveChannel(): Promise<void> {
     return this.emitAsync('leaveChannel');
   }
+
+  public sendInvite(nickName: User['nickName']): Promise<void> {
+    return this.emitAsync('sendInvite', nickName);
+  }
 }
 
 class ChannelService {
   private channels: Map<Channel['id'], ChannelSocketManager> = new Map();
-  private channelsManager = new ChannelsSocketManager('/channels');
+  private channelsManager: ChannelsSocketManager | null = null;
+
+  public initChannelsManager() {
+    this.channelsManager = new ChannelsSocketManager('/channels');
+  }
 
   public async loadChannels(): Promise<SerializedChannel[]> {
     const channels = await api.get<SerializedChannel[]>('/channels');
@@ -83,10 +98,7 @@ class ChannelService {
 
   public unsubscribe(channelId: Channel['id']): boolean {
     const channel = this.channels.get(channelId);
-
-    if (!channel) {
-      return false;
-    }
+    if (!channel) return false;
 
     // disconnect namespace and remove references to socket
     channel.destroy();
@@ -103,7 +115,7 @@ class ChannelService {
     channelName: Channel['name'],
     channelType: ChannelType
   ): Promise<SerializedChannel> {
-    return this.channelsManager.joinChannel(channelName, channelType);
+    return this.channelsManager!.joinChannel(channelName, channelType);
   }
 }
 

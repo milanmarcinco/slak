@@ -1,18 +1,18 @@
+import { ChannelRepositoryContract } from "@ioc:Repositories/ChannelRepository";
 import type { WsContextContract } from "@ioc:Ruby184/Socket.IO/WsContext";
+
 import User from "App/Models/User";
 
 export default class ActivityController {
-  private getUserRoom(user: User): string {
-    return `user:${user.id}`;
-  }
+  constructor(private channelRepository: ChannelRepositoryContract) {}
 
   public async onConnected({ socket, auth, logger }: WsContextContract) {
     // all connections for the same authenticated user will be in the room
-    const room = this.getUserRoom(auth.user!);
-    const userSockets = await socket.in(room).allSockets();
+    const room = this.channelRepository.getUserRoom(auth.user!);
+    const userSockets = await socket.in(room).fetchSockets();
 
     // this is first connection for given user
-    if (userSockets.size === 0) {
+    if (userSockets.length === 0) {
       socket.broadcast.emit("user:online", auth.user);
     }
 
@@ -41,11 +41,11 @@ export default class ActivityController {
     { socket, auth, logger }: WsContextContract,
     reason: string
   ) {
-    const room = this.getUserRoom(auth.user!);
-    const userSockets = await socket.in(room).allSockets();
+    const room = this.channelRepository.getUserRoom(auth.user!);
+    const userSockets = await socket.in(room).fetchSockets();
 
     // user is disconnected
-    if (userSockets.size === 0) {
+    if (userSockets.length === 0) {
       // notify other users
       socket.broadcast.emit("user:offline", auth.user);
     }

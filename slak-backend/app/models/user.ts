@@ -53,6 +53,14 @@ export default class User extends BaseModel {
   })
   public channels: ManyToMany<typeof Channel>;
 
+  @manyToMany(() => Channel, {
+    pivotTable: "invites",
+    pivotForeignKey: "user_id",
+    pivotRelatedForeignKey: "channel_id",
+    pivotTimestamps: true,
+  })
+  public invites: ManyToMany<typeof Channel>;
+
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
