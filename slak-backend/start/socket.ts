@@ -19,6 +19,7 @@ Ws.namespace("/channels/:channelId")
   .on("sendMessage", "MessagesController.sendMessage")
   .on("leaveChannel", "ChannelsController.leaveChannel")
   .on("sendInvite", "ChannelsController.sendInvite")
+  .on("sendRevoke", "ChannelsController.sendRevoke")
   .middleware("auth");
 
 Ws.namespace("/channels")

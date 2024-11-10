@@ -2,6 +2,8 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Database from "@ioc:Adonis/Lucid/Database";
 import { SerializedChannelWithInvite } from "@ioc:Repositories/ChannelRepository";
 
+import { deepCamelCase } from "Lib/deepCamelCase";
+
 export default class ChannelsController {
   async loadChannels({ auth }: HttpContextContract) {
     const user = auth.user!;
@@ -43,6 +45,6 @@ export default class ChannelsController {
       }
     );
 
-    return channels;
+    return deepCamelCase(channels);
   }
 }

@@ -19,6 +19,10 @@ class ChannelsSocketManager extends SocketManager {
     this.socket.on('channel:invite', (channel: SerializedChannel) => {
       chatStore.receiveInvite(channel);
     });
+
+    this.socket.on('channel:revoke', (channelId: SerializedChannel['id']) => {
+      chatStore.receiveRevoke(channelId);
+    });
   }
 
   public joinChannel(
@@ -54,6 +58,10 @@ class ChannelSocketManager extends SocketManager {
 
   public sendInvite(nickName: User['nickName']): Promise<void> {
     return this.emitAsync('sendInvite', nickName);
+  }
+
+  public revoke(nickName: User['nickName']): Promise<void> {
+    return this.emitAsync('sendRevoke', nickName);
   }
 }
 

@@ -73,8 +73,13 @@ export const useCommands = ({ onList }: UseCommands) => {
     revoke: {
       handler: async (nickName: string) => {
         console.log('revoke', nickName);
+
+        if (!activeChannel.value) return;
+
+        chatStore.sendRevoke(activeChannel.value.id, nickName);
       },
-      getIsAllowed: ([nickName]) => !!nickName,
+      getIsAllowed: ([nickName]) =>
+        !!nickName && activeChannel.value?.adminId === authStore.user!.id,
     },
     kick: {
       handler: async (nickName: string) => {

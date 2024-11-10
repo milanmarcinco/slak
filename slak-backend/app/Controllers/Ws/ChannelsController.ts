@@ -73,4 +73,19 @@ export default class ChannelController {
     const room = this.channelRepository.getUserRoom(invitee);
     Ws.io.of("/channels").to(room).emit("channel:invite", serializedChannel);
   }
+
+  public async sendRevoke(
+    { params, bouncer }: WsContextContract,
+    nickName: string
+  ) {
+    const revokee = await User.findByOrFail("nickName", nickName);
+    const channel = await Channel.findOrFail(params.channelId);
+
+    await bouncer.with("ChannelPolicy").authorize("revoke", channel);
+    await channel.related("users").detach([revokee.id]);
+    await channel.related("invites").detach([revokee.id]);
+
+    const room = this.channelRepository.getUserRoom(revokee);
+    Ws.io.of("/channels").to(room).emit("channel:revoke", channel.id);
+  }
 }

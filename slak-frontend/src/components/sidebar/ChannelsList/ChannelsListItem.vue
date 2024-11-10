@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { Channel } from 'src/contracts';
 
-const { channel, isActive } = defineProps<{
+const { channel, isActive, showDelete } = defineProps<{
   channel: Channel;
   isActive?: boolean;
   showDelete?: boolean;

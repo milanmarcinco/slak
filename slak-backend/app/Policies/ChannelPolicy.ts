@@ -19,4 +19,8 @@ export default class ChannelPolicy extends BasePolicy {
 
     return isPublic || isAdmin;
   }
+
+  public async revoke(user: User, channel: Channel) {
+    return channel.adminId === user.id;
+  }
 }

@@ -98,17 +98,25 @@ export const useChatStore = defineStore('chat', {
       return response.hasMore;
     },
 
-    async sendInvite(channelId: Channel['id'], nickName: User['nickName']) {
-      await channelService.subscribedTo(channelId)?.sendInvite(nickName);
+    sendInvite(channelId: Channel['id'], nickName: User['nickName']) {
+      channelService.subscribedTo(channelId)?.sendInvite(nickName);
     },
 
-    async receiveInvite(channel: SerializedChannel) {
+    receiveInvite(channel: SerializedChannel) {
       this.channels?.unshift({
         ...channel,
         invite: true,
       });
 
       this.subscribe(channel.id);
+    },
+
+    sendRevoke(channelId: Channel['id'], nickName: User['nickName']) {
+      channelService.subscribedTo(channelId)?.revoke(nickName);
+    },
+
+    receiveRevoke(channelId: Channel['id']) {
+      this.deleteChannel(channelId);
     },
 
     async sendMessage(channelId: Channel['id'], message: RawMessage) {
