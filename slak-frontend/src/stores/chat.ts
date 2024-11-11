@@ -119,10 +119,14 @@ export const useChatStore = defineStore('chat', {
       this.deleteChannel(channelId);
     },
 
-    async sendMessage(channelId: Channel['id'], message: RawMessage) {
+    async sendMessage(
+      channelId: Channel['id'],
+      message: RawMessage,
+      mentions: User['id'][]
+    ) {
       const newMessage = await channelService
         .subscribedTo(channelId)
-        ?.sendMessage(message);
+        ?.sendMessage(message, mentions);
 
       this.pushMessage(newMessage!);
       this.topChannel(channelId);

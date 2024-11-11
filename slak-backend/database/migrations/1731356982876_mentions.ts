@@ -1,7 +1,7 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "messages";
+  protected tableName = "mentions";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -15,17 +15,14 @@ export default class extends BaseSchema {
         .onDelete("CASCADE");
 
       table
-        .integer("channel_id")
+        .integer("message_id")
         .unsigned()
         .references("id")
-        .inTable("channels")
+        .inTable("messages")
         .onDelete("CASCADE");
 
-      table.text("content").notNullable();
+      table.unique(["user_id", "message_id"]);
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });

@@ -52,8 +52,11 @@ class ChannelSocketManager extends SocketManager {
     });
   }
 
-  public sendMessage(message: RawMessage): Promise<SerializedMessage> {
-    return this.emitAsync('sendMessage', message);
+  public sendMessage(
+    message: RawMessage,
+    mentions: User['id'][]
+  ): Promise<SerializedMessage> {
+    return this.emitAsync('sendMessage', message, mentions);
   }
 
   public leaveChannel(): Promise<void> {

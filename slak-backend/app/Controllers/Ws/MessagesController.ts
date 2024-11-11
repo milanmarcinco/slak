@@ -14,12 +14,14 @@ export default class MessageController {
 
   public async sendMessage(
     { params, socket, auth }: WsContextContract,
-    content: string
+    content: string,
+    mentions: number[]
   ) {
     const message = await this.messageRepository.create(
-      params.channelId,
       auth.user!.id,
-      content
+      params.channelId,
+      content,
+      mentions
     );
 
     // broadcast message to other users in channel

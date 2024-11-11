@@ -31,9 +31,10 @@ Route.group(() => {
   Route.get("me", "AuthController.me").middleware("auth");
 }).prefix("auth");
 
+Route.get("/users", "AuthController.users").middleware("auth");
+
 Route.group(() => {
-  Route.get("/", "ChannelsController.loadChannels");
-  Route.get("/:channelId/messages", "MessagesController.loadMessages");
-})
-  .prefix("channels")
-  .middleware("auth");
+  Route.get("/channels", "ChannelsController.loadChannels");
+  Route.get("/channels/:channelId/users", "ChannelsController.loadUsers");
+  Route.get("/channels/:channelId/messages", "MessagesController.loadMessages");
+}).middleware("auth");

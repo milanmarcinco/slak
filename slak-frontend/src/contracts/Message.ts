@@ -1,3 +1,5 @@
+import { User } from './Auth';
+
 export type RawMessage = string;
 
 export interface SerializedMessage {
@@ -7,6 +9,9 @@ export interface SerializedMessage {
   content: string;
   createdAt: string;
   updatedAt: string;
+
+  author: User;
+  mentions: User[];
 }
 
 export interface Message extends SerializedMessage {

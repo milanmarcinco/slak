@@ -1,4 +1,6 @@
 declare module "@ioc:Repositories/MessageRepository" {
+  import User from "App/Models/User";
+
   export interface SerializedMessage {
     id: number;
     userId: number;
@@ -6,13 +8,17 @@ declare module "@ioc:Repositories/MessageRepository" {
     content: string;
     createdAt: string;
     updatedAt: string;
+
+    author: User;
+    mentions: User[];
   }
 
   export interface MessageRepositoryContract {
     create(
       channelId: number,
       userId: number,
-      content: string
+      content: string,
+      mentions: number[]
     ): Promise<SerializedMessage>;
   }
 

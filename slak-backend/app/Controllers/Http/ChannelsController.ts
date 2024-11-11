@@ -2,6 +2,8 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Database from "@ioc:Adonis/Lucid/Database";
 import { SerializedChannelWithInvite } from "@ioc:Repositories/ChannelRepository";
 
+import Channel from "App/Models/Channel";
+
 import { deepCamelCase } from "Lib/deepCamelCase";
 
 export default class ChannelsController {
@@ -46,5 +48,30 @@ export default class ChannelsController {
     );
 
     return deepCamelCase(channels);
+  }
+
+  async loadUsers({ auth, request, params, bouncer }: HttpContextContract) {
+    const user = auth.user!;
+
+    const query = request.input("query");
+    const sqlQueryString = `%${query}%`;
+
+    const channel = await Channel.findOrFail(params.channelId);
+    await bouncer.with("ChannelPolicy").authorize("viewUsers", channel);
+
+    const users = await channel
+      .related("users")
+      .query()
+      .where((query) => {
+        query
+          .where("first_name", "ilike", sqlQueryString)
+          .orWhere("last_name", "ilike", sqlQueryString)
+          .orWhere("nick_name", "ilike", sqlQueryString)
+          .orWhere("email", "ilike", sqlQueryString);
+      })
+      // .andWhereNot("users.id", user.id)
+      .limit(5);
+
+    return users;
   }
 }

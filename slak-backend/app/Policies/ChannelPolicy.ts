@@ -43,4 +43,12 @@ export default class ChannelPolicy extends BasePolicy {
       })
       .first());
   }
+
+  public async viewUsers(user: User, channel: Channel) {
+    return !!(await user
+      .related("channels")
+      .query()
+      .where("channels.id", channel.id)
+      .first());
+  }
 }

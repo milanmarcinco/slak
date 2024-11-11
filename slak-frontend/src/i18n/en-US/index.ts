@@ -73,6 +73,7 @@ export default {
 
   mentions: {
     no_users: 'No users found...',
+    loading: 'Loading...',
   },
 
   sign_up: {

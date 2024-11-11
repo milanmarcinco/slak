@@ -12,22 +12,18 @@
       </template>
 
       <Message
-        v-for="(message, idx) in messages"
-        :author="'[placeholder]'"
+        v-for="message in messages"
+        :author="message.author.nickName"
         :content="message.content"
         :created-at="message.createdAt"
         :sent="message.userId === userId"
         :preview="message.preview"
         :privacy="false"
-        :highlight="idx === (messages?.length || 0) - 3"
+        :highlight="includes(message.mentions, (u) => u.id === userId)"
         :key="message.id"
       />
 
-      <EmptyMessage
-        :text="$t('messages.no_messages')"
-        :show="empty"
-        larger
-      />
+      <EmptyMessage :text="$t('messages.no_messages')" :show="empty" larger />
     </q-infinite-scroll>
   </div>
 </template>
@@ -50,6 +46,8 @@ import { useChatStore } from 'stores/chat';
 
 import { Channel } from 'src/contracts';
 import Message from './Message.vue';
+
+import { includes } from 'src/lib/helpers';
 
 const { channel } = defineProps<{
   channel: Channel;

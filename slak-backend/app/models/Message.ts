@@ -3,6 +3,8 @@ import {
   BelongsTo,
   belongsTo,
   column,
+  ManyToMany,
+  manyToMany,
   scope,
 } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
@@ -34,6 +36,14 @@ export default class Message extends BaseModel {
 
   @belongsTo(() => Channel, { foreignKey: "channelId" })
   public channel: BelongsTo<typeof Channel>;
+
+  @manyToMany(() => User, {
+    pivotTable: "mentions",
+    pivotForeignKey: "message_id",
+    pivotRelatedForeignKey: "user_id",
+    pivotTimestamps: true,
+  })
+  public mentions: ManyToMany<typeof User>;
 
   public static beforeMessage = scope(
     (query, beforeMessage?: Message | null) => {
