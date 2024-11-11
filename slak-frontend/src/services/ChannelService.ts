@@ -23,6 +23,10 @@ class ChannelsSocketManager extends SocketManager {
     this.socket.on('channel:revoke', (channelId: SerializedChannel['id']) => {
       chatStore.receiveRevoke(channelId);
     });
+
+    this.socket.on('channel:kick', (channelId: SerializedChannel['id']) => {
+      chatStore.receiveKick(channelId);
+    });
   }
 
   public joinChannel(
@@ -60,8 +64,12 @@ class ChannelSocketManager extends SocketManager {
     return this.emitAsync('sendInvite', nickName);
   }
 
-  public revoke(nickName: User['nickName']): Promise<void> {
+  public sendRevoke(nickName: User['nickName']): Promise<void> {
     return this.emitAsync('sendRevoke', nickName);
+  }
+
+  public sendKick(nickName: User['nickName']): Promise<void> {
+    return this.emitAsync('sendKick', nickName);
   }
 }
 

@@ -112,7 +112,7 @@ export const useChatStore = defineStore('chat', {
     },
 
     sendRevoke(channelId: Channel['id'], nickName: User['nickName']) {
-      channelService.subscribedTo(channelId)?.revoke(nickName);
+      channelService.subscribedTo(channelId)?.sendRevoke(nickName);
     },
 
     receiveRevoke(channelId: Channel['id']) {
@@ -134,6 +134,14 @@ export const useChatStore = defineStore('chat', {
 
       this.pushMessage(message);
       this.topChannel(message.channelId);
+    },
+
+    sendKick(channelId: Channel['id'], nickName: User['nickName']) {
+      channelService.subscribedTo(channelId)?.sendKick(nickName);
+    },
+
+    receiveKick(channelId: Channel['id']) {
+      this.deleteChannel(channelId);
     },
 
     // Helpers

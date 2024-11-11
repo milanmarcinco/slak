@@ -84,6 +84,10 @@ export const useCommands = ({ onList }: UseCommands) => {
     kick: {
       handler: async (nickName: string) => {
         console.log('kick', nickName);
+
+        if (!activeChannel.value) return;
+
+        chatStore.sendKick(activeChannel.value.id, nickName);
       },
       getIsAllowed: ([nickName]) => !!nickName,
     },

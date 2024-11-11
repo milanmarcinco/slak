@@ -5,8 +5,10 @@ import { ChannelRepositoryContract } from "@ioc:Repositories/ChannelRepository";
 
 import Channel from "App/Models/Channel";
 import User from "App/Models/User";
+import Kick from "App/Models/Kick";
 
 import { ChannelType } from "App/Enums/ChannelType";
+import { KickType } from "App/Enums/KickType";
 
 @inject(["Repositories/ChannelRepository"])
 export default class ChannelController {
@@ -69,6 +71,11 @@ export default class ChannelController {
     await channel.related("users").attach([invitee.id]);
     await channel.related("invites").attach([invitee.id]);
 
+    await Kick.query()
+      .where("target_id", invitee.id)
+      .andWhere("channel_id", channel.id)
+      .delete();
+
     const serializedChannel = channel.serialize();
     const room = this.channelRepository.getUserRoom(invitee);
     Ws.io.of("/channels").to(room).emit("channel:invite", serializedChannel);
@@ -87,5 +94,34 @@ export default class ChannelController {
 
     const room = this.channelRepository.getUserRoom(revokee);
     Ws.io.of("/channels").to(room).emit("channel:revoke", channel.id);
+  }
+
+  public async sendKick(
+    { auth, params, bouncer }: WsContextContract,
+    nickName: string
+  ) {
+    const user = auth.user!;
+    const target = await User.findByOrFail("nickName", nickName);
+    const channel = await Channel.findOrFail(params.channelId);
+
+    await bouncer.with("ChannelPolicy").authorize("kick", channel);
+
+    const kickType = user.id === channel.adminId ? KickType.Ban : KickType.Kick;
+
+    await Kick.create({
+      kickerId: user.id,
+      targetId: target.id,
+      channelId: channel.id,
+      type: kickType,
+    });
+
+    const isBanned = await this.channelRepository.isBanned(channel, target);
+    if (!isBanned) return;
+
+    await channel.related("users").detach([target.id]);
+    await channel.related("invites").detach([target.id]);
+
+    const room = this.channelRepository.getUserRoom(target);
+    Ws.io.of("/channels").to(room).emit("channel:kick", channel.id);
   }
 }

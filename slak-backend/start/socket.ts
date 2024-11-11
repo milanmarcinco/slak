@@ -20,6 +20,7 @@ Ws.namespace("/channels/:channelId")
   .on("leaveChannel", "ChannelsController.leaveChannel")
   .on("sendInvite", "ChannelsController.sendInvite")
   .on("sendRevoke", "ChannelsController.sendRevoke")
+  .on("sendKick", "ChannelsController.sendKick")
   .middleware("auth");
 
 Ws.namespace("/channels")

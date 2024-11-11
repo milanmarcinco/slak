@@ -12,6 +12,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 
 import Channel from "./Channel";
+import Kick from "./Kick";
 import Message from "./Message";
 
 export default class User extends BaseModel {
@@ -42,8 +43,11 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @hasMany(() => Message, { foreignKey: "createdBy" })
+  @hasMany(() => Message, { foreignKey: "userId" })
   public messages: HasMany<typeof Message>;
+
+  @hasMany(() => Kick, { foreignKey: "kickerId" })
+  public kicks: HasMany<typeof Kick>;
 
   @manyToMany(() => Channel, {
     pivotTable: "channel_users",

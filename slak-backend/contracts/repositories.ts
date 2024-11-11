@@ -21,8 +21,10 @@ declare module "@ioc:Repositories/MessageRepository" {
 }
 
 declare module "@ioc:Repositories/ChannelRepository" {
-  import { ChannelType } from "App/Enums/ChannelType";
+  import Channel from "App/Models/Channel";
   import User from "App/Models/User";
+
+  import { ChannelType } from "App/Enums/ChannelType";
 
   export interface SerializedChannel {
     id: number;
@@ -39,6 +41,7 @@ declare module "@ioc:Repositories/ChannelRepository" {
 
   export interface ChannelRepositoryContract {
     getUserRoom(user: User): string;
+    isBanned(channel: Channel, user: User): Promise<boolean>;
   }
 
   const ChannelsRepository: ChannelRepositoryContract;

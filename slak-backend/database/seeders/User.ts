@@ -20,6 +20,27 @@ export default class extends BaseSeeder {
           lastName: "Hnatko",
           nickName: "xhnatko",
         },
+        {
+          email: "xkacmar@stuba.sk",
+          password: "xkacmar123",
+          firstName: "Adam",
+          lastName: "Kacmar",
+          nickName: "xkacmar",
+        },
+        {
+          email: "xdoe@stuba.sk",
+          password: "xdoe12345",
+          firstName: "John",
+          lastName: "Doe",
+          nickName: "xdoe",
+        },
+        {
+          email: "xsmith@stuba.sk",
+          password: "xsmith123",
+          firstName: "John",
+          lastName: "Smith",
+          nickName: "xsmith",
+        },
       ]
     );
   }

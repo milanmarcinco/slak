@@ -8,6 +8,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 
+import Kick from "./Kick";
 import Message from "./Message";
 import User from "./User";
 
@@ -21,7 +22,7 @@ export default class Channel extends BaseModel {
   public name: string;
 
   @column()
-  public adminId: User["id"];
+  public adminId: number;
 
   @column()
   public type: ChannelType;
@@ -34,6 +35,9 @@ export default class Channel extends BaseModel {
 
   @hasMany(() => Message, { foreignKey: "channelId" })
   public messages: HasMany<typeof Message>;
+
+  @hasMany(() => Kick, { foreignKey: "kickerId" })
+  public kicks: HasMany<typeof Kick>;
 
   @manyToMany(() => User, {
     pivotTable: "channel_users",
@@ -48,6 +52,7 @@ export default class Channel extends BaseModel {
     pivotForeignKey: "channel_id",
     pivotRelatedForeignKey: "user_id",
     pivotTimestamps: true,
+    pivotColumns: ["accepted"],
   })
   public invites: ManyToMany<typeof User>;
 }
