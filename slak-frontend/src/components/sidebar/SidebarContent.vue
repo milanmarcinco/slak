@@ -35,12 +35,7 @@
 
       <q-separator class="q-my-sm" />
 
-      <q-item
-        clickable
-        v-ripple
-        class="rounded-borders"
-        @click="authStore.signOut"
-      >
+      <q-item clickable v-ripple class="rounded-borders" @click="handleSignOut">
         <q-item-section>
           {{ $t('sidebar.sign_out') }}
         </q-item-section>
@@ -55,6 +50,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import ChannelsList from 'components/sidebar/ChannelsList/ChannelsList.vue';
 
@@ -65,6 +61,8 @@ import { Channel, ChannelType } from 'src/contracts';
 
 import { useAuthStore } from 'stores/auth';
 import { useChatStore } from 'stores/chat';
+
+const router = useRouter();
 
 const authStore = useAuthStore();
 const chatStore = useChatStore();
@@ -84,6 +82,11 @@ const publicChannels = computed(() =>
 const privateChannels = computed(() =>
   chatStore.channels?.filter((channel) => channel.type === ChannelType.Private)
 );
+
+const handleSignOut = async () => {
+  await authStore.signOut();
+  router.push({ name: 'sign-in' });
+};
 </script>
 
 <style scoped lang="scss">

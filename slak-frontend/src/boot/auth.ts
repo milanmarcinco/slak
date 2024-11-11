@@ -9,8 +9,10 @@ export default boot(async ({ router, store }) => {
     router.push({ name: 'sign-in' });
   });
 
-  router.beforeEach((to, from) => {
-    if (!authStore.user && to.meta.private) {
+  router.beforeEach(async (to, from) => {
+    const isAuthenticated = await authStore.authenticated();
+
+    if (!isAuthenticated && to.meta.private) {
       return {
         name: 'sign-in',
         state: {
@@ -19,12 +21,10 @@ export default boot(async ({ router, store }) => {
       };
     }
 
-    if (authStore.user && !to.meta.private) {
+    if (isAuthenticated && !to.meta.private) {
       return {
         name: 'index',
       };
     }
   });
-
-  authStore.initialize();
 });
