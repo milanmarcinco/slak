@@ -18,7 +18,7 @@
         :created-at="message.createdAt"
         :sent="message.userId === userId"
         :preview="message.preview"
-        :privacy="false"
+        :privacy="chatStore.privacyMode"
         :highlight="includes(message.mentions, (u) => u.id === userId)"
         :key="message.id"
       />

@@ -13,8 +13,6 @@
     <div class="message__content-container">
       <span class="message__content">{{ content }}</span>
     </div>
-
-    
   </div>
 </template>
 
@@ -100,8 +98,10 @@ defineOptions({
     .message {
       &__content {
         opacity: 0;
+      }
 
-        &:hover {
+      &__content-container:hover {
+        .message__content {
           opacity: 1;
         }
       }

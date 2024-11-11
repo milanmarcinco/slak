@@ -18,6 +18,8 @@ interface State {
   channelsError: boolean;
 
   messages: Record<SerializedChannel['name'], Message[]>;
+
+  privacyMode: boolean;
 }
 
 export const useChatStore = defineStore('chat', {
@@ -27,6 +29,8 @@ export const useChatStore = defineStore('chat', {
     channelsError: false,
 
     messages: {},
+
+    privacyMode: false,
   }),
 
   getters: {
@@ -185,6 +189,12 @@ export const useChatStore = defineStore('chat', {
       this.messages = newMessages;
 
       this.unsubscribe(channelId);
+    },
+
+    // ----- ----- ----- -----
+
+    togglePrivacyMode() {
+      this.privacyMode = !this.privacyMode;
     },
   },
 });

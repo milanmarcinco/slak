@@ -1,14 +1,14 @@
 <template>
   <div
-    @click="mainStore.togglePrivacyMode"
+    @click="chatStore.togglePrivacyMode"
     class="app-brand row items-center non-selectable"
     :class="{
-      'app-brand--glow': !mainStore.privacyMode,
+      'app-brand--glow': !chatStore.privacyMode,
     }"
     tabindex="0"
   >
     <q-avatar>
-      <SlakLogo :glow="!mainStore.privacyMode" white />
+      <SlakLogo :glow="!chatStore.privacyMode" white />
     </q-avatar>
 
     <span class="app-brand__name">{{ $t('title') }}</span>
@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { useMainStore } from 'stores/main';
+import { useChatStore } from 'stores/chat';
 
 import SlakLogo from './SlakLogo.vue';
 
-const mainStore = useMainStore();
+const chatStore = useChatStore();
 </script>
 
 <style scoped lang="scss">
