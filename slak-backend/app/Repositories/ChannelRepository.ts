@@ -18,16 +18,18 @@ export default class ChannelRepository implements ChannelRepositoryContract {
       .andWhere("channelId", channel.id)
       .groupBy("type");
 
-    const kickCount: number | undefined = kicksCounts.find(
-      (kick) => kick.type === KickType.Kick
-    )?.["$extras"].count;
+    const kickCount = parseInt(
+      kicksCounts.find((kick) => kick.type === KickType.Kick)?.["$extras"]
+        .count || 0
+    );
 
-    const banCount: number | undefined = kicksCounts.find(
-      (kick) => kick.type === KickType.Ban
-    )?.["$extras"].count;
+    const banCount = parseInt(
+      kicksCounts.find((kick) => kick.type === KickType.Ban)?.["$extras"]
+        .count || 0
+    );
 
-    const isKicked = typeof kickCount === "number" && kickCount >= 3;
-    const isBanned = typeof banCount === "number" && banCount >= 1;
+    const isKicked = kickCount >= 3;
+    const isBanned = banCount >= 1;
 
     return isKicked || isBanned;
   }

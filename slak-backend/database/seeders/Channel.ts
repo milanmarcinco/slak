@@ -18,7 +18,7 @@ export default class extends BaseSeeder {
         adminId: user1!.id,
       },
       {
-        name: "general inv",
+        name: "general 2",
         type: ChannelType.Public,
         adminId: user1!.id,
       },
@@ -28,7 +28,7 @@ export default class extends BaseSeeder {
         adminId: user2!.id,
       },
       {
-        name: "s3cret inv",
+        name: "s3cret 2",
         type: ChannelType.Private,
         adminId: user2!.id,
       },

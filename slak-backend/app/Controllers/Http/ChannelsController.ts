@@ -40,6 +40,7 @@ export default class ChannelsController {
         channel_users.user_id = :user_id
       ORDER BY
         last_messages.created_at DESC,
+        channels.created_at DESC,
         channels.id DESC
     `,
       {
@@ -69,7 +70,7 @@ export default class ChannelsController {
           .orWhere("nick_name", "ilike", sqlQueryString)
           .orWhere("email", "ilike", sqlQueryString);
       })
-      // .andWhereNot("users.id", user.id)
+      .andWhereNot("users.id", user.id)
       .limit(5);
 
     return users;

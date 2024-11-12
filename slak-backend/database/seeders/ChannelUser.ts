@@ -4,12 +4,12 @@ import User from "App/Models/User";
 
 export default class extends BaseSeeder {
   public async run() {
-    const user1 = await User.find(1);
-    const user2 = await User.find(2);
-
+    const users = await User.query().orderBy("id", "asc");
     const channels = await Channel.query().orderBy("id", "asc");
 
-    await user1!.related("channels").attach(channels.map((c) => c.id));
-    await user2!.related("channels").attach([channels[2].id, channels[3].id]);
+    await channels[0].related("users").attach(users.map((u) => u.id));
+    await channels[1].related("users").attach([users[0].id]);
+    await channels[2].related("users").attach(users.map((u) => u.id));
+    await channels[3].related("users").attach([users[0].id]);
   }
 }
