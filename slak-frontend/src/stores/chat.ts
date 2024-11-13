@@ -152,6 +152,12 @@ export const useChatStore = defineStore('chat', {
       this.deleteChannel(channelId);
     },
 
+    nuke() {
+      channelService.nuke();
+      this.channels = undefined;
+      this.messages = {};
+    },
+
     // Helpers
 
     async subscribe(channelId: Channel['id']) {

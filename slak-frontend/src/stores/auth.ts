@@ -73,8 +73,13 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async signOut() {
+      const chatStore = useChatStore();
+
+      chatStore.nuke();
       await authService.logout();
       authManager.removeToken();
+
+      this.initialized = false;
       this.user = null;
     },
   },

@@ -136,6 +136,14 @@ class ChannelService {
   ): Promise<SerializedChannel> {
     return this.channelsManager!.joinChannel(channelName, channelType);
   }
+
+  nuke() {
+    this.channelsManager?.destroy();
+    this.channelsManager = null;
+
+    this.channels.forEach((channel) => channel.destroy());
+    this.channels.clear();
+  }
 }
 
 export default new ChannelService();

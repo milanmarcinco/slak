@@ -118,7 +118,9 @@ export abstract class SocketManager implements SocketManagerContract {
     ).getManager();
 
     const socket = io.socket(this.namespace, {
-      auth: { token: authManager.getToken() },
+      auth: (cb) => {
+        cb({ token: authManager.getToken() });
+      },
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
