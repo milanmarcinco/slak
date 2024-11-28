@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 
 import { LoginData, RegisterData, User } from 'src/contracts';
-import { authManager, authService } from 'src/services';
+import { authManager, authService, userService } from 'src/services';
 
 import { useChatStore } from './chat';
+import { useUserStore } from './user';
 
 interface State {
   user: User | null;
@@ -55,6 +56,7 @@ export const useAuthStore = defineStore('auth', {
 
       if (this.user) {
         chatStore.loadChannels();
+        userService.init();
       }
     },
 
@@ -74,13 +76,16 @@ export const useAuthStore = defineStore('auth', {
 
     async signOut() {
       const chatStore = useChatStore();
+      const userStore = useUserStore();
 
-      chatStore.nuke();
       await authService.logout();
       authManager.removeToken();
 
       this.initialized = false;
       this.user = null;
+
+      chatStore.nuke();
+      userStore.nuke();
     },
   },
 });

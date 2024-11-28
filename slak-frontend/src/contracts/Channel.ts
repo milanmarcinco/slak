@@ -1,4 +1,4 @@
-import { User } from './Auth';
+import { User } from './User';
 
 export enum ChannelType {
   Public = 'PUBLIC',

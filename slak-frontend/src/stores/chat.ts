@@ -55,7 +55,7 @@ export const useChatStore = defineStore('chat', {
           this.subscribe(channel.id);
         }
 
-        channelService.initChannelsManager();
+        channelService.init();
       } catch (error) {
         this.channelsError = true;
       } finally {

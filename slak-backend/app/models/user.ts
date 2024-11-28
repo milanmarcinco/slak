@@ -15,6 +15,8 @@ import Channel from "./Channel";
 import Kick from "./Kick";
 import Message from "./Message";
 
+import { UserStatus } from "App/Enums/UserStatus";
+
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
@@ -30,6 +32,9 @@ export default class User extends BaseModel {
 
   @column()
   public lastName: string;
+
+  @column()
+  public status: UserStatus;
 
   @column({ serializeAs: null })
   public password: string;

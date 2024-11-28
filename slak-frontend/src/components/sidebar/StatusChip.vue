@@ -1,41 +1,42 @@
 <template>
   <q-chip
-    :color="status.color"
+    :color="activeStatus.color"
     icon="circle"
     class="status-chip"
     @click="handleClick"
     clickable
     outline
   >
-    {{ status.label }}
+    {{ activeStatus.label }}
   </q-chip>
 </template>
 
 <script setup lang="ts">
-import { useQuasar } from 'quasar';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useUserStore } from 'src/stores/user';
 import { UserStatus } from '../models';
 
-const $q = useQuasar();
 const { t } = useI18n();
+const userStore = useUserStore();
 
 const statuses = Object.values(UserStatus);
-const activeStatusIdx = ref(0);
 
-const status = computed(() => {
-  switch (statuses[activeStatusIdx.value]) {
+const activeStatus = computed(() => {
+  switch (userStore.me?.status) {
     case UserStatus.Offline:
       return {
         label: t('sidebar.status.offline'),
         color: 'grey-6',
+        idx: statuses.indexOf(UserStatus.Offline),
       };
 
     case UserStatus.DoNotDisturb:
       return {
         label: t('sidebar.status.do_not_disturb'),
         color: 'orange-6',
+        idx: statuses.indexOf(UserStatus.DoNotDisturb),
       };
 
     default:
@@ -43,16 +44,19 @@ const status = computed(() => {
       return {
         label: t('sidebar.status.online'),
         color: 'green-6',
+        idx: statuses.indexOf(UserStatus.Online),
       };
   }
 });
 
-const handleClick = () => {
-  activeStatusIdx.value = (activeStatusIdx.value + 1) % statuses.length;
+const getNextStatus = () => {
+  const newStatusIdx = (activeStatus.value.idx + 1) % statuses.length;
+  return statuses[newStatusIdx];
+};
 
-  $q.notify({
-    message: `Status changed to '${status.value.label.toLowerCase()}'`,
-  });
+const handleClick = () => {
+  const newStatus = getNextStatus();
+  userStore.changeStatus(newStatus);
 };
 </script>
 

@@ -41,9 +41,9 @@
               </span>
             </q-item-section>
 
-            <!-- <q-item-section side>
-              <ChannelUserStatus :status="(user.status as UserStatus)" />
-            </q-item-section> -->
+            <q-item-section side>
+              <ChannelUserStatus :status="getDisplayStatus(user)" />
+            </q-item-section>
           </q-item>
         </q-list>
       </q-card-section>
@@ -54,11 +54,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-// import ChannelUserStatus from './ChannelUserStatus.vue';
+import ChannelUserStatus from './ChannelUserStatus.vue';
 
-import { useActiveChannel } from 'src/composables/useActiveChannel';
-import { User } from 'src/contracts';
-import { api } from 'src/lib/axios';
+import { useActiveChannel } from 'composables/useActiveChannel';
+import { api } from 'lib/axios';
+import { SerializedUser, User, UserStatus } from 'src/contracts';
+import { useUserStore } from 'stores/user';
 
 const LIMIT = 1000;
 
@@ -71,10 +72,15 @@ defineEmits<{
   afterClose: [];
 }>();
 
-const users = ref<User[]>([]);
+const users = ref<SerializedUser[]>([]);
 const loading = ref(false);
 
 const activeChannel = useActiveChannel();
+const userStore = useUserStore();
+
+const getDisplayStatus = (user: User): UserStatus => {
+  return userStore.users[user.id]?.status || UserStatus.Offline;
+};
 
 watch(
   () => isOpen,
@@ -85,7 +91,7 @@ watch(
       users.value = [];
       loading.value = true;
 
-      const response = await api.get<User[]>(
+      const response = await api.get<SerializedUser[]>(
         `/channels/${activeChannel.value?.id}/users`,
         { params: { limit: LIMIT } }
       );

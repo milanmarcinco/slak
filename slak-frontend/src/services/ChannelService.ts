@@ -80,7 +80,7 @@ class ChannelService {
   private channels: Map<Channel['id'], ChannelSocketManager> = new Map();
   private channelsManager: ChannelsSocketManager | null = null;
 
-  public initChannelsManager() {
+  public init() {
     this.channelsManager = new ChannelsSocketManager('/channels');
   }
 

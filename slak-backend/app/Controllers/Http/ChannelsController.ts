@@ -66,13 +66,12 @@ export default class ChannelsController {
       .related("users")
       .query()
       .where((query) => {
-        if (!query) return;
-
-        query
-          .where("first_name", "ilike", sqlQueryString)
-          .orWhere("last_name", "ilike", sqlQueryString)
-          .orWhere("nick_name", "ilike", sqlQueryString)
-          .orWhere("email", "ilike", sqlQueryString);
+        if (sqlQueryString)
+          query
+            .where("first_name", "ilike", sqlQueryString)
+            .orWhere("last_name", "ilike", sqlQueryString)
+            .orWhere("nick_name", "ilike", sqlQueryString)
+            .orWhere("email", "ilike", sqlQueryString);
       })
       .andWhereNot("users.id", user.id)
       .offset(offset)
