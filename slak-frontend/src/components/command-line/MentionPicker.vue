@@ -58,6 +58,7 @@ import { clampNumber } from 'lib/helpers';
 import { User } from 'src/contracts';
 
 const START_IDX = 0;
+const LIMIT = 5;
 
 const { mentions } = defineProps<{
   mentions: Map<number, User>;
@@ -141,6 +142,7 @@ const handleSearch = async () => {
     {
       params: {
         query: query.value,
+        limit: LIMIT,
       },
       signal: newAbortController.signal,
     }

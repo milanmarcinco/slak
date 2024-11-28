@@ -54,7 +54,9 @@ export default class ChannelsController {
   async loadUsers({ auth, request, params, bouncer }: HttpContextContract) {
     const user = auth.user!;
 
-    const query = request.input("query");
+    const limit: number = request.input("limit", 10);
+    const offset: number = request.input("offset", 0);
+    const query: string = request.input("query", "");
     const sqlQueryString = `%${query}%`;
 
     const channel = await Channel.findOrFail(params.channelId);
@@ -64,6 +66,8 @@ export default class ChannelsController {
       .related("users")
       .query()
       .where((query) => {
+        if (!query) return;
+
         query
           .where("first_name", "ilike", sqlQueryString)
           .orWhere("last_name", "ilike", sqlQueryString)
@@ -71,7 +75,8 @@ export default class ChannelsController {
           .orWhere("email", "ilike", sqlQueryString);
       })
       .andWhereNot("users.id", user.id)
-      .limit(5);
+      .offset(offset)
+      .limit(limit);
 
     return users;
   }

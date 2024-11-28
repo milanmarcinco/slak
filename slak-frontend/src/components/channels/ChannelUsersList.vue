@@ -8,12 +8,20 @@
       <q-card-section>
         <div class="channel-users-list__header q-mb-md">
           <h2 class="text-h5 q-ma-none">
-            {{ $t('channel.members', { channelName: channelId }) }}
+            {{ $t('channel.members', { channelName: activeChannel?.name }) }}
           </h2>
+
           <q-btn icon="close" size="sm" flat dense @click="$emit('close')" />
         </div>
 
-        <q-list dense>
+        <q-spinner
+          v-if="loading"
+          color="primary"
+          size="md"
+          class="block q-mx-auto"
+        />
+
+        <q-list v-if="!loading" dense>
           <q-item
             v-for="user in users"
             class="channel-users-list__item rounded-borders"
@@ -33,9 +41,9 @@
               </span>
             </q-item-section>
 
-            <q-item-section side>
+            <!-- <q-item-section side>
               <ChannelUserStatus :status="(user.status as UserStatus)" />
-            </q-item-section>
+            </q-item-section> -->
           </q-item>
         </q-list>
       </q-card-section>
@@ -44,21 +52,52 @@
 </template>
 
 <script setup lang="ts">
-import ChannelUserStatus from './ChannelUserStatus.vue';
+import { ref, watch } from 'vue';
 
-import { Channel } from 'src/contracts';
-import users from 'stores/seed/users.json';
-import { UserStatus } from '../models';
+// import ChannelUserStatus from './ChannelUserStatus.vue';
 
-const { isOpen, channelId } = defineProps<{
+import { useActiveChannel } from 'src/composables/useActiveChannel';
+import { User } from 'src/contracts';
+import { api } from 'src/lib/axios';
+
+const LIMIT = 1000;
+
+const { isOpen } = defineProps<{
   isOpen: boolean;
-  channelId: Channel['id'] | null;
 }>();
 
 defineEmits<{
   close: [];
   afterClose: [];
 }>();
+
+const users = ref<User[]>([]);
+const loading = ref(false);
+
+const activeChannel = useActiveChannel();
+
+watch(
+  () => isOpen,
+  async () => {
+    if (!isOpen) return;
+
+    try {
+      users.value = [];
+      loading.value = true;
+
+      const response = await api.get<User[]>(
+        `/channels/${activeChannel.value?.id}/users`,
+        { params: { limit: LIMIT } }
+      );
+
+      users.value = response.data;
+    } catch (err) {
+      // Do nothing
+    } finally {
+      loading.value = false;
+    }
+  }
+);
 
 defineOptions({
   name: 'ChannelUsersList',
