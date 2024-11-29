@@ -19,6 +19,9 @@ interface State {
 
   messages: Record<SerializedChannel['name'], Message[]>;
 
+  typing: Record<SerializedChannel['id'], Record<User['id'], string>>;
+  selectedTypingUser?: User;
+
   privacyMode: boolean;
 }
 
@@ -29,6 +32,9 @@ export const useChatStore = defineStore('chat', {
     channelsError: false,
 
     messages: {},
+
+    typing: {},
+    selectedTypingUser: undefined,
 
     privacyMode: false,
   }),
@@ -152,10 +158,46 @@ export const useChatStore = defineStore('chat', {
       this.deleteChannel(channelId);
     },
 
+    sendTyping(channelId: Channel['id'], content: string | null) {
+      channelService.subscribedTo(channelId)?.sendPreview(content);
+    },
+
+    receiveTyping(
+      channelId: Channel['id'],
+      userId: User['id'],
+      message: RawMessage | null
+    ) {
+      if (!message) {
+        delete this.typing[channelId]?.[userId];
+
+        if (this.selectedTypingUser?.id === userId) {
+          this.selectedTypingUser = undefined;
+        }
+
+        return;
+      }
+
+      if (!(channelId in this.typing)) {
+        this.typing[channelId] = {};
+      }
+
+      this.typing[channelId][userId] = message;
+    },
+
+    setTypingUser(user: User) {
+      this.selectedTypingUser = user;
+    },
+
+    clearTypingUser() {
+      this.selectedTypingUser = undefined;
+    },
+
     nuke() {
       channelService.nuke();
       this.channels = undefined;
       this.messages = {};
+      this.typing = {};
+      this.selectedTypingUser = undefined;
     },
 
     // Helpers

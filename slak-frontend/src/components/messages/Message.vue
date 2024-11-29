@@ -23,7 +23,7 @@ const { author, content, createdAt, preview, sent, privacy, highlight } =
   defineProps<{
     author: string;
     content: string;
-    createdAt: string;
+    createdAt?: string;
     preview?: boolean;
     sent?: boolean;
     privacy?: boolean;
@@ -32,7 +32,7 @@ const { author, content, createdAt, preview, sent, privacy, highlight } =
 
 const { t } = useI18n();
 
-const datetime = new Date(createdAt).toLocaleString();
+const datetime = createdAt && new Date(createdAt).toLocaleString();
 
 const caption = preview
   ? `${author} ${t('messages.typing')}`
@@ -71,6 +71,7 @@ defineOptions({
   }
 
   &__content {
+    white-space: pre-wrap;
     transition: 150ms opacity ease-in-out;
   }
 

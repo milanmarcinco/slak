@@ -30,4 +30,13 @@ export default class MessageController {
     // return message to sender
     return message;
   }
+
+  public async sendPreview(
+    { socket, auth }: WsContextContract,
+    content: string
+  ) {
+    const user = auth.user!;
+    socket.broadcast.emit("message:preview", user.id, content);
+    return content;
+  }
 }

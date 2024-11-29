@@ -3,7 +3,7 @@
     <template v-for="(user, idx) in splitUsers.rest" :key="user.id">
       {{ idx === 0 ? null : ', ' }}
 
-      <button class="typing-list__user">
+      <button class="typing-list__user" @click="handleSelectTypingUser(user)">
         {{ user.nickName }}
       </button>
     </template>
@@ -11,7 +11,10 @@
     <template v-if="splitUsers.last">
       {{ splitUsers.rest.length ? ` ${$t('common.and')}` : null }}
 
-      <button class="typing-list__user">
+      <button
+        class="typing-list__user"
+        @click="handleSelectTypingUser(splitUsers.last)"
+      >
         {{ splitUsers.last.nickName }}
       </button>
     </template>
@@ -22,35 +25,56 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { User } from '../models';
 
-const { users } = defineProps<{
-  users: User[] | null;
-}>();
+import { useActiveChannelId } from 'composables/useActiveChannelId';
+import { useChatStore } from 'stores/chat';
+import { useUserStore } from 'stores/user';
+import { User } from 'src/contracts';
+
+const chatStore = useChatStore();
+const userStore = useUserStore();
+const activeChannelId = useActiveChannelId();
+
+const users = computed(() => {
+  const typingChannel = chatStore.typing[activeChannelId.value!];
+
+  if (!typingChannel) {
+    return [];
+  }
+
+  const userIds = Object.keys(typingChannel) as unknown as number[];
+  const users = userIds.map((userId) => userStore.users[userId]);
+
+  return users;
+});
 
 const splitUsers = computed<{
   rest: User[];
   last: User | null;
 }>(() => {
-  if (!users || !users.length) {
+  if (!users.value || !users.value.length) {
     return {
       rest: [],
       last: null,
     };
   }
 
-  if (users.length === 1) {
+  if (users.value.length === 1) {
     return {
       rest: [],
-      last: users[0],
+      last: users.value[0],
     };
   }
 
   return {
-    rest: users.slice(0, -1),
-    last: users[users.length - 1],
+    rest: users.value.slice(0, -1),
+    last: users.value[users.value.length - 1],
   };
 });
+
+const handleSelectTypingUser = (user: User) => {
+  chatStore.setTypingUser(user);
+};
 </script>
 
 <style lang="scss" scoped>

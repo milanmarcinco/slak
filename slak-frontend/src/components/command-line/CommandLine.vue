@@ -1,6 +1,6 @@
 <template>
   <div class="command-line">
-    <!-- <TypingList :users="(users.slice(0, 3) as User[])" /> -->
+    <TypingList />
 
     <div
       v-if="mentions.size"
@@ -34,7 +34,8 @@
 
       <q-input
         v-model="message"
-        @keypress="handleKeyPress"
+        @keydown="handleKeyDown"
+        @keyup="handleKeyUp"
         class="command-line__input"
         :ref="COMMAND_LINE_REF"
         type="text"
@@ -67,14 +68,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue';
+import { ref, useTemplateRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 import { useCommandLine } from 'composables/useCommandLine';
 
 import MentionPicker from './MentionPicker.vue';
-// import TypingList from './TypingList.vue';
+import TypingList from './TypingList.vue';
 
 import ChannelUsersList from 'components/channels/ChannelUsersList.vue';
 
@@ -102,12 +103,9 @@ const { isCommandMode, isValidCommand, execCommand } = useCommandLine({
   onList: () => (channelUsersListIsOpen.value = true),
 });
 
-const handleKeyPress = (event: KeyboardEvent) => {
+const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key === '@') {
-    if (!activeChannelId.value) {
-      return;
-    }
-
+    if (!activeChannelId.value) return;
     mentionSelectVisible.value = true;
   }
 
@@ -117,11 +115,18 @@ const handleKeyPress = (event: KeyboardEvent) => {
   }
 };
 
+const handleKeyUp = () => {
+  if (!activeChannelId.value) return;
+
+  const content = message.value.trim() || null;
+  chatStore.sendTyping(activeChannelId.value, content);
+};
+
 const handleSubmit = (event: Event) => {
   event.preventDefault();
 
-  const input = message.value.trim();
-  if (!input) return;
+  const content = message.value.trim();
+  if (!content) return;
 
   if (isCommandMode.value) {
     if (!isValidCommand.value) {
@@ -133,7 +138,7 @@ const handleSubmit = (event: Event) => {
     if (!activeChannelId.value) return;
 
     const mentionIds = Array.from(mentions.value.keys());
-    chatStore.sendMessage(activeChannelId.value, input, mentionIds);
+    chatStore.sendMessage(activeChannelId.value, content, mentionIds);
   }
 
   mentions.value.clear();
@@ -155,6 +160,15 @@ const handleDismissMention = () => {
   mentionSelectVisible.value = false;
   commandLineRef.value?.focus();
 };
+
+watch(activeChannelId, (_, oldId) => {
+  mentions.value.clear();
+  message.value = '';
+
+  if (oldId) {
+    chatStore.sendTyping(oldId, null);
+  }
+});
 
 defineOptions({
   name: 'CommandLine',

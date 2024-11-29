@@ -19,6 +19,7 @@ Ws.namespace("/")
 Ws.namespace("/channels/:channelId")
   // .middleware('channel') // check if user can join given channel
   .on("sendMessage", "MessagesController.sendMessage")
+  .on("sendPreview", "MessagesController.sendPreview")
   .on("leaveChannel", "ChannelsController.leaveChannel")
   .on("sendInvite", "ChannelsController.sendInvite")
   .on("sendRevoke", "ChannelsController.sendRevoke")

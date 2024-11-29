@@ -47,6 +47,13 @@ class ChannelSocketManager extends SocketManager {
       chatStore.receiveMessage(message);
     });
 
+    this.socket.on(
+      'message:preview',
+      (userId: User['id'], message: RawMessage | null) => {
+        chatStore.receiveTyping(channelId, userId, message);
+      }
+    );
+
     this.socket.on('channel:delete', () => {
       chatStore.deleteChannel(channelId);
     });
@@ -73,6 +80,10 @@ class ChannelSocketManager extends SocketManager {
 
   public sendKick(nickName: User['nickName']): Promise<void> {
     return this.emitAsync('sendKick', nickName);
+  }
+
+  public sendPreview(message: RawMessage | null) {
+    return this.emitAsync('sendPreview', message);
   }
 }
 

@@ -23,6 +23,14 @@
         :key="message.id"
       />
 
+      <Message
+        v-if="typingMessage"
+        :author="typingMessage.user.nickName"
+        :content="typingMessage.message"
+        :privacy="chatStore.privacyMode"
+        preview
+      />
+
       <EmptyMessage :text="$t('messages.no_messages')" :show="empty" larger />
     </q-infinite-scroll>
   </div>
@@ -67,6 +75,16 @@ const handleLoadMessages: QInfiniteScrollProps['onLoad'] = async (_, done) => {
   const hasMore = await chatStore.loadMessages(channel.id, oldestMessageId);
   done(!hasMore);
 };
+
+const typingMessage = computed(() => {
+  const user = chatStore.selectedTypingUser;
+  if (!user) return;
+
+  const message = chatStore.typing[channel.id]?.[user.id];
+  if (!message) return;
+
+  return { user, message };
+});
 
 const scrollLock = ref(true);
 const scrollContainer = ref<HTMLDivElement>();
