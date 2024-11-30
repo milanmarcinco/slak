@@ -39,6 +39,7 @@
     "@ruby184/adonis-socket.io",
     "@adonisjs/bouncer"
   ],
+  "metaFiles": ["ssl/*"],
   "aceProviders": ["@adonisjs/repl"],
   "tests": {
     "suites": [

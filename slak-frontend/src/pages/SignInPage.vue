@@ -9,6 +9,8 @@
         {{ $t('sign_in.subtitle') }}
       </RouterLink>
 
+      <a href="https://172.20.10.6:3333">https://172.20.10.6:3333</a>
+
       <q-form class="sign-in" @submit.prevent="handleSignIn">
         <q-input
           :label="$t('sign_in.fields.email.label')"
