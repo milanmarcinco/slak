@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
-import { LoginData, RegisterData, User } from 'src/contracts';
-import { authManager, authService, userService } from 'src/services';
+import { LoginData, RegisterData, User, UserStatus } from 'src/contracts';
+import { authManager, authService } from 'src/services';
 
 import { useChatStore } from './chat';
 import { useUserStore } from './user';
@@ -51,12 +51,15 @@ export const useAuthStore = defineStore('auth', {
 
     async startUp() {
       const chatStore = useChatStore();
+      const userStore = useUserStore();
 
       this.user = await authService.me();
 
       if (this.user) {
-        chatStore.loadChannels();
-        userService.init();
+        const initSockets = this.user.status !== UserStatus.Offline;
+
+        chatStore.init(initSockets);
+        userStore.init(initSockets);
       }
     },
 

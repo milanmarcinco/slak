@@ -51,8 +51,9 @@ import EmptyMessage from 'components/shared/EmptyMessage.vue';
 
 import { useAuthStore } from 'stores/auth';
 import { useChatStore } from 'stores/chat';
+import { useUserStore } from 'stores/user';
 
-import { Channel } from 'src/contracts';
+import { Channel, UserStatus } from 'src/contracts';
 import Message from './Message.vue';
 
 import { includes } from 'src/lib/helpers';
@@ -63,6 +64,7 @@ const { channel } = defineProps<{
 
 const authStore = useAuthStore();
 const chatStore = useChatStore();
+const userStore = useUserStore();
 
 const userId = authStore.user?.id;
 const messages = computed(() => chatStore.messages[channel.id]);
@@ -125,6 +127,15 @@ watch(
 
       chatStore.setReadChannel(channel.id);
     })
+);
+
+watch(
+  () => userStore.me.status,
+  (_, oldStatus) => {
+    if (oldStatus === UserStatus.Offline) {
+      chatStore.loadMessages(channel.id);
+    }
+  }
 );
 
 defineOptions({

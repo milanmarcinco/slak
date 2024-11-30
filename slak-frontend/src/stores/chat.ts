@@ -45,7 +45,11 @@ export const useChatStore = defineStore('chat', {
   },
 
   actions: {
-    async loadChannels() {
+    init(initSockets?: boolean) {
+      this.loadChannels(initSockets);
+    },
+
+    async loadChannels(initSockets?: boolean) {
       this.channelsLoading = true;
       this.channelsError = false;
 
@@ -56,12 +60,15 @@ export const useChatStore = defineStore('chat', {
         }));
 
         this.channels = [...channels];
+        this.messages = {};
 
-        for (const channel of channels) {
-          this.subscribe(channel.id);
+        if (initSockets) {
+          for (const channel of channels) {
+            this.subscribe(channel.id);
+          }
+
+          channelService.init();
         }
-
-        channelService.init();
       } catch (error) {
         this.channelsError = true;
       } finally {
@@ -192,8 +199,13 @@ export const useChatStore = defineStore('chat', {
       this.selectedTypingUser = undefined;
     },
 
-    nuke() {
+    disconnect() {
       channelService.nuke();
+    },
+
+    nuke() {
+      this.disconnect();
+
       this.channels = undefined;
       this.messages = {};
       this.typing = {};

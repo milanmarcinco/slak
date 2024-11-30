@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-px-md q-pt-md">
+  <q-page class="q-pa-md">
     <Messages
       v-if="activeChannel"
       :channel="activeChannel"
