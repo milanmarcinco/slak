@@ -41,5 +41,9 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get("/vapid-public-key", "WebPushController.getVapidPublicKey");
-  Route.post("/subscribe", "WebPushController.subscribe").middleware("auth");
+
+  Route.group(() => {
+    Route.post("/subscribe", "WebPushController.subscribe");
+    Route.post("/unsubscribe", "WebPushController.unsubscribe");
+  }).middleware("auth");
 }).prefix("/web-push");

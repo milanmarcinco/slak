@@ -27,4 +27,16 @@ export default class WebPushController {
 
     return {};
   }
+
+  public async unsubscribe({ auth, request }: HttpContextContract) {
+    const user = auth.user!;
+    const { subscription } = await request.validate(SubscribeWebPushValidator);
+
+    await WebPushNotification.query()
+      .where("endpoint", subscription.endpoint)
+      .andWhere("user_id", user.id)
+      .delete();
+
+    return {};
+  }
 }

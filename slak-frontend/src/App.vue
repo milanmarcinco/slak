@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import AuthFormContainer from './components/auth/AuthFormContainer.vue';
 import { useAuthStore } from 'stores/auth';
-import { useWorkerPageVisibility } from './composables/useWorkerPageVisibility';
+import { useWorkerPageVisibility } from './composables/useSWPageVisibility';
 
 useWorkerPageVisibility();
 

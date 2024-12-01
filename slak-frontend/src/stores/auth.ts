@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { LoginData, RegisterData, User, UserStatus } from 'src/contracts';
-import { authManager, authService } from 'src/services';
+import { authManager, authService, webPushService } from 'src/services';
 
 import { useChatStore } from './chat';
 import { useUserStore } from './user';
@@ -60,6 +60,8 @@ export const useAuthStore = defineStore('auth', {
 
         chatStore.init(initSockets);
         userStore.init(initSockets);
+
+        webPushService.subscribe();
       }
     },
 
@@ -80,6 +82,8 @@ export const useAuthStore = defineStore('auth', {
     async signOut() {
       const chatStore = useChatStore();
       const userStore = useUserStore();
+
+      await webPushService.unsubscribe();
 
       await authService.logout();
       authManager.removeToken();

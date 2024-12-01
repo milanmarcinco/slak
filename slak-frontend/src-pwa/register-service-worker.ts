@@ -1,5 +1,4 @@
 import { register } from 'register-service-worker';
-import { api } from 'boot/axios';
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
@@ -14,26 +13,6 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   async ready(registration) {
     console.log('Service worker is active.', registration);
-
-    // Setup push notifications
-    try {
-      let subscription = await registration.pushManager.getSubscription();
-
-      if (!subscription) {
-        const vapidPublicKey = (
-          await api.get<string>('/web-push/vapid-public-key')
-        ).data;
-
-        subscription = await registration.pushManager.subscribe({
-          applicationServerKey: vapidPublicKey,
-          userVisibleOnly: true,
-        });
-      }
-
-      await api.post('/web-push/subscribe', { subscription });
-    } catch (err) {
-      console.error("Couldn't subscribe to push notifications", err);
-    }
   },
 
   registered(/* registration */) {

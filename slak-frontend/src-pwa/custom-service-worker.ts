@@ -15,7 +15,7 @@ import {
 } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
 
-import type { Message as WorkerPageVisibilityMessage } from 'composables/useWorkerPageVisibility';
+import type { Message as WorkerPageVisibilityMessage } from 'src/composables/useSWPageVisibility';
 import { getBoolean } from './lib/helpers';
 
 type Message = WorkerPageVisibilityMessage;
@@ -58,7 +58,7 @@ if (process.env.PROD) {
 
 // ----- ----- ----- ----- ----- ----- -----
 
-self.addEventListener('push', function (event) {
+const pushHandler = async (event: PushEvent) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
@@ -75,9 +75,9 @@ self.addEventListener('push', function (event) {
       });
     })()
   );
-});
+};
 
-self.addEventListener('message', async (event) => {
+const messageHandler = async (event: ExtendableMessageEvent) => {
   const cache = await caches.open(CACHE_NAME);
   const data = event?.data as Message;
 
@@ -89,4 +89,7 @@ self.addEventListener('message', async (event) => {
       cache.put(CacheKey.PageVisibility, response);
       break;
   }
-});
+};
+
+self.addEventListener('push', pushHandler);
+self.addEventListener('message', messageHandler);

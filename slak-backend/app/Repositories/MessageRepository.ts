@@ -8,6 +8,7 @@ import type {
 
 import Channel from "App/Models/Channel";
 import User from "App/Models/User";
+import WebPushNotification from "App/Models/WebPushNotification";
 
 export default class MessageRepository implements MessageRepositoryContract {
   private readonly MAX_NOTIFICATION_LENGTH = 50;
@@ -87,6 +88,10 @@ export default class MessageRepository implements MessageRepositoryContract {
         console.log("WebPush:", response);
       } catch (err) {
         console.log("WebPushError:", err);
+
+        await WebPushNotification.query()
+          .where("endpoint", n.endpoint)
+          .delete();
       }
     }
   }
