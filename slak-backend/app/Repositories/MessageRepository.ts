@@ -34,8 +34,8 @@ export default class MessageRepository implements MessageRepositoryContract {
 
   public async notify(
     channelId: number,
-    message: string,
-    exceptUserIds: number[]
+    userId: number,
+    message: string
   ): Promise<void> {
     const webPushNotifications = await Database.rawQuery<{
       rows: {
@@ -59,11 +59,11 @@ export default class MessageRepository implements MessageRepositoryContract {
       WHERE
         channels.id = ?
           AND
-        users.status = 'ONLINE'
+        users.id != ?
           AND
-        users.id NOT IN (${exceptUserIds.map(() => "?").join(", ")})
+        users.status = 'ONLINE'
     `,
-      [channelId, ...exceptUserIds]
+      [channelId, userId]
     );
 
     const channel = await Channel.findOrFail(channelId);

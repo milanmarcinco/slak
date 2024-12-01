@@ -21,11 +21,7 @@ declare module "@ioc:Repositories/MessageRepository" {
       mentions: number[]
     ): Promise<SerializedMessage>;
 
-    notify(
-      channelId: number,
-      message: string,
-      exceptUserIds: number[]
-    ): Promise<void>;
+    notify(channelId: number, userId: number, message: string): Promise<void>;
   }
 
   const MessageRepository: MessageRepositoryContract;

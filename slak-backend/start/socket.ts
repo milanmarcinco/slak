@@ -17,7 +17,6 @@ Ws.namespace("/")
 
 // this is dynamic namespace, in controller methods we can use params.name
 Ws.namespace("/channels/:channelId")
-  .connected("MessagesController.onConnected")
   .on("sendMessage", "MessagesController.sendMessage")
   .on("sendPreview", "MessagesController.sendPreview")
   .on("leaveChannel", "ChannelsController.leaveChannel")

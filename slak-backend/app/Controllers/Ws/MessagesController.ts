@@ -12,12 +12,6 @@ import type { WsContextContract } from "@ioc:Ruby184/Socket.IO/WsContext";
 export default class MessageController {
   constructor(private messageRepository: MessageRepositoryContract) {}
 
-  public async onConnected({ auth, socket }: WsContextContract) {
-    await auth.authenticate();
-    const user = auth.user!;
-    socket.data.userId = user.id;
-  }
-
   public async sendMessage(
     { params, socket, auth }: WsContextContract,
     content: string,
@@ -34,13 +28,8 @@ export default class MessageController {
     // broadcast message to other users in channel
     socket.broadcast.emit("message", message);
 
-    // Notify only offline users
-    const allSockets = await socket.broadcast.fetchSockets();
-    const exceptUserIds = allSockets.map<number>((s) => s.data.userId);
-    this.messageRepository.notify(params.channelId, content, [
-      ...exceptUserIds,
-      user.id,
-    ]);
+    // Notify other users in channel
+    this.messageRepository.notify(params.channelId, user.id, content);
 
     // return message to sender
     return message;
