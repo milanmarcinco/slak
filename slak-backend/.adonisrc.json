@@ -29,7 +29,12 @@
       "optional": true
     },
     "./start/orm",
-    "./start/bouncer"
+    "./start/bouncer",
+    {
+      "file": "./start/webPush",
+      "environment": ["web", "test"],
+      "optional": true
+    }
   ],
   "providers": [
     "./providers/AppProvider",

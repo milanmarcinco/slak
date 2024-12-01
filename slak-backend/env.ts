@@ -27,4 +27,8 @@ export default Env.rules({
   PG_USER: Env.schema.string(),
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
+
+  VAPID_SUBJECT: Env.schema.string(),
+  VAPID_PUBLIC_KEY: Env.schema.string(),
+  VAPID_PRIVATE_KEY: Env.schema.string(),
 });

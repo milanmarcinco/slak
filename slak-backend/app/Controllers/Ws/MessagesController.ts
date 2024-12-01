@@ -1,6 +1,6 @@
-import type { WsContextContract } from "@ioc:Ruby184/Socket.IO/WsContext";
-import type { MessageRepositoryContract } from "@ioc:Repositories/MessageRepository";
 import { inject } from "@adonisjs/core/build/standalone";
+import type { MessageRepositoryContract } from "@ioc:Repositories/MessageRepository";
+import type { WsContextContract } from "@ioc:Ruby184/Socket.IO/WsContext";
 
 // inject repository from container to controller constructor
 // we do so because we can extract database specific storage to another class
@@ -12,11 +12,18 @@ import { inject } from "@adonisjs/core/build/standalone";
 export default class MessageController {
   constructor(private messageRepository: MessageRepositoryContract) {}
 
+  public async onConnected({ auth, socket }: WsContextContract) {
+    await auth.authenticate();
+    const user = auth.user!;
+    socket.data.userId = user.id;
+  }
+
   public async sendMessage(
     { params, socket, auth }: WsContextContract,
     content: string,
     mentions: number[]
   ) {
+    const user = auth.user!;
     const message = await this.messageRepository.create(
       auth.user!.id,
       params.channelId,
@@ -26,6 +33,14 @@ export default class MessageController {
 
     // broadcast message to other users in channel
     socket.broadcast.emit("message", message);
+
+    // Notify only offline users
+    const allSockets = await socket.broadcast.fetchSockets();
+    const exceptUserIds = allSockets.map<number>((s) => s.data.userId);
+    this.messageRepository.notify(params.channelId, content, [
+      ...exceptUserIds,
+      user.id,
+    ]);
 
     // return message to sender
     return message;

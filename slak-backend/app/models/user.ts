@@ -16,6 +16,7 @@ import Kick from "./Kick";
 import Message from "./Message";
 
 import { UserStatus } from "App/Enums/UserStatus";
+import WebPushNotification from "./WebPushNotification";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -47,6 +48,9 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @hasMany(() => WebPushNotification, { foreignKey: "userId" })
+  public webPushNotifications: HasMany<typeof WebPushNotification>;
 
   @hasMany(() => Message, { foreignKey: "userId" })
   public messages: HasMany<typeof Message>;

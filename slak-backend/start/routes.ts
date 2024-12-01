@@ -29,7 +29,7 @@ Route.group(() => {
   Route.post("login", "AuthController.login");
   Route.post("logout", "AuthController.logout").middleware("auth");
   Route.get("me", "AuthController.me").middleware("auth");
-}).prefix("auth");
+}).prefix("/auth");
 
 Route.get("/users", "AuthController.users").middleware("auth");
 
@@ -38,3 +38,8 @@ Route.group(() => {
   Route.get("/channels/:channelId/users", "ChannelsController.loadUsers");
   Route.get("/channels/:channelId/messages", "MessagesController.loadMessages");
 }).middleware("auth");
+
+Route.group(() => {
+  Route.get("/vapid-public-key", "WebPushController.getVapidPublicKey");
+  Route.post("/subscribe", "WebPushController.subscribe").middleware("auth");
+}).prefix("/web-push");

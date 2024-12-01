@@ -72,6 +72,7 @@ defineOptions({
 
   &__content {
     white-space: pre-wrap;
+    word-wrap: break-word;
     transition: 150ms opacity ease-in-out;
   }
 

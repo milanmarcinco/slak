@@ -9,7 +9,7 @@
         {{ $t('sign_in.subtitle') }}
       </RouterLink>
 
-      <a href="https://172.20.10.6:3333">https://172.20.10.6:3333</a>
+      <a :href="crtHref" class="block q-mb-lg text-center">debug | accept cert</a>
 
       <q-form class="sign-in" @submit.prevent="handleSignIn">
         <q-input
@@ -92,6 +92,8 @@ const handleSignIn = async () => {
 
 const loading = ref(false);
 const error = ref(false);
+
+const crtHref = process.env.API_URL;
 
 defineOptions({
   name: 'SignInPage',
