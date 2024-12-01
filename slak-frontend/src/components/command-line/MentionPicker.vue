@@ -52,7 +52,7 @@ import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
 import { useActiveChannelId } from 'composables/useActiveChannelId';
 import { useDebounce } from 'composables/useDebounce';
 
-import { api } from 'lib/axios';
+import { api } from 'boot/axios';
 import { clampNumber } from 'lib/helpers';
 
 import { User } from 'src/contracts';

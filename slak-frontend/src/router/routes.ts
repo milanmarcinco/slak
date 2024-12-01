@@ -2,6 +2,45 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/offline',
+    component: () => import('layouts/PublicLayout.vue'),
+    meta: {},
+    children: [
+      {
+        path: '',
+        component: () => import('pages/OfflinePage.vue'),
+        name: 'offline',
+      },
+    ],
+  },
+
+  {
+    path: '/sign-in',
+    component: () => import('layouts/PublicLayout.vue'),
+    meta: { public: true },
+    children: [
+      {
+        path: '',
+        component: () => import('pages/SignInPage.vue'),
+        name: 'sign-in',
+      },
+    ],
+  },
+
+  {
+    path: '/sign-up',
+    component: () => import('layouts/PublicLayout.vue'),
+    meta: { public: true },
+    children: [
+      {
+        path: '',
+        component: () => import('pages/SignUpPage.vue'),
+        name: 'sign-up',
+      },
+    ],
+  },
+
+  {
     path: '/',
     component: () => import('layouts/PrivateLayout.vue'),
     meta: { private: true },
@@ -15,30 +54,6 @@ const routes: RouteRecordRaw[] = [
         path: '/:channelId',
         component: () => import('pages/ChannelPage.vue'),
         name: 'channel',
-      },
-    ],
-  },
-
-  {
-    path: '/sign-in',
-    component: () => import('layouts/PublicLayout.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('pages/SignInPage.vue'),
-        name: 'sign-in',
-      },
-    ],
-  },
-
-  {
-    path: '/sign-up',
-    component: () => import('layouts/PublicLayout.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('pages/SignUpPage.vue'),
-        name: 'sign-up',
       },
     ],
   },

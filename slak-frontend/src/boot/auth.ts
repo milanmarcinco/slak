@@ -21,7 +21,13 @@ export default boot(async ({ router, store }) => {
       };
     }
 
-    if (isAuthenticated && !to.meta.private) {
+    if (isAuthenticated && to.meta.public) {
+      return {
+        name: 'index',
+      };
+    }
+
+    if (navigator.onLine && to.name === 'offline') {
       return {
         name: 'index',
       };

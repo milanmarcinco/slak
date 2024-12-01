@@ -57,7 +57,7 @@ import { ref, watch } from 'vue';
 import ChannelUserStatus from './ChannelUserStatus.vue';
 
 import { useActiveChannel } from 'composables/useActiveChannel';
-import { api } from 'lib/axios';
+import { api } from 'boot/axios';
 import { SerializedUser, User, UserStatus } from 'src/contracts';
 import { useUserStore } from 'stores/user';
 

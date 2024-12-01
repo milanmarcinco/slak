@@ -1,5 +1,5 @@
 import { register } from 'register-service-worker';
-import { api } from 'lib/axios';
+import { api } from 'boot/axios';
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.

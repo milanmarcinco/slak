@@ -96,7 +96,7 @@ const handleSignOut = async () => {
   display: flex;
   flex-direction: column;
 
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: max(env(safe-area-inset-bottom), 16px);
 
   &__main {
     flex-grow: 1;

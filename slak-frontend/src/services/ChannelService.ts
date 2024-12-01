@@ -8,7 +8,7 @@ import {
   User,
 } from 'src/contracts';
 
-import { api } from 'lib/axios';
+import { api } from 'boot/axios';
 import { useChatStore } from 'stores/chat';
 import { BootParams, SocketManager } from './SocketManager';
 

@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 
-import { api } from 'lib/axios';
+import { api } from 'boot/axios';
 import { ApiToken, LoginData, RegisterData, User } from 'src/contracts';
 
 class AuthService {

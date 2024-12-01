@@ -19,8 +19,8 @@ import sourceMapSupport from "source-map-support";
 
 sourceMapSupport.install({ handleUncaughtExceptions: false });
 
-const privateKey = readFileSync(join(__dirname + "/ssl/server.key"), "utf8");
-const certificate = readFileSync(join(__dirname + "/ssl/server.cert"), "utf8");
+const privateKey = readFileSync(join(__dirname + "/ssl/localhost.key"), "utf8");
+const certificate = readFileSync(join(__dirname + "/ssl/localhost.crt"), "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 new Ignitor(__dirname)

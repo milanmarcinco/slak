@@ -8,39 +8,55 @@ declare const self: ServiceWorkerGlobalScope &
   typeof globalThis & { skipWaiting: () => void };
 
 import { clientsClaim } from 'workbox-core';
-import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
+import {
+  cleanupOutdatedCaches,
+  createHandlerBoundToURL,
+  precacheAndRoute,
+} from 'workbox-precaching';
+import { NavigationRoute, registerRoute } from 'workbox-routing';
 
 import type { Message as WorkerPageVisibilityMessage } from 'composables/useWorkerPageVisibility';
 import { getBoolean } from './lib/helpers';
 
 type Message = WorkerPageVisibilityMessage;
 
-self.skipWaiting();
-clientsClaim();
-
-// Use with precache injection
-precacheAndRoute(self.__WB_MANIFEST);
-cleanupOutdatedCaches();
-
-// Non-SSR fallback to index.html
-// Production SSR fallback to offline.html (except for dev)
-
-// if (process.env.MODE !== 'ssr' || process.env.PROD) {
-//   registerRoute(
-//     new NavigationRoute(
-//       createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
-//       { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
-//     )
-//   );
-// }
-
-// ----- ----- ----- ----- ----- ----- -----
-
 const CACHE_NAME = 'slak-v1';
 
 enum CacheKey {
   PageVisibility = 'page-visibility',
 }
+
+self.skipWaiting();
+clientsClaim();
+
+if (process.env.PROD) {
+  precacheAndRoute(self.__WB_MANIFEST);
+
+  registerRoute(
+    new NavigationRoute(
+      createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
+      {
+        denylist: [/sw\.js$/, /workbox-(.)*\.js$/],
+      }
+    )
+  );
+
+  cleanupOutdatedCaches();
+
+  registerRoute(
+    ({ url }) => url.origin === process.env.API_URL || true,
+    async ({ request }) => {
+      try {
+        const networkResponse = await fetch(request);
+        return networkResponse;
+      } catch (error) {
+        return new Response(null, { status: 503 });
+      }
+    }
+  );
+}
+
+// ----- ----- ----- ----- ----- ----- -----
 
 self.addEventListener('push', function (event) {
   event.waitUntil(
