@@ -177,6 +177,8 @@ defineOptions({
 
 <style scoped lang="scss">
 .command-line {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
   &__button {
     transition: background-color 200ms ease-in-out;
   }

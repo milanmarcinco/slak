@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR LFr">
-    <q-header class="q-px-md q-pt-md text-white">
-      <q-toolbar class="bg-primary rounded-borders">
+    <q-header class="text-white">
+      <q-toolbar class="bg-primary">
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
@@ -10,12 +10,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      show-if-above
-      v-model="leftDrawerOpen"
-      side="left"
-      class="q-pl-md q-py-md"
-    >
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <SidebarContent />
     </q-drawer>
 
@@ -66,5 +61,19 @@ defineOptions({
 
 .q-footer {
   background-color: $dark-page;
+}
+
+@media (min-width: $breakpoint-md-min) {
+  .q-header {
+    padding: 16px 16px 0;
+  }
+
+  .q-toolbar {
+    border-radius: $border-radius;
+  }
+
+  .q-drawer__content {
+    padding: 16px 0 16px 16px;
+  }
 }
 </style>

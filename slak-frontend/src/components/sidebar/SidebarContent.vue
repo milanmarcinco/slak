@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-content fit q-px-sm q-py-md bg-dark rounded-borders">
+  <div class="sidebar-content fit q-px-sm q-py-md bg-dark">
     <div class="sidebar-content__main">
       <ChannelsList
         :title="$t('sidebar.public_channels')"
@@ -96,6 +96,8 @@ const handleSignOut = async () => {
   display: flex;
   flex-direction: column;
 
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
   &__main {
     flex-grow: 1;
 
@@ -104,6 +106,12 @@ const handleSignOut = async () => {
     gap: 8px;
 
     overflow: auto;
+  }
+
+  @media (min-width: $breakpoint-md-min) {
+    & {
+      border-radius: $border-radius;
+    }
   }
 }
 </style>
