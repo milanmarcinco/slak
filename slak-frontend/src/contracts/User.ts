@@ -11,6 +11,7 @@ export interface SerializedUser {
   firstName: string;
   lastName: string;
   status: UserStatus;
+  notifsEnabled: boolean;
   createdAt: string;
   updatedAt: string;
 }

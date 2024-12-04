@@ -33,6 +33,28 @@
     <q-list dense class="sidebar-content__footer">
       <StatusChip />
 
+      <q-item
+        clickable
+        v-ripple
+        class="rounded-borders q-mt-xs"
+        @click="handleSetNotifSetting"
+      >
+        <q-item-section>
+          {{
+            userStore.me.notifsEnabled
+              ? $t('sidebar.all_notifications')
+              : $t('sidebar.mention_notifications')
+          }}
+        </q-item-section>
+
+        <q-item-section avatar>
+          <q-toggle
+            :model-value="userStore.me.notifsEnabled"
+            v-on:update:model-value="handleSetNotifSetting"
+          />
+        </q-item-section>
+      </q-item>
+
       <q-separator class="q-my-sm" />
 
       <q-item clickable v-ripple class="rounded-borders" @click="handleSignOut">
@@ -61,11 +83,13 @@ import { Channel, ChannelType } from 'src/contracts';
 
 import { useAuthStore } from 'stores/auth';
 import { useChatStore } from 'stores/chat';
+import { useUserStore } from 'stores/user';
 
 const router = useRouter();
 
 const authStore = useAuthStore();
 const chatStore = useChatStore();
+const userStore = useUserStore();
 
 const createChannelIsOpen = ref(false);
 const createChannelType = ref<Channel['type']>();
@@ -82,6 +106,10 @@ const publicChannels = computed(() =>
 const privateChannels = computed(() =>
   chatStore.channels?.filter((channel) => channel.type === ChannelType.Private)
 );
+
+const handleSetNotifSetting = () => {
+  userStore.setNotifSetting(!userStore.me.notifsEnabled);
+};
 
 const handleSignOut = async () => {
   await authStore.signOut();

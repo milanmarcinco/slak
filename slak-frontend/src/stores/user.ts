@@ -61,6 +61,10 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+    async setNotifSetting(enabled: boolean) {
+      this.me.notifsEnabled = await userService.setNotifSetting(enabled);
+    },
+
     disconnect() {
       userService.nuke();
     },

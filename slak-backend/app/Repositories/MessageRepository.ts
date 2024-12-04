@@ -35,11 +35,14 @@ export default class MessageRepository implements MessageRepositoryContract {
 
   public async notify(
     channelId: number,
-    userId: number,
-    message: string
+    currentUserId: number,
+    message: string,
+    mentions: number[]
   ): Promise<void> {
     const webPushNotifications = await Database.rawQuery<{
       rows: {
+        user_id: number;
+        notifs_enabled: number;
         endpoint: string;
         p256dh: string;
         auth: string;
@@ -47,6 +50,8 @@ export default class MessageRepository implements MessageRepositoryContract {
     }>(
       `
       SELECT
+        users.id AS user_id,
+        users.notifs_enabled,
         wpn.endpoint,
         wpn.p256dh,
         wpn.auth
@@ -64,28 +69,35 @@ export default class MessageRepository implements MessageRepositoryContract {
           AND
         users.status = 'ONLINE'
     `,
-      [channelId, userId]
+      [channelId, currentUserId]
     );
 
     const channel = await Channel.findOrFail(channelId);
 
     for (const n of webPushNotifications.rows) {
       try {
-        const response = await webPush.sendNotification(
-          {
-            endpoint: n.endpoint,
-            keys: {
-              auth: n.auth,
-              p256dh: n.p256dh,
-            },
-          },
-          JSON.stringify({
-            channelName: channel.name,
-            messageContent: message.substring(0, this.MAX_NOTIFICATION_LENGTH),
-          })
-        );
+        const shouldNotify = mentions.includes(n.user_id) || n.notifs_enabled;
 
-        console.log("WebPush:", response);
+        if (shouldNotify) {
+          const response = await webPush.sendNotification(
+            {
+              endpoint: n.endpoint,
+              keys: {
+                auth: n.auth,
+                p256dh: n.p256dh,
+              },
+            },
+            JSON.stringify({
+              channelName: channel.name,
+              messageContent: message.substring(
+                0,
+                this.MAX_NOTIFICATION_LENGTH
+              ),
+            })
+          );
+
+          console.log("WebPush:", response);
+        }
       } catch (err) {
         console.log("WebPushError:", err);
 

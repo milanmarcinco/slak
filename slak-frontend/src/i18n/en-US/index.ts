@@ -22,6 +22,9 @@ export default {
       offline: 'Offline',
     },
 
+    all_notifications: 'All notifications',
+    mention_notifications: 'Notify on @mentions',
+
     sign_out: 'Sign out',
   },
 

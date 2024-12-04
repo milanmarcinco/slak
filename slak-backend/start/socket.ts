@@ -13,6 +13,7 @@ Ws.namespace("/")
   .connected("ActivityController.onConnected")
   .disconnected("ActivityController.onDisconnected")
   .on("changeStatus", "ActivityController.changeStatus")
+  .on("setNotifSetting", "UserController.setNotifSetting")
   .middleware("auth");
 
 // this is dynamic namespace, in controller methods we can use params.name

@@ -29,7 +29,7 @@ export default class MessageController {
     socket.broadcast.emit("message", message);
 
     // Notify other users in channel
-    this.messageRepository.notify(params.channelId, user.id, content);
+    this.messageRepository.notify(params.channelId, user.id, content, mentions);
 
     // return message to sender
     return message;

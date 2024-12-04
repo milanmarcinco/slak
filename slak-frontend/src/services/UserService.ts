@@ -27,6 +27,10 @@ class UserSocketManager extends SocketManager {
   public changeStatus(newStatus: UserStatus): Promise<SerializedUser> {
     return this.emitAsync('changeStatus', newStatus);
   }
+
+  public setNotifSetting(enabled: boolean): Promise<boolean> {
+    return this.emitAsync('setNotifSetting', enabled);
+  }
 }
 
 class UserService {
@@ -38,6 +42,10 @@ class UserService {
 
   public changeStatus(newStatus: UserStatus) {
     return this.userManager!.changeStatus(newStatus);
+  }
+
+  public setNotifSetting(enabled: boolean) {
+    return this.userManager!.setNotifSetting(enabled);
   }
 
   public nuke() {
