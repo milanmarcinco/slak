@@ -112,8 +112,19 @@ const handleSetNotifSetting = () => {
 };
 
 const handleSignOut = async () => {
-  await authStore.signOut();
-  router.push({ name: 'sign-in' });
+  console.log('🚪 User clicked sign out button');
+  
+  try {
+    await authStore.signOut();
+    console.log('🎯 Navigating to sign-in page...');
+    await router.push({ name: 'sign-in' });
+    console.log('✅ Navigation completed');
+  } catch (err) {
+    console.error('❌ Error during sign out:', err);
+    // Even if signOut fails, try to navigate to sign-in page
+    // This ensures the user doesn't get stuck
+    await router.push({ name: 'sign-in' });
+  }
 };
 </script>
 

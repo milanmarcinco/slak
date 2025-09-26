@@ -80,19 +80,39 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async signOut() {
+      console.log('🔄 Starting sign out process...');
+      
       const chatStore = useChatStore();
       const userStore = useUserStore();
 
-      await webPushService.unsubscribe();
+      // Step 1: Unsubscribe from push notifications (non-blocking)
+      console.log('📱 Unsubscribing from push notifications in background...');
+      webPushService.unsubscribe()
+        .then(() => console.log('Push notifications unsubscribed'))
+        .catch((err) => console.warn('Failed to unsubscribe from push notifications:', err));
 
-      await authService.logout();
+      try {
+        // Step 2: Call backend logout API (non-critical)
+        console.log('Calling backend logout API...');
+        await authService.logout();
+        console.log('Backend logout successful');
+      } catch (err) {
+        console.warn('Failed to call backend logout API:', err);
+        // Continue anyway - we can still clear local state
+      }
+
+      // Step 3: Clear local storage and state (critical - always execute)
+      console.log('Clearing local authentication state...');
       authManager.removeToken();
-
+      
       this.initialized = false;
       this.user = null;
-
+      
+      console.log('Clearing chat and user stores...');
       chatStore.nuke();
       userStore.nuke();
+      
+      console.log('Sign out completed successfully!');
     },
   },
 });
